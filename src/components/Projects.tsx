@@ -16,7 +16,7 @@ const Projects: React.FC = () => {
       longDescription:
         "Built with Next.js and Supabase. Features data visualization, user authentication, and reverse image search.",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDrWyv8dkDywGt_cv4bzwc6YB-wyziBRLxw&s",
+        "https://u-mercari-images.mercdn.net/photos/m52370548680_1.jpg",
       technologies: ["Next.js", "Supabase", "Tailwind CSS", "OpenAI CLIP"],
       githubUrl: "https://github.com/ryanzhouuu/vintdex",
       liveUrl: "https://vintdex.vercel.app",
@@ -32,10 +32,10 @@ const Projects: React.FC = () => {
       longDescription:
         "Developed using Python, TensorFlow, and integrated with GitHub API. The tool analyzes code patterns and provides actionable feedback to developers.",
       image:
-        "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://www.slcjcc.org/images/Fitness/Wellness_Weekly/unnamed-12_sml.png",
       technologies: ["Python", "React Native", "Supabase", "FastAPI"],
-      githubUrl: "https://github.com",
-      liveUrl: "https://ai-codereview.com",
+      githubUrl: "https://github.com/ryanzhouuu",
+      liveUrl: "",
       status: "in-progress",
       teamSize: 1,
       duration: "2 months",
@@ -48,10 +48,10 @@ const Projects: React.FC = () => {
       longDescription:
         "Full-stack application with React frontend, Express.js backend, and MongoDB database. Includes payment integration and real-time features.",
       image:
-        "https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.theconversation.com/files/374303/original/file-20201210-18-elk4m.jpg?ixlib=rb-4.1.0&rect=0%2C22%2C7500%2C5591&q=45&auto=format&w=926&fit=clip",
       technologies: ["Python", "Pytorch", "Numpy", "Pandas", "Matplotlib"],
-      githubUrl: "https://github.com",
-      liveUrl: "https://campus-events.com",
+      githubUrl: "https://github.com/ryanzhouuu",
+      liveUrl: "",
       status: "in-progress",
       teamSize: 1,
       duration: "1 months",
