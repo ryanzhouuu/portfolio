@@ -1,6 +1,9 @@
 import React from "react";
 import { Code, Database, Globe } from "lucide-react";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from "../hooks/useScrollAnimation";
 
 const Skills: React.FC = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -43,6 +46,11 @@ const Skills: React.FC = () => {
       description: "Utilizing modern development tools and cloud platforms",
     },
   ];
+
+  const { ref: skillRef, isItemVisible } = useStaggeredAnimation(
+    skillCategories.length,
+    150
+  );
 
   const programmingLanguages = [
     {
@@ -175,16 +183,18 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Skill Categories */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
+        <div
+          ref={skillRef}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20"
+        >
           {skillCategories.map((category, index) => (
             <div
               key={category.title}
-              className={`group vintage-frame rounded-3xl p-8 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover-glow-artistic ${
-                isVisible
+              className={`group vintage-frame rounded-3xl p-8 transition-all duration-700 transform hover:-translate-y-2 hover:shadow-2xl hover-glow-artistic scroll-hover-lift ${
+                isItemVisible(index)
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
               }`}
-              style={{ transitionDelay: `${index * 200}ms` }}
             >
               <div
                 className={`inline-flex p-4 rounded-2xl bg-gradient-to-r ${category.color} text-white mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
@@ -201,10 +211,17 @@ const Skills: React.FC = () => {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill) => (
+                {category.skills.map((skill, skillIndex) => (
                   <span
                     key={skill}
-                    className="px-4 py-2 glass-artistic text-gray-300 rounded-xl text-sm font-medium border border-purple-500/20 hover:border-purple-500/40 hover:bg-purple-500/10 transition-all duration-300"
+                    className={`px-4 py-2 glass-artistic text-gray-300 rounded-xl text-sm font-medium border border-purple-500/20 hover:border-purple-500/40 hover:bg-purple-500/10 transition-all duration-300 ${
+                      isItemVisible(index)
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-5"
+                    }`}
+                    style={{
+                      transitionDelay: `${index * 150 + skillIndex * 50}ms`,
+                    }}
                   >
                     {skill}
                   </span>
@@ -216,7 +233,7 @@ const Skills: React.FC = () => {
 
         {/* Programming Languages Conveyor Belt */}
         <div
-          className={`vintage-frame rounded-3xl p-10 transition-all duration-1000 overflow-hidden ${
+          className={`vintage-frame rounded-3xl p-10 transition-all duration-1000 overflow-hidden scroll-hover-glow ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
           style={{ transitionDelay: "600ms" }}
@@ -238,7 +255,7 @@ const Skills: React.FC = () => {
                   key={`${lang.name}-${index}`}
                   className="flex-shrink-0 mx-4 group"
                 >
-                  <div className="glass-artistic rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20 min-w-[140px] text-center">
+                  <div className="glass-artistic rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20 min-w-[140px] text-center scroll-hover-lift">
                     {/* Language Logo */}
                     <div className="flex justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
                       {lang.logo}

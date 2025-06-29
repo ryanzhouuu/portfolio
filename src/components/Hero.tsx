@@ -1,9 +1,11 @@
 import React from "react";
 import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
-import { useParallax } from "../hooks/useScrollAnimation";
+import { useParallax, useEnhancedParallax } from "../hooks/useScrollAnimation";
 
 const Hero: React.FC = () => {
   const offsetY = useParallax();
+  const fastParallax = useEnhancedParallax(0.8);
+  const slowParallax = useEnhancedParallax(0.3);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -76,9 +78,30 @@ const Hero: React.FC = () => {
 
         {/* Enhanced ambient light streams */}
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[250px] bg-gradient-to-r from-transparent via-purple-400/8 to-transparent rounded-full blur-2xl animate-drift-1"></div>
-          <div className="absolute top-3/4 right-1/4 w-[450px] h-[200px] bg-gradient-to-l from-transparent via-blue-400/8 to-transparent rounded-full blur-2xl animate-drift-2"></div>
-          <div className="absolute top-1/2 left-1/2 w-[400px] h-[150px] bg-gradient-to-r from-transparent via-pink-400/6 to-transparent rounded-full blur-2xl animate-drift-3"></div>
+          <div
+            className="absolute top-1/4 left-1/4 w-[500px] h-[250px] bg-gradient-to-r from-transparent via-purple-400/8 to-transparent rounded-full blur-2xl animate-drift-1"
+            style={{
+              transform: `translate(${fastParallax * 0.1}px, ${
+                slowParallax * 0.05
+              }px)`,
+            }}
+          ></div>
+          <div
+            className="absolute top-3/4 right-1/4 w-[450px] h-[200px] bg-gradient-to-l from-transparent via-blue-400/8 to-transparent rounded-full blur-2xl animate-drift-2"
+            style={{
+              transform: `translate(${-fastParallax * 0.08}px, ${
+                slowParallax * 0.03
+              }px)`,
+            }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/2 w-[400px] h-[150px] bg-gradient-to-r from-transparent via-pink-400/6 to-transparent rounded-full blur-2xl animate-drift-3"
+            style={{
+              transform: `translate(${fastParallax * 0.06}px, ${
+                -slowParallax * 0.04
+              }px)`,
+            }}
+          ></div>
         </div>
 
         {/* Subtle grid pattern overlay */}
@@ -89,20 +112,40 @@ const Hero: React.FC = () => {
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4">
         <div className="text-center text-white max-w-6xl mx-auto">
           <div className="space-y-12 animate-fade-in">
-            <h2 className="text-5xl md:text-7xl font-display font-bold leading-tight">
+            <h2
+              className="text-5xl md:text-7xl font-display font-bold leading-tight"
+              style={{
+                transform: `translateY(${slowParallax * 0.1}px)`,
+              }}
+            >
               <span className="block text-gray-100 mb-6 elegant-underline">
                 Hello, I'm
               </span>
             </h2>
-            <h1 className="text-7xl md:text-9xl font-display font-bold leading-tight">
-              <span className="artistic-accent text-8xl md:text-[10rem] tracking-wide">
+            <h1
+              className="text-7xl md:text-9xl font-display font-bold leading-tight"
+              style={{
+                transform: `translateY(${fastParallax * 0.15}px)`,
+              }}
+            >
+              <span className="artistic-accent text-8xl md:text-[10rem] tracking-wide typing-animation">
                 Ryan Zhou
               </span>
             </h1>
 
-            <div className="ornamental-divider"></div>
+            <div
+              className="ornamental-divider"
+              style={{
+                transform: `translateY(${slowParallax * 0.05}px)`,
+              }}
+            ></div>
 
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-serif">
+            <p
+              className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-serif"
+              style={{
+                transform: `translateY(${fastParallax * 0.08}px)`,
+              }}
+            >
               Computer Science Student passionate about
               <span className="artistic-accent font-semibold">
                 {" "}
@@ -115,10 +158,15 @@ const Hero: React.FC = () => {
               </span>
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-16">
+            <div
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-16"
+              style={{
+                transform: `translateY(${slowParallax * 0.12}px)`,
+              }}
+            >
               <button
                 onClick={() => scrollToSection("projects")}
-                className="group px-10 py-5 bg-gradient-to-r from-purple-600/20 to-blue-600/20 glass-artistic border border-purple-500/30 rounded-2xl font-serif font-semibold text-purple-100 hover:shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 hover:-translate-y-1 transition-all duration-500 flex items-center space-x-3"
+                className="group px-10 py-5 bg-gradient-to-r from-purple-600/20 to-blue-600/20 glass-artistic border border-purple-500/30 rounded-2xl font-serif font-semibold text-purple-100 hover:shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 hover:-translate-y-1 transition-all duration-500 flex items-center space-x-3 scroll-hover-lift"
               >
                 <span className="text-lg">View My Projects</span>
                 <ArrowRight
@@ -128,28 +176,44 @@ const Hero: React.FC = () => {
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="artistic-btn px-10 py-5 rounded-2xl font-serif font-semibold text-purple-200 transform hover:scale-105 transition-all duration-500 backdrop-blur-sm text-lg"
+                className="artistic-btn px-10 py-5 rounded-2xl font-serif font-semibold text-purple-200 transform hover:scale-105 transition-all duration-500 backdrop-blur-sm text-lg scroll-hover-glow"
               >
                 Contact Me
               </button>
             </div>
 
             {/* Elegant Social Links */}
-            <div className="flex justify-center space-x-8 mt-16">
+            <div
+              className="flex justify-center space-x-8 mt-16"
+              style={{
+                transform: `translateY(${fastParallax * 0.1}px)`,
+              }}
+            >
               {[
-                { icon: Github, href: "https://github.com/ryanzhouuu", label: "GitHub" },
+                {
+                  icon: Github,
+                  href: "https://github.com/ryanzhouuu",
+                  label: "GitHub",
+                },
                 {
                   icon: Linkedin,
                   href: "https://linkedin.com/in/ryanzhouuu",
                   label: "LinkedIn",
                 },
-                { icon: Mail, href: "mailto:ryanzhouuu@gmail.com", label: "Email" },
-              ].map(({ icon: Icon, href, label }) => (
+                {
+                  icon: Mail,
+                  href: "mailto:ryanzhouuu@gmail.com",
+                  label: "Email",
+                },
+              ].map(({ icon: Icon, href, label }, index) => (
                 <a
                   key={label}
                   href={href}
-                  className="p-5 glass-artistic border border-purple-500/20 rounded-2xl hover:border-purple-500/40 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 group glow-artistic"
+                  className="p-5 glass-artistic border border-purple-500/20 rounded-2xl hover:border-purple-500/40 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 group glow-artistic scroll-hover-lift"
                   aria-label={label}
+                  style={{
+                    animationDelay: `${index * 200}ms`,
+                  }}
                 >
                   <Icon
                     size={24}
