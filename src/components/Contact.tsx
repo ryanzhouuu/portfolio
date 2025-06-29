@@ -1,50 +1,31 @@
-import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import React from 'react';
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const Contact: React.FC = () => {
   const { ref, isVisible } = useScrollAnimation();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    alert('Thank you for your message! I\'ll get back to you soon.');
-  };
 
   const contactInfo = [
     {
       icon: <Mail size={24} />,
       label: 'Email',
       value: 'ryanzhouuu@gmail.com',
-      link: 'mailto:ryanzhouuu@gmail.com'
+      link: 'mailto:ryanzhouuu@gmail.com',
+      color: 'from-blue-500 to-cyan-500'
     },
     {
       icon: <Phone size={24} />,
       label: 'Phone',
       value: '+1 (281) 906-3743',
-      link: 'tel:+12819063743'
+      link: 'tel:+12819063743',
+      color: 'from-purple-500 to-pink-500'
     },
     {
       icon: <MapPin size={24} />,
       label: 'Location',
       value: 'Austin, TX',
-      link: null
+      link: null,
+      color: 'from-orange-500 to-red-500'
     }
   ];
 
@@ -53,205 +34,139 @@ const Contact: React.FC = () => {
       icon: <Github size={24} />,
       label: 'GitHub',
       url: 'https://github.com/ryanzhouuu',
-      color: 'hover:text-gray-900 hover:bg-gray-100'
+      color: 'hover:text-white hover:bg-gray-700/50'
     },
     {
       icon: <Linkedin size={24} />,
       label: 'LinkedIn',
       url: 'https://linkedin.com/in/ryanzhouuu',
-      color: 'hover:text-blue-600 hover:bg-blue-50'
+      color: 'hover:text-blue-400 hover:bg-blue-500/10'
     },
     {
       icon: <Mail size={24} />,
       label: 'Email',
       url: 'mailto:ryanzhouuu@gmail.com',
-      color: 'hover:text-red-600 hover:bg-red-50'
+      color: 'hover:text-red-400 hover:bg-red-500/10'
     }
   ];
 
   return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${
+    <section id="contact" className="py-32 bg-gray-900 relative overflow-hidden">
+      {/* Enhanced Flowy Animated Light Gradients */}
+      <div className="absolute inset-0">
+        {/* Primary flowing gradient */}
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute w-[800px] h-[600px] bg-gradient-to-r from-cyan-500/16 via-blue-500/12 to-indigo-500/18 rounded-full blur-3xl animate-flow-1"></div>
+        </div>
+        
+        {/* Secondary flowing gradient */}
+        <div className="absolute bottom-0 right-0 w-full h-full">
+          <div className="absolute w-[750px] h-[550px] bg-gradient-to-l from-purple-500/18 via-violet-500/14 to-pink-500/16 rounded-full blur-3xl animate-flow-2"></div>
+        </div>
+        
+        {/* Tertiary flowing gradient */}
+        <div className="absolute top-1/2 left-1/2 w-full h-full">
+          <div className="absolute w-[650px] h-[450px] bg-gradient-to-br from-emerald-500/12 via-teal-500/8 to-cyan-500/14 rounded-full blur-3xl animate-flow-3" style={{ left: '-325px', top: '-225px' }}></div>
+        </div>
+        
+        {/* Additional reverse flowing gradients */}
+        <div className="absolute top-1/4 right-1/3 w-full h-full">
+          <div className="absolute w-[500px] h-[300px] bg-gradient-to-tl from-rose-500/10 via-pink-500/8 to-purple-500/12 rounded-full blur-3xl animate-flow-reverse-1"></div>
+        </div>
+        
+        <div className="absolute bottom-1/3 left-1/4 w-full h-full">
+          <div className="absolute w-[450px] h-[280px] bg-gradient-to-br from-orange-500/8 via-amber-500/6 to-yellow-500/10 rounded-full blur-3xl animate-flow-reverse-2"></div>
+        </div>
+        
+        {/* Ambient light streams */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/3 left-1/3 w-[400px] h-[200px] bg-gradient-to-r from-transparent via-blue-400/6 to-transparent rounded-full blur-2xl animate-drift-1"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[150px] bg-gradient-to-l from-transparent via-purple-400/6 to-transparent rounded-full blur-2xl animate-drift-2"></div>
+          <div className="absolute top-2/3 right-2/3 w-[300px] h-[120px] bg-gradient-to-br from-transparent via-cyan-400/5 to-transparent rounded-full blur-2xl animate-drift-3"></div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div ref={ref} className={`text-center mb-20 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Let's Work Together
+          <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-6 elegant-underline">
+            Let's
+            <span className="artistic-accent"> Connect</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto font-serif">
             I'm always open to discussing new opportunities, projects, or just having a chat about technology
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="max-w-4xl mx-auto">
           {/* Contact Information */}
-          <div className={`space-y-8 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+          <div className={`grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Get In Touch</h3>
-              <p className="text-gray-600 mb-8 text-lg">
-                Whether you have a project in mind, want to collaborate, or just want to say hello, 
-                I'd love to hear from you. Feel free to reach out through any of the channels below.
-              </p>
-            </div>
-
-            {/* Contact Details */}
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
-                <div
-                  key={info.label}
-                  className={`flex items-center space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200 ${
-                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-                  }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
-                >
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
-                    {info.icon}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-500">{info.label}</p>
-                    {info.link ? (
-                      <a
-                        href={info.link}
-                        className="text-lg font-semibold text-gray-900 hover:text-blue-600 transition-colors duration-200"
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <p className="text-lg font-semibold text-gray-900">{info.value}</p>
-                    )}
-                  </div>
+            {contactInfo.map((info, index) => (
+              <div
+                key={info.label}
+                className={`group vintage-frame rounded-3xl p-8 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl hover-glow-artistic ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 200}ms` }}
+              >
+                <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-r ${info.color} text-white mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
+                  {info.icon}
                 </div>
-              ))}
-            </div>
-
-            {/* Social Links */}
-            <div className={`transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-            }`} style={{ transitionDelay: '450ms' }}>
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">Connect With Me</h4>
-              <div className="flex space-x-4">
-                {socialLinks.map((social) => (
+                <h3 className="text-lg font-display font-semibold text-white mb-2">{info.label}</h3>
+                {info.link ? (
                   <a
-                    key={social.label}
-                    href={social.url}
-                    className={`p-3 rounded-lg border border-gray-200 text-gray-600 transition-all duration-200 transform hover:scale-110 ${social.color}`}
-                    aria-label={social.label}
+                    href={info.link}
+                    className="text-gray-400 hover:text-white transition-colors duration-300 font-medium font-serif"
                   >
-                    {social.icon}
+                    {info.value}
                   </a>
-                ))}
+                ) : (
+                  <p className="text-gray-400 font-medium font-serif">{info.value}</p>
+                )}
               </div>
+            ))}
+          </div>
+
+          {/* Social Links */}
+          <div className={`text-center transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`} style={{ transitionDelay: '600ms' }}>
+            <h3 className="text-2xl font-display font-bold text-white mb-8 elegant-underline">Connect With Me</h3>
+            <div className="flex justify-center space-x-6">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={social.label}
+                  href={social.url}
+                  className={`p-4 glass-artistic border border-purple-500/20 rounded-2xl text-gray-400 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 ${social.color} hover:border-purple-500/40`}
+                  aria-label={social.label}
+                  style={{ transitionDelay: `${700 + index * 100}ms` }}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Contact Form */}
-          {/* <div className={`transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-          }`}>
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Me a Message</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                      placeholder="John Doe"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject *
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="Let's discuss a project"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 resize-none"
-                    placeholder="Tell me about your project or idea..."
-                  ></textarea>
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2"
+          {/* Bottom CTA */}
+          <div className={`text-center mt-20 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`} style={{ transitionDelay: '1000ms' }}>
+            <div className="vintage-frame rounded-3xl p-12 hover-glow-artistic">
+              <h3 className="text-3xl font-display font-bold text-white mb-4 elegant-underline">Ready to Start Your Next Project?</h3>
+              <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-serif">
+                Let's turn your ideas into reality. I'm available for freelance work and full-time opportunities.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="mailto:ryan.zhou@email.com"
+                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-2xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300"
                 >
-                  <Send size={20} />
-                  <span>Send Message</span>
-                </button>
-              </form>
-            </div>
-          </div> */}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className={`text-center mt-16 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`} style={{ transitionDelay: '600ms' }}>
-          <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Ready to Start Your Next Project?</h3>
-            <p className="text-lg mb-6 opacity-90">
-              Let's turn your ideas into reality. I'm available for freelance work and full-time opportunities.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:alex.johnson@email.com"
-                className="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200"
-              >
-                Email Me
-              </a>
-              {/* <a
-                href="/resume.pdf"
-                className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transform hover:scale-105 transition-all duration-200"
-              >
-                Download Resume
-              </a> */}
+                  Email Me
+                </a>
+              </div>
             </div>
           </div>
         </div>

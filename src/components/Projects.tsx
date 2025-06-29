@@ -8,59 +8,107 @@ const Projects: React.FC = () => {
   const projects = [
     {
       title: 'Vintdex',
-      description: 'A full-stack web application helping users track and predict the prices of the rare vintage clothing across various secondhand marketplaces.',
-      longDescription: 'Built with Next.js and Supabase. Features OpenAI CLIP image search, user authentication, price tracking and prediction, and visualizations',
-      image: 'https://i.etsystatic.com/13770942/r/il/ec15fc/1881395568/il_fullxfull.1881395568_rlm6.jpg',
-      technologies: ['Next.js', 'Node.js', 'PostgreSQL', 'Supabase', 'Chart.js', 'ShadCN UI'],
-      githubUrl: 'https://github.com/Vintdex',
-      liveUrl: '',
-      status: 'in-progress',
-      teamSize: 2,
-      duration: '6 months',
-      highlights: ['Winner of University Hackathon 2023', '1000+ active users', 'Featured in local tech magazine']
-    },
-    {
-      title: 'Kinector AI',
-      description: 'An AI-powered gym assistant that helps users program optimal workouts and track nutrition to achieve their fitness goals.',
-      longDescription: 'Developed using Python, React Native, and Supabase. Features workout generation, nutrition tracking, and progress tracking.',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOcZ7lgRUckLvrjUKUJxYrky0XCfBmehijOg&s0',
-      technologies: ['Python', 'React Native', 'Supabase'],
-      githubUrl: 'https://github.com',
-      liveUrl: '',
+      description: 'Full-stack web application for tracking and predicting market prices for vintage clothing items.',
+      longDescription: 'Built with Next.js and Supabase. Features data visualization, user authentication, and reverse image search.',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDrWyv8dkDywGt_cv4bzwc6YB-wyziBRLxw&s',
+      technologies: ['Next.js', 'Supabase', 'Tailwind CSS', 'OpenAI CLIP',],
+      githubUrl: 'https://github.com/ryanzhouuu/vintdex',
+      liveUrl: 'https://vintdex.vercel.app',
       status: 'in-progress',
       teamSize: 2,
       duration: '4 months',
-      highlights: ['Patent pending', 'Reduces review time by 40%', 'Used by 3 tech companies']
+      highlights: []
     },
+    {
+      title: 'Kinector AI',
+      description: 'AI-powered fitness and nutrition planning and tracking app allowing users to schedule optimal workouts',
+      longDescription: 'Developed using Python, TensorFlow, and integrated with GitHub API. The tool analyzes code patterns and provides actionable feedback to developers.',
+      image: 'https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg?auto=compress&cs=tinysrgb&w=800',
+      technologies: ['Python', 'React Native', 'Supabase', 'FastAPI'],
+      githubUrl: 'https://github.com',
+      liveUrl: 'https://ai-codereview.com',
+      status: 'in-progress',
+      teamSize: 1,
+      duration: '2 months',
+      highlights: []
+    },
+    {
+      title: 'DRE for IDK Cascades',
+      description: 'Dynamic Routing Engine built to improve performance in IDK classifiers by making scheduling decisions.',
+      longDescription: 'Full-stack application with React frontend, Express.js backend, and MongoDB database. Includes payment integration and real-time features.',
+      image: 'https://images.pexels.com/photos/2774556/pexels-photo-2774556.jpeg?auto=compress&cs=tinysrgb&w=800',
+      technologies: ['Python', 'Pytorch', 'Numpy', 'Pandas', 'Matplotlib'],
+      githubUrl: 'https://github.com',
+      liveUrl: 'https://campus-events.com',
+      status: 'in-progress',
+      teamSize: 1,
+      duration: '1 months',
+      highlights: []
+    }
   ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800';
-      case 'in-progress': return 'bg-yellow-100 text-yellow-800';  
-      default: return 'bg-gray-100 text-gray-800';
+      case 'completed': return 'bg-green-500/20 text-green-400 border-green-500/30';
+      case 'in-progress': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';  
+      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
     }
   };
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${
+    <section id="projects" className="py-32 bg-gray-950 relative overflow-hidden">
+      {/* Enhanced Flowy Animated Light Gradients */}
+      <div className="absolute inset-0">
+        {/* Primary flowing gradient */}
+        <div className="absolute top-0 right-0 w-full h-full">
+          <div className="absolute w-[900px] h-[700px] bg-gradient-to-l from-purple-500/18 via-violet-500/14 to-indigo-500/16 rounded-full blur-3xl animate-flow-1"></div>
+        </div>
+        
+        {/* Secondary flowing gradient */}
+        <div className="absolute bottom-0 left-0 w-full h-full">
+          <div className="absolute w-[800px] h-[600px] bg-gradient-to-r from-blue-500/16 via-cyan-500/12 to-teal-500/14 rounded-full blur-3xl animate-flow-2"></div>
+        </div>
+        
+        {/* Tertiary flowing gradient */}
+        <div className="absolute top-1/3 left-1/3 w-full h-full">
+          <div className="absolute w-[650px] h-[450px] bg-gradient-to-br from-pink-500/12 via-rose-500/8 to-red-500/10 rounded-full blur-3xl animate-flow-3"></div>
+        </div>
+        
+        {/* Additional reverse flowing gradients */}
+        <div className="absolute top-2/3 right-1/4 w-full h-full">
+          <div className="absolute w-[550px] h-[350px] bg-gradient-to-tl from-emerald-500/10 via-green-500/8 to-lime-500/12 rounded-full blur-3xl animate-flow-reverse-1"></div>
+        </div>
+        
+        <div className="absolute bottom-1/4 right-2/3 w-full h-full">
+          <div className="absolute w-[500px] h-[300px] bg-gradient-to-tr from-orange-500/8 via-amber-500/6 to-yellow-500/10 rounded-full blur-3xl animate-flow-reverse-2"></div>
+        </div>
+        
+        {/* Ambient light streams */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-[450px] h-[220px] bg-gradient-to-r from-transparent via-purple-400/6 to-transparent rounded-full blur-2xl animate-drift-1"></div>
+          <div className="absolute bottom-1/3 right-1/3 w-[400px] h-[180px] bg-gradient-to-l from-transparent via-blue-400/6 to-transparent rounded-full blur-2xl animate-drift-2"></div>
+          <div className="absolute top-1/2 right-1/2 w-[350px] h-[140px] bg-gradient-to-br from-transparent via-cyan-400/5 to-transparent rounded-full blur-2xl animate-drift-3"></div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div ref={ref} className={`text-center mb-20 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Featured Projects
+          <h2 className="text-5xl md:text-6xl font-display font-bold text-white mb-6 elegant-underline">
+            Featured
+            <span className="artistic-accent"> Projects</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto font-serif">
             A showcase of my latest work in web development, mobile apps, and machine learning
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className={`bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2 ${
+              className={`group vintage-frame rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 transform hover:-translate-y-4 hover-glow-artistic ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${index * 200}ms` }}
@@ -70,30 +118,33 @@ const Projects: React.FC = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
                 <div className="absolute top-4 right-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(project.status)}`}>
                     {project.status === 'in-progress' ? 'In Progress' : 'Completed'}
                   </span>
                 </div>
               </div>
 
               {/* Project Content */}
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
+              <div className="p-8">
+                <div className="flex items-start justify-between mb-4">
+                  <h3 className="text-2xl font-display font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
+                    {project.title}
+                  </h3>
                   <div className="flex space-x-2">
                     <a
                       href={project.githubUrl}
-                      className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-white hover:bg-purple-500/20 rounded-xl transition-all duration-300 transform hover:scale-110"
                       aria-label="View GitHub repository"
                     >
                       <Github size={18} />
                     </a>
                     <a
                       href={project.liveUrl}
-                      className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                      className="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-xl transition-all duration-300 transform hover:scale-110"
                       aria-label="View live demo"
                     >
                       <ExternalLink size={18} />
@@ -101,12 +152,12 @@ const Projects: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-3">
+                <p className="text-gray-400 mb-6 leading-relaxed font-serif">
                   {project.description}
                 </p>
 
                 {/* Project Stats */}
-                <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
+                <div className="flex items-center space-x-4 text-sm text-gray-500 mb-6">
                   <div className="flex items-center space-x-1">
                     <Users size={14} />
                     <span>{project.teamSize} {project.teamSize === 1 ? 'person' : 'people'}</span>
@@ -118,49 +169,49 @@ const Projects: React.FC = () => {
                 </div>
 
                 {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-xs font-medium"
+                      className="px-3 py-1 glass-artistic text-purple-300 rounded-xl text-xs font-medium border border-purple-500/30"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 4 && (
-                    <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs font-medium">
+                    <span className="px-3 py-1 bg-gray-500/20 text-gray-400 rounded-xl text-xs font-medium border border-gray-500/30">
                       +{project.technologies.length - 4} more
                     </span>
                   )}
                 </div>
 
                 {/* Highlights */}
-                {/*<div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-1">
-                    <Star size={14} className="text-yellow-500" />
+                <div className="space-y-3 mb-6">
+                  <h4 className="text-sm font-semibold text-white flex items-center gap-2">
+                    <Star size={14} className="text-yellow-400" />
                     Key Achievements
                   </h4>
-                  <ul className="text-sm text-gray-600 space-y-1">
+                  <ul className="text-sm text-gray-400 space-y-1 font-serif">
                     {project.highlights.slice(0, 2).map((highlight, i) => (
                       <li key={i} className="flex items-start">
-                        <span className="text-blue-500 mr-2">•</span>
+                        <span className="text-purple-400 mr-2 mt-1">•</span>
                         {highlight}
                       </li>
                     ))}
                   </ul>
-                </div>*/}
+                </div>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-3 mt-6">
+                <div className="flex space-x-3">
                   <a
                     href={project.liveUrl}
-                    className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-2 px-4 rounded-lg font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                    className="flex-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-3 px-4 rounded-2xl font-medium hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300"
                   >
                     View Live Demo
                   </a>
                   <a
                     href={project.githubUrl}
-                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200"
+                    className="px-4 py-3 border border-purple-500/30 text-gray-300 rounded-2xl font-medium hover:bg-purple-500/10 hover:border-purple-500/50 transition-all duration-300"
                   >
                     Code
                   </a>
@@ -171,15 +222,15 @@ const Projects: React.FC = () => {
         </div>
 
         {/* View More Button */}
-        <div className={`text-center mt-12 transition-all duration-1000 ${
+        <div className={`text-center mt-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`} style={{ transitionDelay: '800ms' }}>
+        }`} style={{ transitionDelay: '600ms' }}>
           <a
-            href="https://github.com"
-            className="inline-flex items-center space-x-2 px-8 py-3 bg-white text-gray-700 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 border border-gray-200"
+            href="https://github.com/ryanzhouuu"
+            className="inline-flex items-center space-x-3 px-8 py-4 glass-artistic text-gray-300 rounded-2xl font-semibold hover:text-white transform hover:scale-105 transition-all duration-300 border border-purple-500/30 hover:border-purple-500/50 hover-glow-artistic"
           >
             <Github size={20} />
-            <span>View All Projects on GitHub</span>
+            <span className="font-serif">View All Projects on GitHub</span>
             <ExternalLink size={16} />
           </a>
         </div>

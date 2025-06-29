@@ -30,22 +30,24 @@ const Navigation: React.FC = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      isScrolled 
+        ? 'bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 shadow-2xl' 
+        : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          <div className={`text-xl font-bold ${isScrolled ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'text-white'} bg-clip-text text-transparent`}>
+          <div className="text-xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Ryan Zhou
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-1 bg-gray-800/30 backdrop-blur-sm rounded-full p-1 border border-gray-700/50">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`${isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-gray-300'}  transition-colors duration-200 font-medium`}
+                className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-full transition-all duration-300 font-medium text-sm"
               >
                 {item.label}
               </button>
@@ -54,7 +56,7 @@ const Navigation: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-gray-300 hover:text-white transition-colors duration-300"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -63,13 +65,13 @@ const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md rounded-lg shadow-lg mb-4">
-            <div className="px-4 py-2 space-y-2">
+          <div className="md:hidden bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl mb-4 border border-gray-800/50">
+            <div className="px-4 py-2 space-y-1">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200"
+                  className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-xl transition-all duration-300"
                 >
                   {item.label}
                 </button>
