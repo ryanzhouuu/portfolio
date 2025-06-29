@@ -665,3 +665,141 @@
 .slide-in-bottom {
   animation: slide-in-bottom 0.8s ease-out;
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Reduce animation intensity on mobile for better performance */
+  .animate-flow-1,
+  .animate-flow-2,
+  .animate-flow-3,
+  .animate-flow-reverse-1,
+  .animate-flow-reverse-2 {
+    animation-duration: 30s;
+  }
+  
+  .animate-drift-1,
+  .animate-drift-2,
+  .animate-drift-3 {
+    animation-duration: 20s;
+  }
+  
+  /* Optimize text rendering on mobile */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Improve scrolling performance */
+  .scroll-snap-container {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better mobile spacing */
+  .ornamental-divider {
+    margin: 2rem 0;
+  }
+  
+  .ornamental-divider::before {
+    padding: 0 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Mobile-optimized grid pattern */
+  .bg-\[size\:50px_50px\] {
+    background-size: 30px 30px;
+  }
+  
+  /* Improve mobile button spacing */
+  .flex.flex-col.sm\:flex-row {
+    gap: 0.75rem;
+  }
+  
+  /* Mobile-optimized social links */
+  .flex.justify-center.space-x-4 {
+    gap: 1rem;
+  }
+  
+  /* Better mobile card spacing */
+  .vintage-frame {
+    margin-bottom: 1rem;
+  }
+  
+  /* Mobile-optimized typing animation */
+  .typing-animation {
+    animation-duration: 2.5s;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Improve mobile viewport handling */
+@media (max-width: 640px) {
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+  
+  /* Reduce padding on very small screens */
+  .px-4 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Optimize text sizes for very small screens */
+  .text-3xl {
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+  
+  .text-4xl {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+  
+  /* Better mobile button sizing */
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* Improve mobile performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Better mobile focus states */
+@media (max-width: 768px) {
+  button:focus,
+  a:focus {
+    outline: 2px solid rgba(139, 92, 246, 0.5);
+    outline-offset: 2px;
+  }
+  
+  /* Improve mobile tap highlights */
+  * {
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.1);
+  }
+}
