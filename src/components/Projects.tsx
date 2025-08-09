@@ -15,7 +15,8 @@ const Projects: React.FC = () => {
         "Full-stack web application for tracking and predicting market prices for vintage clothing items.",
       longDescription:
         "Built with Next.js and Supabase. Features data visualization, user authentication, and reverse image search.",
-      image: "https://u-mercari-images.mercdn.net/photos/m52370548680_1.jpg",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBTblpayOTpAX3s75UAMe1U8VA83w1VTB51w&s",
       technologies: ["Next.js", "Supabase", "Tailwind CSS", "OpenAI CLIP"],
       githubUrl: "https://github.com/ryanzhouuu/vintdex",
       liveUrl: "https://vintdex.vercel.app",
@@ -25,9 +26,9 @@ const Projects: React.FC = () => {
       highlights: [],
     },
     {
-      title: "Kinector AI",
+      title: "Kinector",
       description:
-        "AI-powered fitness and nutrition planning and tracking app allowing users to schedule optimal workouts",
+        "Precision-oriented fitness progress tracking app that provides advanced analytics.",
       longDescription:
         "Developed using Python, TensorFlow, and integrated with GitHub API. The tool analyzes code patterns and provides actionable feedback to developers.",
       image:
@@ -54,6 +55,21 @@ const Projects: React.FC = () => {
       status: "in-progress",
       teamSize: 1,
       duration: "1 months",
+      highlights: [],
+    },
+    {
+      title: "NBA Archetype Clustering",
+      description:
+        "Clustering of NBA players into archetypes based on their stats using K-Means clustering.",
+      longDescription:
+        "Used K-Means clustering to cluster NBA players into archetypes based on their stats. The clusters were then analyzed to determine the characteristics of each archetype.",
+      image: "https://andscape.com/wp-content/uploads/2017/06/nbalogo.jpg",
+      technologies: ["Python", "Pandas", "Matplotlib", "Scikit-learn"],
+      githubUrl: "https://github.com/ryanzhouuu/nba-archetype-clustering",
+      liveUrl: "",
+      status: "completed",
+      teamSize: 1,
+      duration: "1 month",
       highlights: [],
     },
   ];
@@ -134,150 +150,180 @@ const Projects: React.FC = () => {
           ref={projectsRef}
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8"
         >
-          {projects.map((project, index) => (
-            <div
-              key={project.title}
-              className={`group vintage-frame rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/10 transition-all duration-700 transform hover:-translate-y-4 hover-glow-artistic scroll-hover-lift ${
-                isItemVisible(index)
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
-            >
-              {/* Project Image */}
-              <div className="relative h-40 sm:h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
-                <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
-                  <span
-                    className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
-                      project.status
-                    )}`}
-                  >
-                    {project.status === "in-progress"
-                      ? "In Progress"
-                      : "Completed"}
-                  </span>
+          {projects.map((project, index) => {
+            const isLiveDisabled =
+              project.status === "in-progress" || !project.liveUrl;
+            return (
+              <div
+                key={project.title}
+                className={`group vintage-frame rounded-3xl overflow-hidden shadow-2xl hover:shadow-purple-500/10 transition-all duration-700 transform hover:-translate-y-4 hover-glow-artistic scroll-hover-lift ${
+                  isItemVisible(index)
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
+                }`}
+              >
+                {/* Project Image */}
+                <div className="relative h-40 sm:h-48 overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent"></div>
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
+                    <span
+                      className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(
+                        project.status
+                      )}`}
+                    >
+                      {project.status === "in-progress"
+                        ? "In Progress"
+                        : "Completed"}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Project Content */}
-              <div className="p-6 sm:p-8">
-                <div className="flex items-start justify-between mb-3 sm:mb-4">
-                  <h3 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
-                    {project.title}
-                  </h3>
-                  <div className="flex space-x-1 sm:space-x-2">
+                {/* Project Content */}
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <h3 className="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
+                      {project.title}
+                    </h3>
+                    <div className="flex space-x-1 sm:space-x-2">
+                      <a
+                        href={project.githubUrl}
+                        className="p-1.5 sm:p-2 text-gray-400 hover:text-white hover:bg-purple-500/20 rounded-xl transition-all duration-300 transform hover:scale-110"
+                        aria-label="View GitHub repository"
+                      >
+                        <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
+                      </a>
+                      <a
+                        href={isLiveDisabled ? "#" : project.liveUrl}
+                        aria-disabled={isLiveDisabled}
+                        onClick={
+                          isLiveDisabled ? (e) => e.preventDefault() : undefined
+                        }
+                        title={
+                          isLiveDisabled
+                            ? "Live demo coming soon"
+                            : "View live demo"
+                        }
+                        className={`p-1.5 sm:p-2 text-gray-400 rounded-xl transition-all duration-300 ${
+                          isLiveDisabled
+                            ? "opacity-40 cursor-not-allowed pointer-events-none"
+                            : "hover:text-blue-400 hover:bg-blue-500/10 transform hover:scale-110"
+                        }`}
+                        aria-label="View live demo"
+                      >
+                        <ExternalLink
+                          size={16}
+                          className="sm:w-[18px] sm:h-[18px]"
+                        />
+                      </a>
+                    </div>
+                  </div>
+
+                  <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 leading-relaxed font-serif">
+                    {project.description}
+                  </p>
+
+                  {/* Project Stats */}
+                  <div className="flex items-center space-x-3 sm:space-x-4 text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">
+                    <div className="flex items-center space-x-1">
+                      <Users size={12} className="sm:w-[14px] sm:h-[14px]" />
+                      <span>
+                        {project.teamSize}{" "}
+                        {project.teamSize === 1 ? "person" : "people"}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Calendar size={12} className="sm:w-[14px] sm:h-[14px]" />
+                      <span>{project.duration}</span>
+                    </div>
+                  </div>
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
+                    {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                      <span
+                        key={tech}
+                        className={`px-2 sm:px-3 py-1 glass-artistic text-purple-300 rounded-xl text-xs font-medium border border-purple-500/30 transition-all duration-300 ${
+                          isItemVisible(index)
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-5"
+                        }`}
+                        style={{
+                          transitionDelay: `${index * 200 + techIndex * 50}ms`,
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span
+                        className={`px-2 sm:px-3 py-1 bg-gray-500/20 text-gray-400 rounded-xl text-xs font-medium border border-gray-500/30 transition-all duration-300 ${
+                          isItemVisible(index)
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-5"
+                        }`}
+                        style={{ transitionDelay: `${index * 200 + 200}ms` }}
+                      >
+                        +{project.technologies.length - 4} more
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Highlights */}
+                  {/* <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                    <h4 className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
+                      <Star
+                        size={12}
+                        className="sm:w-[14px] sm:h-[14px] text-yellow-400"
+                      />
+                      Key Achievements
+                    </h4>
+                    <ul className="text-xs sm:text-sm text-gray-400 space-y-1 font-serif">
+                      {project.highlights.slice(0, 2).map((highlight, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="text-purple-400 mr-2 mt-1">•</span>
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div> */}
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+                    <a
+                      href={isLiveDisabled ? "#" : project.liveUrl}
+                      aria-disabled={isLiveDisabled}
+                      onClick={
+                        isLiveDisabled ? (e) => e.preventDefault() : undefined
+                      }
+                      title={
+                        isLiveDisabled
+                          ? "Live demo coming soon"
+                          : "View live demo"
+                      }
+                      className={`flex-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-2.5 sm:py-3 px-3 sm:px-4 rounded-2xl font-medium transition-all duration-300 text-sm sm:text-base ${
+                        isLiveDisabled
+                          ? "opacity-50 cursor-not-allowed pointer-events-none"
+                          : "hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105"
+                      }`}
+                    >
+                      View Live Demo
+                    </a>
                     <a
                       href={project.githubUrl}
-                      className="p-1.5 sm:p-2 text-gray-400 hover:text-white hover:bg-purple-500/20 rounded-xl transition-all duration-300 transform hover:scale-110"
-                      aria-label="View GitHub repository"
+                      className="px-3 sm:px-4 py-2.5 sm:py-3 border border-purple-500/30 text-gray-300 rounded-2xl font-medium hover:bg-purple-500/10 hover:border-purple-500/50 transition-all duration-300 text-sm sm:text-base text-center"
                     >
-                      <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
-                    </a>
-                    <a
-                      href={project.liveUrl}
-                      className="p-1.5 sm:p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-xl transition-all duration-300 transform hover:scale-110"
-                      aria-label="View live demo"
-                    >
-                      <ExternalLink
-                        size={16}
-                        className="sm:w-[18px] sm:h-[18px]"
-                      />
+                      Code
                     </a>
                   </div>
-                </div>
-
-                <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 leading-relaxed font-serif">
-                  {project.description}
-                </p>
-
-                {/* Project Stats */}
-                <div className="flex items-center space-x-3 sm:space-x-4 text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">
-                  <div className="flex items-center space-x-1">
-                    <Users size={12} className="sm:w-[14px] sm:h-[14px]" />
-                    <span>
-                      {project.teamSize}{" "}
-                      {project.teamSize === 1 ? "person" : "people"}
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Calendar size={12} className="sm:w-[14px] sm:h-[14px]" />
-                    <span>{project.duration}</span>
-                  </div>
-                </div>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
-                  {project.technologies.slice(0, 4).map((tech, techIndex) => (
-                    <span
-                      key={tech}
-                      className={`px-2 sm:px-3 py-1 glass-artistic text-purple-300 rounded-xl text-xs font-medium border border-purple-500/30 transition-all duration-300 ${
-                        isItemVisible(index)
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-5"
-                      }`}
-                      style={{
-                        transitionDelay: `${index * 200 + techIndex * 50}ms`,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <span
-                      className={`px-2 sm:px-3 py-1 bg-gray-500/20 text-gray-400 rounded-xl text-xs font-medium border border-gray-500/30 transition-all duration-300 ${
-                        isItemVisible(index)
-                          ? "opacity-100 translate-y-0"
-                          : "opacity-0 translate-y-5"
-                      }`}
-                      style={{ transitionDelay: `${index * 200 + 200}ms` }}
-                    >
-                      +{project.technologies.length - 4} more
-                    </span>
-                  )}
-                </div>
-
-                {/* Highlights */}
-                <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                  <h4 className="text-xs sm:text-sm font-semibold text-white flex items-center gap-2">
-                    <Star
-                      size={12}
-                      className="sm:w-[14px] sm:h-[14px] text-yellow-400"
-                    />
-                    Key Achievements
-                  </h4>
-                  <ul className="text-xs sm:text-sm text-gray-400 space-y-1 font-serif">
-                    {project.highlights.slice(0, 2).map((highlight, i) => (
-                      <li key={i} className="flex items-start">
-                        <span className="text-purple-400 mr-2 mt-1">•</span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-                  <a
-                    href={project.liveUrl}
-                    className="flex-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-2.5 sm:py-3 px-3 sm:px-4 rounded-2xl font-medium hover:shadow-lg hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
-                  >
-                    View Live Demo
-                  </a>
-                  <a
-                    href={project.githubUrl}
-                    className="px-3 sm:px-4 py-2.5 sm:py-3 border border-purple-500/30 text-gray-300 rounded-2xl font-medium hover:bg-purple-500/10 hover:border-purple-500/50 transition-all duration-300 text-sm sm:text-base text-center"
-                  >
-                    Code
-                  </a>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* View More Button */}
