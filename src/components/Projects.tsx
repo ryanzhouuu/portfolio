@@ -28,7 +28,7 @@ const Projects: React.FC = () => {
     {
       title: "Kinector",
       description:
-        "Precision-oriented fitness progress tracking app that provides advanced analytics.",
+        "Precision-oriented fitness progress tracking mobile app that provides advanced analytics.",
       longDescription:
         "Developed using Python, TensorFlow, and integrated with GitHub API. The tool analyzes code patterns and provides actionable feedback to developers.",
       image:
@@ -66,12 +66,25 @@ const Projects: React.FC = () => {
       image: "https://andscape.com/wp-content/uploads/2017/06/nbalogo.jpg",
       technologies: ["Python", "Pandas", "Matplotlib", "Scikit-learn"],
       githubUrl: "https://github.com/ryanzhouuu/nba-archetype-clustering",
-      liveUrl: "",
+      liveUrl: "https://nba-archetype-clustering.vercel.app/",
       status: "completed",
       teamSize: 1,
       duration: "1 month",
       highlights: [],
     },
+    {
+      title: "Greek Mythology Network Visualization",
+      description: "Used D3.js to generate a visualization of the Greek god Zeus' relationships for a mythology class.",
+      longDescription: "The visualization is a network of Zeus' relationships with other gods and goddesses. The nodes are the gods and goddesses and the edges are the relationships between them. The visualization is interactive and allows the user to hover over the nodes and edges to see the details of the relationships.",
+      image: "https://www.greek-mythology-pantheon.com/wp-content/uploads/Greek_Gods_and_Goddesses/Zeus_Jupiter_Greek_God/Zeus_Jupiter_Greek_God_Art_01_by_arcosart.jpg",
+      technologies: ["D3.js", "HTML", "CSS"],
+      githubUrl: "https://github.com/ryanzhouuu/mythology-network",
+      liveUrl: "ryanzhou.me/mythology-network",
+      status: "completed",
+      teamSize: 1,
+      duration: "1 month",
+      highlights: [],
+    }
   ];
 
   const { ref: projectsRef, isItemVisible } = useStaggeredAnimation(
