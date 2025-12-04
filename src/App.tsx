@@ -8,7 +8,7 @@ import ScrollProgress from "./components/ScrollProgress";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-950">
+    <div className="min-h-screen bg-[#050505] selection:bg-white selection:text-black">
       <ScrollProgress />
       <Navigation />
       <main>
@@ -18,22 +18,6 @@ function App() {
         <Projects />
         <Contact />
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-950 border-t border-gray-800/50 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-gray-400">
-                © 2024 Ryan Zhou. All rights reserved.
-              </p>
-            </div>
-            <div className="text-gray-400">
-              <p>Built with React, TypeScript & Tailwind CSS</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

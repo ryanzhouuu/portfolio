@@ -33,23 +33,26 @@ const Navigation: React.FC = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 shadow-2xl"
+          ? "bg-[#050505]/80 backdrop-blur-md border-b border-white/5"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-3 sm:py-4">
-          <div className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex justify-between items-center py-6">
+          <div
+            className="text-xl font-medium tracking-tight text-white cursor-pointer"
+            onClick={() => scrollToSection("hero")}
+          >
             Ryan Zhou
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-1 bg-gray-800/30 backdrop-blur-sm rounded-full p-1 border border-gray-700/50">
+          <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-700/50 rounded-full transition-all duration-300 font-medium text-sm"
+                className="text-sm text-gray-400 hover:text-white transition-colors duration-300 uppercase tracking-widest font-light"
               >
                 {item.label}
               </button>
@@ -58,23 +61,27 @@ const Navigation: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-gray-300 hover:text-white transition-colors duration-300 touch-manipulation"
+            className="md:hidden p-2 text-gray-300 hover:text-white transition-colors duration-300"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? (
+              <X size={24} strokeWidth={1.5} />
+            ) : (
+              <Menu size={24} strokeWidth={1.5} />
+            )}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl mb-4 border border-gray-800/50 animate-fade-in">
-            <div className="px-4 py-2 space-y-1">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-[#050505] border-b border-white/5 p-6 animate-fade-in">
+            <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-xl transition-all duration-300 touch-manipulation text-base"
+                  className="text-left text-lg text-gray-400 hover:text-white transition-colors duration-300 font-light"
                 >
                   {item.label}
                 </button>
