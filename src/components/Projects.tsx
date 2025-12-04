@@ -23,17 +23,7 @@ const Projects: React.FC = () => {
       image:
         "https://www.slcjcc.org/images/Fitness/Wellness_Weekly/unnamed-12_sml.png",
       technologies: ["Python", "React Native", "FastAPI"],
-      githubUrl: "https://github.com/ryanzhouuu",
-      liveUrl: "",
-    },
-    {
-      title: "DRE for IDK Cascades",
-      description:
-        "Dynamic Routing Engine built to improve performance in IDK classifiers by making scheduling decisions.",
-      image:
-        "https://images.theconversation.com/files/374303/original/file-20201210-18-elk4m.jpg?ixlib=rb-4.1.0&rect=0%2C22%2C7500%2C5591&q=45&auto=format&w=926&fit=clip",
-      technologies: ["Python", "Pytorch", "NumPy"],
-      githubUrl: "https://github.com/ryanzhouuu",
+      githubUrl: "https://github.com/ryanzhouuu/Kinector",
       liveUrl: "",
     },
     {
@@ -55,28 +45,37 @@ const Projects: React.FC = () => {
       githubUrl: "https://github.com/ryanzhouuu/mythology-network",
       liveUrl: "http://ryanzhou.me/mythology-network/",
     },
+    {
+      title: "Tri-Omicron Website",
+      description:
+        "Landing page for Omicron Omicron Omicron, the premier CS fraternity at UT Austin.",
+      image: `${import.meta.env.BASE_URL}images/joeyMog.png`,
+      technologies: ["Next.js", "Tailwind CSS"],
+      githubUrl: "https://github.com/Tri-Omicron/website",
+      liveUrl: "https://triomicron.org",
+    },
   ];
 
   return (
-    <section id="projects" className="py-32 bg-[#050505]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="projects" className="py-16 sm:py-24 md:py-32 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div
           ref={ref}
-          className={`transition-all duration-1000 mb-20 ${
+          className={`transition-all duration-1000 mb-12 sm:mb-16 md:mb-20 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-4xl font-display font-medium text-white mb-6">
-            Selected Works
+          <h2 className="text-3xl sm:text-4xl font-display font-medium text-white mb-4 sm:mb-6">
+            Projects
           </h2>
-          <div className="h-px w-20 bg-white/20"></div>
+          <div className="h-px w-16 sm:w-20 bg-white/20"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-12 sm:gap-y-16">
           {projects.map((project) => (
             <div key={project.title} className="group">
               {/* Image Container */}
-              <div className="relative overflow-hidden rounded-none mb-6 aspect-video bg-[#111]">
+              <div className="relative overflow-hidden rounded-none mb-4 sm:mb-6 aspect-video bg-[#111]">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -84,45 +83,47 @@ const Projects: React.FC = () => {
                 />
 
                 {/* Overlay Links */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 sm:gap-4">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 bg-white text-black rounded-full hover:scale-110 transition-transform"
+                      className="p-2.5 sm:p-3 bg-white text-black rounded-full hover:scale-110 transition-transform touch-manipulation"
+                      aria-label="View live demo"
                     >
-                      <ExternalLink size={20} />
+                      <ExternalLink size={18} className="sm:w-5 sm:h-5" />
                     </a>
                   )}
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-black text-white border border-white/20 rounded-full hover:scale-110 transition-transform"
+                    className="p-2.5 sm:p-3 bg-black text-white border border-white/20 rounded-full hover:scale-110 transition-transform touch-manipulation"
+                    aria-label="View GitHub repository"
                   >
-                    <Github size={20} />
+                    <Github size={18} className="sm:w-5 sm:h-5" />
                   </a>
                 </div>
               </div>
 
               {/* Content */}
               <div>
-                <div className="flex items-baseline justify-between mb-3">
-                  <h3 className="text-2xl font-medium text-white">
+                <div className="flex items-baseline justify-between mb-2 sm:mb-3">
+                  <h3 className="text-xl sm:text-2xl font-medium text-white">
                     {project.title}
                   </h3>
                 </div>
 
-                <p className="text-gray-400 text-lg mb-4 font-light leading-relaxed">
+                <p className="text-gray-400 text-base sm:text-lg mb-3 sm:mb-4 font-light leading-relaxed">
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-sm text-gray-500 font-mono"
+                      className="text-xs sm:text-sm text-gray-500 font-mono"
                     >
                       {tech}
                     </span>

@@ -126,3 +126,60 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Improve touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better text rendering on mobile */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Improve scrolling performance */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Reduce animation intensity on mobile for better performance */
+  .animate-scroll-left {
+    animation-duration: 25s;
+  }
+
+  /* Better mobile tap highlights */
+  * {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Very small screens */
+@media (max-width: 640px) {
+  /* Optimize viewport handling */
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

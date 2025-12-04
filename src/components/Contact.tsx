@@ -6,56 +6,63 @@ const Contact: React.FC = () => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
-    <section id="contact" className="py-32 bg-[#050505]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="contact" className="py-16 sm:py-24 md:py-32 bg-[#050505]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div
           ref={ref}
           className={`transition-all duration-1000 text-center ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-4xl md:text-6xl font-display font-medium text-white mb-8">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-display font-medium text-white mb-6 sm:mb-8">
             Let's work together.
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light mb-12 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light mb-8 sm:mb-12 leading-relaxed px-2">
             I'm currently open to new opportunities. Whether you have a question
             or just want to say hi, I'll try my best to get back to you!
           </p>
 
-          <div className="flex flex-col items-center space-y-8">
+          <div className="flex flex-col items-center space-y-6 sm:space-y-8">
             <a
               href="mailto:ryanzhouuu@gmail.com"
-              className="px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-colors duration-300 text-lg"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-colors duration-300 text-base sm:text-lg touch-manipulation"
             >
               Say Hello
             </a>
 
-            <div className="flex items-center space-x-8 mt-12">
+            <div className="flex items-center space-x-6 sm:space-x-8 mt-8 sm:mt-12">
               <a
                 href="https://github.com/ryanzhouuu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-white transition-colors duration-300"
+                className="text-gray-500 hover:text-white transition-colors duration-300 touch-manipulation"
+                aria-label="GitHub"
               >
-                <Github size={24} strokeWidth={1.5} />
+                <Github size={20} className="sm:w-6 sm:h-6" strokeWidth={1.5} />
               </a>
               <a
                 href="https://linkedin.com/in/ryanzhouuu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-500 hover:text-white transition-colors duration-300"
+                className="text-gray-500 hover:text-white transition-colors duration-300 touch-manipulation"
+                aria-label="LinkedIn"
               >
-                <Linkedin size={24} strokeWidth={1.5} />
+                <Linkedin
+                  size={20}
+                  className="sm:w-6 sm:h-6"
+                  strokeWidth={1.5}
+                />
               </a>
               <a
                 href="mailto:ryanzhouuu@gmail.com"
-                className="text-gray-500 hover:text-white transition-colors duration-300"
+                className="text-gray-500 hover:text-white transition-colors duration-300 touch-manipulation"
+                aria-label="Email"
               >
-                <Mail size={24} strokeWidth={1.5} />
+                <Mail size={20} className="sm:w-6 sm:h-6" strokeWidth={1.5} />
               </a>
             </div>
 
-            <footer className="mt-20 pt-20 text-gray-600 text-sm font-light">
+            <footer className="mt-12 sm:mt-16 md:mt-20 pt-12 sm:pt-16 md:pt-20 text-gray-600 text-xs sm:text-sm font-light">
               © {new Date().getFullYear()} Ryan Zhou. All rights reserved.
             </footer>
           </div>
