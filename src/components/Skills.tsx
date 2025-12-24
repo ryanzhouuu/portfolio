@@ -9,27 +9,30 @@ const Skills: React.FC = () => {
     {
       title: "Frontend",
       skills: [
+        "HTML/CSS",
         "React",
         "TypeScript",
-        "Tailwind CSS",
+        "Tailwind",
         "Next.js",
         "React Native",
+        "Zustand",
       ],
     },
     {
       title: "Backend",
       skills: [
-        "Node.js",
         "Python",
+        "Node.js",
         "PostgreSQL",
         "Express.js",
         "Supabase",
         "FastAPI",
+        "Firebase",
       ],
     },
     {
       title: "Tools",
-      skills: ["Git", "Docker", "AWS", "Figma", "Linux"],
+      skills: ["Git", "Docker", "Linux", "Vercel", "Makefile", "GDB", "Figma"],
     },
   ];
 
@@ -50,10 +53,10 @@ const Skills: React.FC = () => {
       name: "Java",
       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
     },
-    {
-      name: "C++",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
-    },
+    // {
+    //   name: "C++",
+    //   logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+    // },
     {
       name: "PostgreSQL",
       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
@@ -66,6 +69,10 @@ const Skills: React.FC = () => {
       name: "Node.js",
       logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
     },
+    {
+      name: "C",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+    }
   ];
 
   // Duplicate the array for seamless loop

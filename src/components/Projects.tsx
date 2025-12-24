@@ -14,16 +14,16 @@ const Projects: React.FC = () => {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBTblpayOTpAX3s75UAMe1U8VA83w1VTB51w&s",
       technologies: ["Next.js", "Supabase", "Tailwind CSS"],
       githubUrl: "https://github.com/ryanzhouuu/vintdex",
-      liveUrl: "https://vintdex.vercel.app",
+      liveUrl: "",
     },
     {
-      title: "Kinector",
+      title: "In-Memory Key-Value Store",
       description:
-        "Precision-oriented fitness progress tracking mobile app that provides advanced analytics.",
+        "High performance, concurrent in-memory key-value store implemented in C++.",
       image:
-        "https://www.slcjcc.org/images/Fitness/Wellness_Weekly/unnamed-12_sml.png",
-      technologies: ["Python", "React Native", "FastAPI"],
-      githubUrl: "https://github.com/ryanzhouuu/Kinector",
+        "https://www.scylladb.com/wp-content/uploads/Key-Value-Store-diagram-1-e1644958335886.png",
+      technologies: ["C++", "Concurrency", "Sockets"],
+      githubUrl: "https://github.com/ryanzhouuu/kvstore",
       liveUrl: "",
     },
     {
@@ -53,6 +53,16 @@ const Projects: React.FC = () => {
       technologies: ["Next.js", "Tailwind CSS"],
       githubUrl: "https://github.com/Tri-Omicron/website",
       liveUrl: "https://triomicron.org",
+    },
+    {
+      title: "Kinector",
+      description:
+        "Precision-oriented fitness progress tracking mobile app that provides advanced analytics.",
+      image:
+        "https://www.slcjcc.org/images/Fitness/Wellness_Weekly/unnamed-12_sml.png",
+      technologies: ["Python", "React Native", "FastAPI"],
+      githubUrl: "https://github.com/ryanzhouuu/Kinector",
+      liveUrl: "",
     },
   ];
 

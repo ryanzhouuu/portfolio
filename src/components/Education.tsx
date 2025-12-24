@@ -6,10 +6,10 @@ const Education: React.FC = () => {
 
   const education = [
     {
-      degree: "Bachelor of Science in Computer Science",
+      degree: "Bachelor of Science in Computer Science & Bachelor of Science in Economics",
       school: "University of Texas at Austin",
       period: "2024 - 2028",
-      gpa: "4.0/4.0",
+      gpa: "4.00/4.00",
       details: [
         "Data Structures & Algorithms",
         "Operating Systems",
