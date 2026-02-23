@@ -77,7 +77,9 @@ export const experience = [
     period: 'February 2026 - Present',
     location: 'Austin, TX',
     bullets: [
-      'Working in the IT department supporting Texas Athletics'
+      'Managed inventory of hardware assets (phones, laptops, peripherals)',
+      'Sanitized legacy hardware for recycling or salvage, ensuring adherence to security protocols',
+      'Executed technical setups for university sporting events with critical hardware and broadcast gear'
     ],
   },
   {
@@ -86,7 +88,7 @@ export const experience = [
     period: 'May 2025 - August 2025',
     location: 'Houston, TX',
     bullets: [
-      'Worked on improving convolutional neural network classifiers.',
+      'Engineered a routing system for convolutional neural network classifiers using a decision tree trained on model performance ',
     ],
   }
 ];
