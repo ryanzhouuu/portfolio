@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: 'Ryan Zhou',
   title: 'CS & Economics @ UT Austin',
-  bio: 'Computer Science and Economics student at the University of Texas at Austin. I build things at the intersection of software engineering, machine learning, and systems — from low-level C++ infrastructure to full-stack web applications.',
+  bio: 'Computer Science and Economics student at the University of Texas at Austin. I\'m interested in everything software engineering, machine learning, and systems.',
   email: 'ryanzhouuu@gmail.com',
   github: 'https://github.com/ryanzhouuu',
   linkedin: 'https://linkedin.com/in/ryanzhouuu',
@@ -20,7 +20,7 @@ export const navItems = [
 export const skills = [
   {
     category: 'Frontend',
-    items: ['HTML/CSS', 'React', 'TypeScript', 'Tailwind', 'Next.js', 'React Native', 'Zustand'],
+    items: ['HTML/CSS', 'React', 'TypeScript', 'Tailwind', 'Next.js', 'React Native', 'Zustand', 'Flutter'],
   },
   {
     category: 'Backend',
@@ -49,7 +49,7 @@ export const education = [
     degree: 'B.S. Computer Science & B.S. Economics',
     period: '2024 – 2028',
     gpa: '4.00 / 4.00',
-    details: ['Data Structures & Algorithms', 'Operating Systems', 'Computer Architecture', 'Artificial Intelligence'],
+    details: ['Data Structures & Algorithms', 'Software Engineering', 'Operating Systems', 'Computer Architecture', 'Artificial Intelligence', 'Algorithms'],
     banner: '/images/banner.jpg',
   },
   {
@@ -80,6 +80,15 @@ export const experience = [
       'Working in the IT department supporting Texas Athletics'
     ],
   },
+  {
+    company: 'University of Houston',
+    role: 'Undergraduate Researcher',
+    period: 'May 2025 - August 2025',
+    location: 'Houston, TX',
+    bullets: [
+      'Worked on improving convolutional neural network classifiers.',
+    ],
+  }
 ];
 
 export const projects = [
@@ -91,13 +100,21 @@ export const projects = [
     githubUrl: 'https://github.com/ryanzhouuu/vintdex',
     liveUrl: '',
   },
+  // {
+  //   title: 'In-Memory Key-Value Store',
+  //   description: 'High performance, concurrent in-memory key-value store implemented in C++.',
+  //   image: 'https://www.scylladb.com/wp-content/uploads/Key-Value-Store-diagram-1-e1644958335886.png',
+  //   technologies: ['C++', 'Concurrency', 'Sockets'],
+  //   githubUrl: 'https://github.com/ryanzhouuu/kvstore',
+  //   liveUrl: '',
+  // },
   {
-    title: 'In-Memory Key-Value Store',
-    description: 'High performance, concurrent in-memory key-value store implemented in C++.',
-    image: 'https://www.scylladb.com/wp-content/uploads/Key-Value-Store-diagram-1-e1644958335886.png',
-    technologies: ['C++', 'Concurrency', 'Sockets'],
-    githubUrl: 'https://github.com/ryanzhouuu/kvstore',
-    liveUrl: '',
+    title: 'VIA',
+    description: 'A mobile app used for navigation around college campuses',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7MbRrwlP4MtsSXkIG-XBxvCnAQi5NuzQpqQ&s',
+    technologies: ['Flutter', 'Express.js', 'Supabase'],
+    githubUrl: 'https://github.com/via-team/backend',
+    liveUrl: 'https://via-backend-2j3d.onrender.com/api-docs'
   },
   {
     title: 'NBA Archetype Clustering',

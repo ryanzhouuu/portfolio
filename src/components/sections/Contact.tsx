@@ -23,11 +23,11 @@ export default function Contact() {
             className="space-y-5 sm:space-y-6"
           >
             <p className="font-serif text-base sm:text-lg text-ink/70 leading-relaxed">
-              I&apos;m always open to interesting opportunities, collaborations, or just a good conversation
-              about software, markets, or anything else.
+              I&apos;m always open to interesting opportunities, collaborations, or conversation
+              about software, Clash Royale, or anything else.
             </p>
             <p className="font-serif text-sm sm:text-base text-ink/50 leading-relaxed">
-              The best way to reach me is email — I try to respond within a day or two.
+              The best way to reach me is email — I try to respond as quickly as possible.
             </p>
             <a
               href={`mailto:${personalInfo.email}`}

@@ -27,8 +27,7 @@ export default function About() {
               {personalInfo.bio}
             </p>
             <p className="font-serif text-sm sm:text-base text-ink/60 leading-relaxed">
-              When I&apos;m not building software, I&apos;m thinking about systems design, financial markets,
-              or trying to beat my friends at chess.
+              When I&apos;m not building software, I&apos;m working out, watching anime, or three-crowning opponents in Clash Royale.
             </p>
           </motion.div>
 
