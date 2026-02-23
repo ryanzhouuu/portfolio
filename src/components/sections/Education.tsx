@@ -6,6 +6,7 @@ import { motion, useInView } from 'framer-motion';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Tag from '@/components/ui/Tag';
 import { education } from '@/lib/data';
+import { withBasePath } from '@/lib/basePath';
 
 export default function Education() {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,7 +25,7 @@ export default function Education() {
           className="relative w-full h-32 sm:h-40 lg:h-56 border border-border overflow-hidden mb-10 sm:mb-16 group"
         >
           <Image
-            src="/images/banner.jpg"
+            src={withBasePath('/images/banner.jpg')}
             alt="UT Austin Campus"
             fill
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"

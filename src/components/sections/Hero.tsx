@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Typewriter from '@/components/ui/Typewriter';
 import { personalInfo } from '@/lib/data';
+import { withBasePath } from '@/lib/basePath';
 
 export default function Hero() {
   const [nameComplete, setNameComplete] = useState(false);
@@ -38,7 +39,7 @@ export default function Hero() {
               <div className="absolute -inset-3 border border-border dot-grid opacity-60" />
               <div className="relative w-36 h-36 sm:w-48 sm:h-48 lg:w-72 lg:h-72 border border-border overflow-hidden">
                 <Image
-                  src={personalInfo.photo}
+                  src={withBasePath(personalInfo.photo)}
                   alt="Ryan Zhou"
                   fill
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-700"

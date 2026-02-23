@@ -6,6 +6,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Tag from '@/components/ui/Tag';
 import { projects } from '@/lib/data';
+import { withBasePath } from '@/lib/basePath';
 
 export default function Projects() {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +30,7 @@ export default function Projects() {
               <div className="relative aspect-video overflow-hidden border-b border-border">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={project.image}
+                  src={withBasePath(project.image)}
                   alt={project.title}
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
                 />
