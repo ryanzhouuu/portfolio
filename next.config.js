@@ -5,6 +5,10 @@ const nextConfig = {
   ...(process.env.NODE_ENV === 'production' && {
     output: 'export',
     trailingSlash: true,
+    // Site is served from ryanzhouuu.github.io/portfolio — prefix all asset
+    // paths so /_next/... becomes /portfolio/_next/...
+    basePath: '/portfolio',
+    assetPrefix: '/portfolio',
   }),
   images: {
     unoptimized: true,
