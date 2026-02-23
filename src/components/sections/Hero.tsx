@@ -18,15 +18,40 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center relative dot-grid"
+      className="min-h-[calc(100vh-3.5rem)] lg:min-h-screen flex items-center relative dot-grid"
     >
       {/* Fade-out dot grid at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg to-transparent pointer-events-none" />
 
-      <div className="w-full px-6 lg:px-16 py-24 lg:py-0 max-w-4xl">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+      <div className="w-full px-5 sm:px-8 lg:px-16 py-12 sm:py-16 lg:py-20 max-w-4xl">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-16 items-center">
+
+          {/* Photo — above text on mobile, right column on desktop */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="lg:col-span-2 flex justify-center lg:justify-end order-first lg:order-last"
+          >
+            <div className="relative">
+              {/* Dot-grid border frame */}
+              <div className="absolute -inset-3 border border-border dot-grid opacity-60" />
+              <div className="relative w-36 h-36 sm:w-48 sm:h-48 lg:w-72 lg:h-72 border border-border overflow-hidden">
+                <Image
+                  src={personalInfo.photo}
+                  alt="Ryan Zhou"
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  priority
+                />
+              </div>
+              {/* Corner accent */}
+              <div className="absolute -bottom-3 -right-3 w-6 h-6 border-r border-b border-ink/30" />
+            </div>
+          </motion.div>
+
           {/* Text */}
-          <div className="lg:col-span-3 space-y-8">
+          <div className="lg:col-span-3 space-y-5 sm:space-y-7 order-last lg:order-first">
             {/* Status indicator */}
             <motion.div
               initial={{ opacity: 0, x: -8 }}
@@ -40,10 +65,10 @@ export default function Hero() {
 
             {/* Name */}
             <div className="space-y-2">
-              <p className="font-mono text-xs text-muted tracking-widest uppercase mb-3">
+              <p className="font-mono text-xs text-muted tracking-widest uppercase mb-2">
                 $ whoami
               </p>
-              <h1 className="font-mono text-5xl lg:text-7xl font-bold text-ink leading-none tracking-tighter">
+              <h1 className="font-mono text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-ink leading-none tracking-tighter">
                 <Typewriter
                   text="Ryan Zhou"
                   speed={70}
@@ -52,7 +77,7 @@ export default function Hero() {
                 />
               </h1>
               {nameComplete && (
-                <p className="font-serif text-lg lg:text-xl text-muted italic leading-relaxed max-w-sm">
+                <p className="font-serif text-base sm:text-lg lg:text-xl text-muted italic leading-relaxed max-w-sm">
                   <Typewriter
                     text={personalInfo.title}
                     speed={35}
@@ -69,7 +94,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="font-serif text-base lg:text-lg text-ink/70 leading-relaxed max-w-md"
+                className="font-serif text-sm sm:text-base lg:text-lg text-ink/70 leading-relaxed max-w-md"
               >
                 {personalInfo.bio}
               </motion.p>
@@ -81,7 +106,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="flex flex-wrap items-center gap-6 pt-2"
+                className="flex flex-wrap items-center gap-5 sm:gap-6 pt-1"
               >
                 <button
                   onClick={() => scrollTo('projects')}
@@ -108,7 +133,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="flex items-center gap-5 pt-4"
+                className="flex items-center gap-5 pt-2"
               >
                 <a
                   href={personalInfo.github}
@@ -139,29 +164,6 @@ export default function Hero() {
             )}
           </div>
 
-          {/* Photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="lg:col-span-2 flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              {/* Dot-grid border frame */}
-              <div className="absolute -inset-3 border border-border dot-grid opacity-60" />
-              <div className="relative w-56 h-56 lg:w-72 lg:h-72 border border-border overflow-hidden">
-                <Image
-                  src={personalInfo.photo}
-                  alt="Ryan Zhou"
-                  fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                  priority
-                />
-              </div>
-              {/* Corner accent */}
-              <div className="absolute -bottom-3 -right-3 w-6 h-6 border-r border-b border-ink/30" />
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

@@ -10,11 +10,11 @@ export default function Experience() {
   const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
 
   return (
-    <section id="experience" className="py-24 lg:py-32 border-t border-border">
-      <div className="px-6 lg:px-16 max-w-4xl" ref={ref}>
+    <section id="experience" className="py-16 sm:py-24 lg:py-32 border-t border-border">
+      <div className="px-5 sm:px-8 lg:px-16 max-w-4xl" ref={ref}>
         <SectionHeader index="03" title="experience" />
 
-        <div className="relative pl-6 border-l border-border space-y-14">
+        <div className="relative pl-5 sm:pl-6 border-l border-border space-y-10 sm:space-y-14">
           {experience.map((exp, index) => (
             <motion.div
               key={index}
@@ -24,16 +24,16 @@ export default function Experience() {
               className="relative"
             >
               {/* Timeline dot */}
-              <div className="absolute -left-[25px] top-1.5 w-2.5 h-2.5 border border-ink bg-bg" />
+              <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-2.5 h-2.5 border border-ink bg-bg" />
 
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <h3 className="font-mono text-base font-semibold text-ink">{exp.company}</h3>
+              <div className="space-y-1.5 sm:space-y-2">
+                <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                  <h3 className="font-mono text-sm sm:text-base font-semibold text-ink">{exp.company}</h3>
                   {exp.location && (
                     <span className="font-mono text-xs text-muted/60">{exp.location}</span>
                   )}
                 </div>
-                <div className="flex items-baseline gap-3">
+                <div className="flex items-baseline flex-wrap gap-x-3 gap-y-0.5">
                   <p className="font-serif text-sm text-ink/70 italic">{exp.role}</p>
                   <span className="font-mono text-xs text-muted">{exp.period}</span>
                 </div>
