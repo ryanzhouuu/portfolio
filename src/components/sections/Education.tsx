@@ -1,0 +1,65 @@
+'use client';
+
+import { useRef } from 'react';
+import Image from 'next/image';
+import { motion, useInView } from 'framer-motion';
+import SectionHeader from '@/components/ui/SectionHeader';
+import Tag from '@/components/ui/Tag';
+import { education } from '@/lib/data';
+
+export default function Education() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+
+  return (
+    <section id="education" className="py-24 lg:py-32 border-t border-border">
+      <div className="px-6 lg:px-16 max-w-4xl" ref={ref}>
+        <SectionHeader index="02" title="education" />
+
+        {/* Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="relative w-full h-40 lg:h-56 border border-border overflow-hidden mb-16 group"
+        >
+          <Image
+            src="/images/banner.jpg"
+            alt="UT Austin Campus"
+            fill
+            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+          />
+          <div className="absolute inset-0 bg-bg/30 group-hover:bg-transparent transition-colors duration-500" />
+        </motion.div>
+
+        {/* Timeline */}
+        <div className="relative pl-6 border-l border-border space-y-14">
+          {education.map((edu, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -8 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="relative"
+            >
+              {/* Timeline dot */}
+              <div className="absolute -left-[25px] top-1.5 w-2.5 h-2.5 border border-ink bg-bg" />
+
+              <div className="space-y-2">
+                <p className="font-mono text-xs text-muted">{edu.period}</p>
+                <h3 className="font-mono text-base font-semibold text-ink">{edu.school}</h3>
+                <p className="font-serif text-sm text-ink/70 italic">{edu.degree}</p>
+                <p className="font-mono text-xs text-muted">GPA: {edu.gpa}</p>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {edu.details.map((d) => (
+                    <Tag key={d} label={d} />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
