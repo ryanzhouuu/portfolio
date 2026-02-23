@@ -77,7 +77,7 @@ export const experience = [
     period: 'February 2026 - Present',
     location: 'Austin, TX',
     bullets: [
-      '',
+      'Working in the IT department supporting Texas Athletics'
     ],
   },
 ];
