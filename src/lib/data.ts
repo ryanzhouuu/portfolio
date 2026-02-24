@@ -97,9 +97,9 @@ export const projects = [
   {
     title: 'Vintdex',
     description: 'Full-stack web application for tracking and predicting market prices for vintage clothing items.',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBTblpayOTpAX3s75UAMe1U8VA83w1VTB51w&s',
+    image: '/images/vintdex.png',
     technologies: ['Next.js', 'Supabase', 'Tailwind CSS'],
-    githubUrl: 'https://github.com/ryanzhouuu/vintdex',
+    githubUrl: 'https://github.com/vintdex',
     liveUrl: '',
   },
   // {
@@ -113,7 +113,7 @@ export const projects = [
   {
     title: 'VIA',
     description: 'A mobile app used for navigation around college campuses',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7MbRrwlP4MtsSXkIG-XBxvCnAQi5NuzQpqQ&s',
+    image: '/images/via.png',
     technologies: ['Flutter', 'Express.js', 'Supabase'],
     githubUrl: 'https://github.com/via-team/backend',
     liveUrl: 'https://via-backend-2j3d.onrender.com/api-docs'
@@ -121,7 +121,7 @@ export const projects = [
   {
     title: 'NBA Archetype Clustering',
     description: 'Clustering of NBA players into archetypes based on their stats using K-Means clustering.',
-    image: 'https://andscape.com/wp-content/uploads/2017/06/nbalogo.jpg',
+    image: '/images/nba-clustering.png',
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
     githubUrl: 'https://github.com/ryanzhouuu/nba-archetype-clustering',
     liveUrl: 'https://nba-archetype-clustering.vercel.app/',
@@ -129,7 +129,7 @@ export const projects = [
   {
     title: 'Greek Mythology Visualization',
     description: "Interactive D3.js visualization of the Greek god Zeus' relationships.",
-    image: 'https://www.greek-mythology-pantheon.com/wp-content/uploads/Greek_Gods_and_Goddesses/Zeus_Jupiter_Greek_God/Zeus_Jupiter_Greek_God_Art_01_by_arcosart.jpg',
+    image: '/images/mount-olympus.png',
     technologies: ['D3.js', 'HTML/CSS'],
     githubUrl: 'https://github.com/ryanzhouuu/mythology-network',
     liveUrl: 'http://ryanzhou.me/mythology-network/',
@@ -145,7 +145,7 @@ export const projects = [
   {
     title: 'Kinector',
     description: 'Precision-oriented fitness progress tracking mobile app that provides advanced analytics.',
-    image: 'https://www.slcjcc.org/images/Fitness/Wellness_Weekly/unnamed-12_sml.png',
+    image: '/images/kinector.png',
     technologies: ['Python', 'React Native', 'FastAPI'],
     githubUrl: 'https://github.com/ryanzhouuu/Kinector',
     liveUrl: '',
