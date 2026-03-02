@@ -6,13 +6,19 @@ import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { personalInfo } from '@/lib/data';
 
-export default function Contact() {
+interface Props {
+  inView?: boolean;
+  compact?: boolean;
+}
+
+export default function Contact({ inView: inViewProp, compact }: Props = {}) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const internalInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const isInView = inViewProp ?? internalInView;
 
   return (
-    <section id="contact" className="py-16 sm:py-24 lg:py-32 border-t border-border">
-      <div className="px-5 sm:px-8 lg:px-16 max-w-4xl" ref={ref}>
+    <section id="contact" className={compact ? "py-4" : "py-16 sm:py-24 lg:py-32 border-t border-border"}>
+      <div className={compact ? "px-4 max-w-none" : "px-5 sm:px-8 lg:px-16 max-w-4xl"} ref={ref}>
         <SectionHeader index="05" title="contact" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-start">

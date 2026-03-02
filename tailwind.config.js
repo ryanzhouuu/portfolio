@@ -17,6 +17,9 @@ module.exports = {
         border: '#e5e5e5',
         muted: '#6b7280',
         subtle: '#f3f3f3',
+        'terminal-bg': '#0d0d0d',
+        'terminal-fg': '#e5e5e5',
+        'terminal-border': '#333333',
       },
       animation: {
         'scroll-left': 'scrollLeft 30s linear infinite',

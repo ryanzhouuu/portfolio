@@ -5,13 +5,19 @@ import { motion, useInView } from 'framer-motion';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { experience } from '@/lib/data';
 
-export default function Experience() {
+interface Props {
+  inView?: boolean;
+  compact?: boolean;
+}
+
+export default function Experience({ inView: inViewProp, compact }: Props = {}) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const internalInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const isInView = inViewProp ?? internalInView;
 
   return (
-    <section id="experience" className="py-16 sm:py-24 lg:py-32 border-t border-border">
-      <div className="px-5 sm:px-8 lg:px-16 max-w-4xl" ref={ref}>
+    <section id="experience" className={compact ? "py-4" : "py-16 sm:py-24 lg:py-32 border-t border-border"}>
+      <div className={compact ? "px-4 max-w-none" : "px-5 sm:px-8 lg:px-16 max-w-4xl"} ref={ref}>
         <SectionHeader index="03" title="experience" />
 
         <div className="relative pl-5 sm:pl-6 border-l border-border space-y-10 sm:space-y-14">

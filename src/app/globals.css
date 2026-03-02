@@ -70,3 +70,20 @@ body {
   background: #0d0d0d;
   color: #fafafa;
 }
+
+/* Terminal scrollbar */
+.terminal-window::-webkit-scrollbar {
+  width: 4px;
+}
+.terminal-window::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+.terminal-window::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
+}
+
+/* Window shadow */
+.window-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+}

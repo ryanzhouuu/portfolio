@@ -8,13 +8,19 @@ import Tag from '@/components/ui/Tag';
 import { projects } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
 
-export default function Projects() {
+interface Props {
+  inView?: boolean;
+  compact?: boolean;
+}
+
+export default function Projects({ inView: inViewProp, compact }: Props = {}) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const internalInView = useInView(ref, { once: true, margin: '-10% 0px' });
+  const isInView = inViewProp ?? internalInView;
 
   return (
-    <section id="projects" className="py-16 sm:py-24 lg:py-32 border-t border-border">
-      <div className="px-5 sm:px-8 lg:px-16 max-w-4xl" ref={ref}>
+    <section id="projects" className={compact ? "py-4" : "py-16 sm:py-24 lg:py-32 border-t border-border"}>
+      <div className={compact ? "px-4 max-w-none" : "px-5 sm:px-8 lg:px-16 max-w-4xl"} ref={ref}>
         <SectionHeader index="04" title="projects" />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 lg:gap-8">
