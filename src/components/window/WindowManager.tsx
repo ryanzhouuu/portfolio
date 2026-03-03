@@ -26,6 +26,21 @@ export default function WindowManager() {
             {config.id === 'experience' && <Experience inView={true} compact={true} />}
             {config.id === 'projects'   && <Projects inView={true} compact={true} />}
             {config.id === 'contact'    && <Contact inView={true} compact={true} />}
+            {config.id === 'resume'     && (
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-subtle flex-shrink-0">
+                  <span className="font-mono text-xs text-muted">resume.pdf</span>
+                  <a
+                    href="/resume.pdf"
+                    download
+                    className="font-mono text-xs text-muted hover:text-ink transition-colors underline-draw"
+                  >
+                    download
+                  </a>
+                </div>
+                <iframe src="/resume.pdf" className="flex-1 w-full border-0" title="Resume" />
+              </div>
+            )}
           </Window>
         );
       })}

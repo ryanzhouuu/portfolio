@@ -54,24 +54,10 @@ export function parseCommand(raw: string): CommandResult {
     };
   }
 
-  if (lower === 'sudo hire-me') {
-    return {
-      lines: [
-        mkLine('success', '[sudo] password for visitor: '),
-        mkLine('success', 'Access granted.'),
-        mkLine('success', 'Sending email to recruiters...'),
-        mkLine('success', `✓ Email sent to ${personalInfo.email}`),
-        mkLine('system',  'Good choice.'),
-      ],
-    };
-  }
-
   if (lower === 'cat resume.pdf') {
     return {
-      lines: [
-        mkLine('error', 'Binary file (application/pdf). Cannot display.'),
-        mkLine('system', 'Hint: use `open about` or `open experience` instead.'),
-      ],
+      lines: [mkLine('success', 'Opening resume.pdf...')],
+      sideEffect: { action: { type: 'OPEN_WINDOW', id: 'resume' } },
     };
   }
 
@@ -88,8 +74,7 @@ export function parseCommand(raw: string): CommandResult {
         mkLine('output', '  open [app]      — open an app window'),
         mkLine('output', '  git log         — work history as commits'),
         mkLine('output', '  man ryan        — the manual page'),
-        mkLine('output', '  sudo hire-me    — easter egg'),
-        mkLine('output', '  cat resume.pdf  — try it'),
+        mkLine('output', '  cat resume.pdf  — open resume'),
         mkLine('output', '  clear           — clear terminal'),
       ],
     };

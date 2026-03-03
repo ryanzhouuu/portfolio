@@ -30,7 +30,7 @@ export default function Experience({ inView: inViewProp, compact }: Props = {}) 
               className="relative"
             >
               {/* Timeline dot */}
-              <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-2.5 h-2.5 border border-ink bg-bg" />
+              <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-2.5 h-2.5 rounded-full bg-ink ring-2 ring-bg ring-offset-0 shadow-[0_0_0_3px_#e5e5e5]" />
 
               <div className="space-y-1.5 sm:space-y-2">
                 <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">

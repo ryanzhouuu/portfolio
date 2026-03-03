@@ -1,4 +1,4 @@
-export type WindowId = 'terminal' | 'about' | 'skills' | 'education' | 'experience' | 'projects' | 'contact';
+export type WindowId = 'terminal' | 'about' | 'skills' | 'education' | 'experience' | 'projects' | 'contact' | 'resume';
 
 export interface WindowConfig {
   id: WindowId;
@@ -31,4 +31,5 @@ export const WINDOW_CONFIGS: WindowConfig[] = [
   { id: 'experience', title: 'experience.tsx', defaultWidth: 740, defaultHeight: 560, icon: '//'  },
   { id: 'projects',   title: 'projects.tsx',   defaultWidth: 920, defaultHeight: 620, icon: '<>'  },
   { id: 'contact',    title: 'contact.tsx',    defaultWidth: 680, defaultHeight: 520, icon: '@'   },
+  { id: 'resume',     title: 'resume.pdf',     defaultWidth: 800, defaultHeight: 640, icon: 'PDF' },
 ];

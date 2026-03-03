@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import MenuBar from './MenuBar';
 import DesktopBackground from './DesktopBackground';
@@ -12,20 +12,7 @@ export default function DesktopShell() {
   const [booted, setBooted] = useState(false);
   const [showBoot, setShowBoot] = useState(true);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const alreadyBooted = localStorage.getItem('portfolio-booted');
-      if (alreadyBooted) {
-        setShowBoot(false);
-        setBooted(true);
-      }
-    }
-  }, []);
-
   const handleBootComplete = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('portfolio-booted', '1');
-    }
     setBooted(true);
     setTimeout(() => setShowBoot(false), 400);
   }, []);

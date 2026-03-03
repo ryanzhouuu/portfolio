@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowRight, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Typewriter from '@/components/ui/Typewriter';
 import { personalInfo } from '@/lib/data';
@@ -23,6 +23,22 @@ export default function Hero() {
     >
       {/* Fade-out dot grid at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg to-transparent pointer-events-none" />
+
+      {/* Scroll indicator — mobile only */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 3.5, duration: 0.8 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 lg:hidden"
+      >
+        <span className="font-mono text-[10px] text-muted/50 tracking-widest uppercase">scroll</span>
+        <motion.div
+          animate={{ y: [0, 4, 0] }}
+          transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown size={14} className="text-muted/40" strokeWidth={1.5} />
+        </motion.div>
+      </motion.div>
 
       <div className="w-full px-5 sm:px-8 lg:px-16 py-12 sm:py-16 lg:py-20 max-w-4xl">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-16 items-center">
