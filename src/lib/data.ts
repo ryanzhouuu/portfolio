@@ -68,7 +68,7 @@ export const experience = [
     period: 'Summer 2026',
     location: 'Austin, TX',
     bullets: [
-      'Incoming Summer 2026 on the Security team',
+      'Incoming Summer 2026',
     ],
   },
   {
@@ -77,9 +77,9 @@ export const experience = [
     period: 'February 2026 - Present',
     location: 'Austin, TX',
     bullets: [
-      'Managed inventory of hardware assets (phones, laptops, peripherals)',
-      'Sanitized legacy hardware for recycling or salvage, ensuring adherence to security protocols',
-      'Executed technical setups for university sporting events with critical hardware and broadcast gear'
+      'Troubleshot and resolved ~25 IT tickets weekly, addressing various hardware/software issues for employees and student athletes',
+      'Sanitized 200+ legacy hardware items for recycling or salvage, ensuring data destruction and adherence to strict security protocols',
+      'Executed setups/takedowns for university athletics events, minimizing downtime for ticketing offices, stat keepers, and equipment'
     ],
   },
   {
@@ -88,7 +88,9 @@ export const experience = [
     period: 'May 2025 - August 2025',
     location: 'Houston, TX',
     bullets: [
-      'Engineered a routing system for convolutional neural network classifiers using a decision tree trained on model performance ',
+      'Engineered a routing system for convolutional neural network classifiers with decision tree trained on model performance metrics',
+      'Reduced neural network cascade execution time by 18% by dynamically scheduling based on latency, confidence score, deadline',
+      'Fine-tuned 5 pre-trained ResNet models of varying complexity on 60,000+ images to optimize accuracy for computer vision tasks'
     ],
   }
 ];
@@ -102,14 +104,6 @@ export const projects = [
     githubUrl: 'https://github.com/vintdex',
     liveUrl: '',
   },
-  // {
-  //   title: 'In-Memory Key-Value Store',
-  //   description: 'High performance, concurrent in-memory key-value store implemented in C++.',
-  //   image: 'https://www.scylladb.com/wp-content/uploads/Key-Value-Store-diagram-1-e1644958335886.png',
-  //   technologies: ['C++', 'Concurrency', 'Sockets'],
-  //   githubUrl: 'https://github.com/ryanzhouuu/kvstore',
-  //   liveUrl: '',
-  // },
   {
     title: 'VIA',
     description: 'A mobile app used for navigation around college campuses',
@@ -125,6 +119,14 @@ export const projects = [
     technologies: ['Python', 'Pandas', 'Scikit-learn'],
     githubUrl: 'https://github.com/ryanzhouuu/nba-archetype-clustering',
     liveUrl: 'https://nba-archetype-clustering.vercel.app/',
+  },
+  {
+    title: 'CancerCareConnect',
+    description: 'Informative full-stack web app with data for cancer types, treatments, and clinics.',
+    image: '/images/cancercareconnect.png',
+    technologies: ['React', 'Flask', 'PostgreSQL'],
+    githubUrl: '',
+    liveUrl: 'https://cancercareconnect.me'
   },
   {
     title: 'Greek Mythology Visualization',
