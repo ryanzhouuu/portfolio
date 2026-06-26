@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --font-archivo: 'Archivo', system-ui, sans-serif;
   --font-jetbrains-mono: 'JetBrains Mono', monospace;
-  --font-lora: 'Lora', Georgia, serif;
 }
 
 * {
@@ -13,77 +13,368 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #030303;
 }
 
 body {
-  background-color: #fafafa;
-  color: #0d0d0d;
-  font-family: var(--font-lora);
+  background-color: #030303;
+  color: #f3f4f6;
+  font-family: var(--font-archivo);
+  font-feature-settings: 'ss01', 'cv05';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Dot-grid background */
-.dot-grid {
-  background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
-  background-size: 24px 24px;
+/* ------------------------------------------------------------------ */
+/* Display type — Archivo driven to its expanded width for a wide,     */
+/* milled-hardware nameplate. Used with restraint on the big moments.  */
+/* ------------------------------------------------------------------ */
+.font-display {
+  font-family: var(--font-archivo);
+  font-variation-settings: 'wght' 800, 'wdth' 125;
+  letter-spacing: -0.01em;
+  line-height: 0.94;
 }
 
-/* Scrollbar */
+.font-display-thin {
+  font-family: var(--font-archivo);
+  font-variation-settings: 'wght' 600, 'wdth' 118;
+  letter-spacing: -0.005em;
+}
+
+/* Small uppercase metadata labels — spec-sheet voice */
+.label {
+  font-family: var(--font-jetbrains-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.6875rem;
+  color: #747d8c;
+}
+
+/* ------------------------------------------------------------------ */
+/* Light treatments                                                    */
+/* ------------------------------------------------------------------ */
+
+/* Polished chrome lettering — silver with a bright highlight band through
+   the middle, so the name reads like milled metal catching the studio light. */
+.text-chrome-shine {
+  background-image: linear-gradient(
+    176deg,
+    #f6f8fb 0%,
+    #c4ccd6 23%,
+    #828b99 41%,
+    #ffffff 51%,
+    #b3bbc6 60%,
+    #69707d 82%,
+    #cdd4dd 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Quieter sibling of the chrome name — a vertical brushed-metal wash for
+   section headers, with a single soft highlight seam. Reads as the same
+   material as the hero name without stealing its specular blowout. */
+.text-chrome-plate {
+  background-image: linear-gradient(
+    180deg,
+    #eef1f5 0%,
+    #c4cbd5 42%,
+    #ffffff 51%,
+    #a6aebb 58%,
+    #cdd3dc 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Name revealed by a light sweep rather than pasted onto the dark */
+.text-sweep {
+  background: linear-gradient(
+    100deg,
+    #5b626f 0%,
+    #8a93a3 28%,
+    #ffffff 50%,
+    #8a93a3 72%,
+    #5b626f 100%
+  );
+  background-size: 220% 100%;
+  background-position: -120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Hairline that catches light — used as section/edge dividers */
+.edge-light {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(184, 192, 204, 0.35) 50%,
+    transparent 100%
+  );
+  height: 1px;
+}
+
+/* Desktop-only searchlight that lets the room respond to the viewer. */
+.cursor-searchlight {
+  --cursor-x: 50vw;
+  --cursor-y: 45vh;
+  --cursor-alpha: 1;
+  opacity: calc(var(--cursor-alpha) * 0.72);
+  background:
+    radial-gradient(
+      520px 380px at var(--cursor-x) var(--cursor-y),
+      rgba(234, 242, 255, 0.13),
+      rgba(184, 192, 204, 0.045) 35%,
+      transparent 72%
+    ),
+    conic-gradient(
+      from 235deg at var(--cursor-x) var(--cursor-y),
+      transparent 0deg,
+      rgba(234, 242, 255, 0.06) 22deg,
+      transparent 48deg,
+      transparent 360deg
+    );
+  mix-blend-mode: screen;
+  transition: opacity 0.35s ease;
+}
+
+.cursor-glint {
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.22), transparent 58%);
+  filter: blur(14px);
+  mix-blend-mode: screen;
+  transition: opacity 0.35s ease;
+  will-change: transform;
+}
+
+/* Long projector streaks used to make sections feel like one shared studio. */
+.projection-streak {
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(234, 242, 255, 0.02) 36%,
+    rgba(234, 242, 255, 0.11) 48%,
+    rgba(184, 192, 204, 0.035) 58%,
+    transparent 76%
+  );
+  filter: blur(1px);
+  mix-blend-mode: screen;
+}
+
+.light-cone {
+  background: conic-gradient(
+    from 210deg at 50% 0%,
+    transparent 0deg,
+    rgba(234, 242, 255, 0.11) 16deg,
+    rgba(234, 242, 255, 0.035) 29deg,
+    transparent 44deg,
+    transparent 360deg
+  );
+  filter: blur(10px);
+  mix-blend-mode: screen;
+}
+
+.light-scan {
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 43%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.04) 57%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  animation: scan-across 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.floor-reflection {
+  background:
+    linear-gradient(to bottom, rgba(234, 242, 255, 0.1), transparent 55%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 34px,
+      rgba(184, 192, 204, 0.04) 34px 35px,
+      transparent 35px 70px
+    );
+  transform: translateX(var(--floor-shift, 0)) perspective(520px) rotateX(64deg);
+  transform-origin: top;
+  filter: blur(0.2px);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 78%);
+}
+
+.atmospheric-scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+  mask-image: radial-gradient(80% 70% at 50% 38%, black, transparent 78%);
+}
+
+/* A reflective control surface for spec panels and plaques */
+.surface {
+  background: linear-gradient(160deg, rgba(29, 32, 38, 0.6) 0%, rgba(8, 9, 11, 0.6) 100%);
+  border: 1px solid rgba(116, 125, 140, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(243, 244, 246, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.surface-hover {
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.surface-hover:hover {
+  border-color: rgba(184, 192, 204, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(243, 244, 246, 0.08),
+    0 0 50px -20px rgba(234, 242, 255, 0.4);
+}
+
+/* Dust in the studio air — slow motes rising through the light. Each mote's
+   position, size and timing are set inline; this only defines the drift and
+   the soft fade in/out so there's no hard reset when the cycle loops. */
+.mote {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(226, 238, 255, 0.6) 42%,
+    rgba(226, 238, 255, 0) 78%
+  );
+  opacity: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 4px rgba(234, 242, 255, 0.6));
+  animation: mote-rise linear infinite;
+}
+@keyframes mote-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  18% {
+    opacity: var(--mote-o, 0.3);
+  }
+  82% {
+    opacity: var(--mote-o, 0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--mote-x, 0), -190px, 0);
+  }
+}
+
+/* Spotlight glow used behind the active gallery piece */
+.spot-glow {
+  background: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(234, 242, 255, 0.26) 0%,
+    rgba(234, 242, 255, 0.09) 35%,
+    transparent 70%
+  );
+  animation: beam-breathe 5.6s ease-in-out infinite;
+}
+
+@keyframes scan-across {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%) skewX(-12deg);
+  }
+  18% {
+    opacity: 0.86;
+  }
+  56% {
+    opacity: 0.28;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(220%) skewX(-12deg);
+  }
+}
+
+@keyframes beam-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.035);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Chrome / focus / scrollbar                                          */
+/* ------------------------------------------------------------------ */
+
+::selection {
+  background: rgba(234, 242, 255, 0.85);
+  color: #030303;
+}
+
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #fafafa;
+  background: #030303;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
-  border-radius: 2px;
+  background: #1d2026;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2e36;
 }
 
-/* Scrolling ticker pause on hover */
-.ticker-wrapper:hover .ticker-track {
-  animation-play-state: paused;
+/* Visible, on-theme keyboard focus */
+:focus-visible {
+  outline: 1px solid rgba(234, 242, 255, 0.7);
+  outline-offset: 3px;
+  border-radius: 1px;
 }
 
-/* Underline draw animation */
-.underline-draw {
+/* Underline that draws in on hover for quiet text links */
+.link-underline {
   position: relative;
 }
-.underline-draw::after {
+.link-underline::after {
   content: '';
   position: absolute;
   bottom: -2px;
   left: 0;
   width: 0;
   height: 1px;
-  background-color: currentColor;
-  transition: width 0.3s ease;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.underline-draw:hover::after {
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
   width: 100%;
 }
 
-/* Selection */
-::selection {
-  background: #0d0d0d;
-  color: #fafafa;
-}
-
-/* Terminal scrollbar */
-.terminal-window::-webkit-scrollbar {
-  width: 4px;
-}
-.terminal-window::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-.terminal-window::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 2px;
-}
-
-/* Window shadow */
-.window-shadow {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+/* ------------------------------------------------------------------ */
+/* Reduced motion — keep static spotlight states, drop the movement    */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

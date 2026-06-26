@@ -8,41 +8,52 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['var(--font-jetbrains-mono)', 'monospace'],
-        serif: ['var(--font-lora)', 'Georgia', 'serif'],
+        sans: ['var(--font-archivo)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'monospace'],
       },
       colors: {
-        bg: '#fafafa',
-        ink: '#0d0d0d',
-        border: '#e5e5e5',
-        muted: '#6b7280',
-        subtle: '#f3f3f3',
-        'terminal-bg': '#0d0d0d',
-        'terminal-fg': '#e5e5e5',
-        'terminal-border': '#333333',
+        // Dark cinematic showroom palette
+        void: '#030303',
+        nearblack: '#08090b',
+        graphite: '#121418',
+        metal: '#1d2026',
+        steel: '#747d8c',
+        silver: '#b8c0cc',
+        chrome: '#f3f4f6',
+        // Light accents — read as reflections, not UI decoration
+        spotlight: '#eaf2ff',
+        champagne: '#e8d9b5',
+      },
+      letterSpacing: {
+        widest2: '0.28em',
+      },
+      transitionTimingFunction: {
+        // Slow, expensive, deliberate
+        cinematic: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
       animation: {
-        'scroll-left': 'scrollLeft 30s linear infinite',
-        'fade-up': 'fadeUp 0.6s ease-out forwards',
-        'slide-in': 'slideIn 0.3s ease-out forwards',
-        'blink': 'blink 1s step-end infinite',
+        'sweep': 'sweep 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'reveal': 'reveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'glow-pulse': 'glowPulse 6s ease-in-out infinite',
+        'drift': 'drift 24s ease-in-out infinite',
       },
       keyframes: {
-        scrollLeft: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
+        // Light sweep that wipes across a masked headline
+        sweep: {
+          '0%': { backgroundPosition: '-120% 0' },
+          '100%': { backgroundPosition: '120% 0' },
         },
-        fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+        reveal: {
+          '0%': { opacity: '0', transform: 'translateY(18px)', filter: 'blur(6px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
         },
-        slideIn: {
-          '0%': { transform: 'translateX(-8px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)', opacity: '1' },
+        glowPulse: {
+          '0%, 100%': { opacity: '0.5' },
+          '50%': { opacity: '0.85' },
         },
-        blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
+        drift: {
+          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
+          '50%': { transform: 'translate3d(-1.5%, 1%, 0) scale(1.03)' },
         },
       },
     },
