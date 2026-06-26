@@ -1,71 +1,29 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { DesktopProvider } from '@/context/DesktopContext';
-import DesktopShell from '@/components/desktop/DesktopShell';
-import Sidebar from '@/components/layout/Sidebar';
-import MobileNav from '@/components/layout/MobileNav';
-import Hero from '@/components/sections/Hero';
-import About from '@/components/sections/About';
-import Education from '@/components/sections/Education';
-import Experience from '@/components/sections/Experience';
-import Projects from '@/components/sections/Projects';
-import Skills from '@/components/sections/Skills';
-import Contact from '@/components/sections/Contact';
+import Atmosphere from '@/components/site/Atmosphere';
+import CursorLight from '@/components/site/CursorLight';
+import DustMotes from '@/components/site/DustMotes';
+import Nav from '@/components/site/Nav';
+import Hero from '@/components/site/Hero';
+import ProjectGallery from '@/components/site/ProjectGallery';
+import Experience from '@/components/site/Experience';
+import About from '@/components/site/About';
+import Education from '@/components/site/Education';
+import Contact from '@/components/site/Contact';
 
 export default function Home() {
-  const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    function checkViewport() {
-      setIsDesktop(window.innerWidth >= 1024);
-    }
-    checkViewport();
-    setMounted(true);
-    window.addEventListener('resize', checkViewport);
-    return () => window.removeEventListener('resize', checkViewport);
-  }, []);
-
-  // Prevent body scroll on desktop
-  useEffect(() => {
-    if (mounted && isDesktop) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [mounted, isDesktop]);
-
-  // Pre-mount: blank screen (boot screen covers desktop, mobile shows nothing briefly)
-  if (!mounted) {
-    return <div className="min-h-screen bg-bg" />;
-  }
-
-  if (isDesktop) {
-    return (
-      <DesktopProvider>
-        <DesktopShell />
-      </DesktopProvider>
-    );
-  }
-
-  // Mobile: original scroll layout
   return (
-    <div className="bg-bg min-h-screen">
-      <Sidebar />
-      <MobileNav />
-      <main className="lg:ml-56 pt-14 lg:pt-0">
+    <>
+      <Atmosphere />
+      <CursorLight />
+      <DustMotes />
+      <Nav />
+      <main className="relative">
         <Hero />
-        <About />
-        <Skills />
-        <Education />
+        <ProjectGallery />
         <Experience />
-        <Projects />
+        <About />
+        <Education />
         <Contact />
       </main>
-    </div>
+    </>
   );
 }
