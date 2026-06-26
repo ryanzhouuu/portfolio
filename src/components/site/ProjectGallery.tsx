@@ -36,7 +36,7 @@ export default function ProjectGallery() {
             <span className="text-silver">01</span> — Selected Work
           </p>
           <h2 className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
-            Some Projects
+            Projects
           </h2>
           <p className="mt-5 max-w-md text-base leading-relaxed text-steel">
             Some of the cool things I&apos;ve built. Feel free to explore and learn
@@ -50,12 +50,13 @@ export default function ProjectGallery() {
             aria-hidden
             className="pointer-events-none absolute -left-10 -right-10 top-[-4rem] h-[34rem] overflow-hidden"
           >
-            <div className="light-cone absolute left-[var(--stage-x)] top-0 h-[34rem] w-[32rem] -translate-x-1/2 opacity-90" />
+            <div className="light-cone absolute left-[var(--stage-x)] top-0 h-[34rem] w-[32rem] -translate-x-1/2 opacity-90 [will-change:left]" />
             <div className="projection-streak absolute left-[12%] top-[45%] h-28 w-[85%] -rotate-3 opacity-50" />
           </div>
 
           {/* Index */}
-          <ul className="lg:col-span-4">
+          <div className="relative lg:col-span-4">
+            <ul className="overflow-y-auto max-h-[min(32rem,65vh)] scrollbar-none">
             {projects.map((p, i) => {
               const selected = i === active;
               return (
@@ -67,7 +68,7 @@ export default function ProjectGallery() {
                     href={`/projects/${p.slug}`}
                     onMouseEnter={() => setActive(i)}
                     onFocus={() => setActive(i)}
-                    className={`group relative flex items-baseline gap-4 py-5 transition-colors duration-500 ease-cinematic ${
+                    className={`group relative flex items-baseline gap-4 py-3 transition-colors duration-500 ease-cinematic ${
                       selected ? "pl-3" : "pl-0"
                     }`}
                   >
@@ -86,7 +87,7 @@ export default function ProjectGallery() {
                     </span>
                     <span className="flex-1">
                       <span
-                        className={`font-display-thin block text-2xl leading-tight transition-all duration-500 ease-cinematic ${
+                        className={`font-display-thin block text-xl leading-tight transition-all duration-500 ease-cinematic ${
                           selected
                             ? "translate-x-1 text-chrome"
                             : "text-steel group-hover:text-silver"
@@ -114,7 +115,10 @@ export default function ProjectGallery() {
                 </li>
               );
             })}
-          </ul>
+            </ul>
+            {/* fade hint for scrollable overflow */}
+            <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-void to-transparent" />
+          </div>
 
           {/* Stage */}
           <div className="lg:col-span-8">
@@ -135,15 +139,21 @@ export default function ProjectGallery() {
                 aria-label={`Open ${current.title}`}
               >
                 <div className="surface surface-hover relative aspect-[16/10] overflow-hidden rounded-sm bg-graphite shadow-[0_35px_120px_-55px_rgba(234,242,255,0.75)]">
-                  <AnimatePresence mode="wait">
+                  <AnimatePresence mode="sync">
                     <motion.div
                       key={current.slug}
                       initial={
-                        reduce ? { opacity: 0 } : { opacity: 0, scale: 1.03 }
+                        reduce ? { opacity: 0 } : { opacity: 0, scale: 1.015 }
                       }
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: reduce ? 0.3 : 0.8, ease }}
+                      animate={{
+                        opacity: 1,
+                        scale: 1,
+                        transition: { duration: reduce ? 0.25 : 0.4, ease },
+                      }}
+                      exit={{
+                        opacity: 0,
+                        transition: { duration: 0.2, ease: [0.4, 0, 1, 1] },
+                      }}
                       className="absolute inset-0 flex items-center justify-center p-6"
                     >
                       <Image
@@ -156,6 +166,8 @@ export default function ProjectGallery() {
                       />
                     </motion.div>
                   </AnimatePresence>
+                  {/* scan line sweeps on every project change */}
+                  <div key={current.slug + "-scan"} aria-hidden className="scan-line" />
                   <div
                     aria-hidden
                     className="pointer-events-none absolute inset-0 bg-[radial-gradient(65%_55%_at_50%_34%,transparent_0%,transparent_55%,rgba(3,3,3,0.68)_100%)]"
@@ -196,13 +208,12 @@ export default function ProjectGallery() {
               </Link>
 
               {/* metadata, in the dark below the stage */}
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="sync">
                 <motion.div
                   key={current.slug}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { duration: 0.3, delay: 0.1 } }}
+                  exit={{ opacity: 0, transition: { duration: 0.15 } }}
                   className="relative z-10 mt-8 flex flex-wrap items-end justify-between gap-6"
                 >
                   <div className="max-w-md">
