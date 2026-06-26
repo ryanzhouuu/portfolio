@@ -5,8 +5,7 @@ const nextConfig = {
   ...(process.env.NODE_ENV === 'production' && {
     output: 'export',
     trailingSlash: true,
-    // Custom domain (ryanzhou.me) serves at root — no basePath needed.
-    // If you switch back to ryanzhouuu.github.io/portfolio, set basePath: '/portfolio'.
+    basePath: '/portfolio',
   }),
   images: {
     unoptimized: true,
