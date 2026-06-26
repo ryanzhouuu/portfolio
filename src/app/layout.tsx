@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Archivo } from "next/font/google";
-// @ts-ignore: global CSS import lacks module type declarations in this setup
+// @ts-expect-error: global CSS import lacks module type declarations in this setup
 import "./globals.css";
 
 // Archivo carries a real width axis (62–125). We load it once and drive the

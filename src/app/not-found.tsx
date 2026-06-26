@@ -17,7 +17,7 @@ export default function NotFound() {
             No surface.
           </h1>
           <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-steel">
-            This route doesn't exist. Head back to the showroom.
+            This route doesn&apos;t exist. Head back to the showroom.
           </p>
           <Link
             href="/"
