@@ -31,7 +31,7 @@ export default function Experience() {
             <span className="text-silver">02</span> — Experience
           </p>
           <h2 className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
-            Caught by light.
+            Work Experience
           </h2>
         </Reveal>
 
