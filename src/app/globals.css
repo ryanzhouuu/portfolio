@@ -179,6 +179,23 @@ body {
   );
   filter: blur(10px);
   mix-blend-mode: screen;
+  transition: left 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scan-down {
+  0%   { top: -1%; opacity: 0.85; }
+  100% { top: 102%; opacity: 0; }
+}
+
+.scan-line {
+  position: absolute;
+  inset-inline: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(234, 242, 255, 0.55) 40%, rgba(234, 242, 255, 0.9) 50%, rgba(234, 242, 255, 0.55) 60%, transparent 100%);
+  filter: blur(1px);
+  pointer-events: none;
+  z-index: 20;
+  animation: scan-down 0.5s ease-in forwards;
 }
 
 .light-scan {
@@ -335,6 +352,13 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #2a2e36;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 /* Visible, on-theme keyboard focus */

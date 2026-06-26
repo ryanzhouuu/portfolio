@@ -9,14 +9,14 @@ export default function CursorLight() {
   const beamRef = useRef<HTMLDivElement>(null);
   const glintRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<number | null>(null);
-  const [enabled, setEnabled] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches
-  );
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
     if (reduce) return;
 
     const finePointer = window.matchMedia('(pointer: fine)');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setEnabled(finePointer.matches);
     const onMediaChange = (e: MediaQueryListEvent) => setEnabled(e.matches);
     finePointer.addEventListener('change', onMediaChange);
 
