@@ -47,7 +47,7 @@ export default function Contact() {
 
           <Reveal delay={0.1}>
             <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-steel">
-              Open to software engineering internships and good problems. The fastest signal is email.
+              Open to software engineering internships or any cool problems.
             </p>
           </Reveal>
 

@@ -14,7 +14,7 @@ export default function About() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <Reveal>
           <p className="label mb-5">
-            <span className="text-silver">03</span> — About
+            <span className="text-silver">04</span> — About
           </p>
         </Reveal>
 
@@ -38,7 +38,7 @@ export default function About() {
               </div>
             </div>
             <h2 className="font-display mt-8 max-w-md text-[clamp(1.75rem,4vw,2.75rem)] text-chrome-plate">
-              Built end to end.
+              A little bit about me
             </h2>
             <p className="mt-5 max-w-md text-base leading-relaxed text-silver">{personalInfo.bio}</p>
           </Reveal>
