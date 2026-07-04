@@ -50,13 +50,18 @@ export default function Education() {
                 </h3>
                 <p className="mt-2 text-base text-silver">{primary.degree}</p>
 
-                <ul className="mt-6 flex flex-wrap gap-x-3 gap-y-2">
-                  {primary.details.map((d) => (
+                <ul className="mt-6 border-t border-metal/30">
+                  {primary.courses.map((course, i) => (
                     <li
-                      key={d}
-                      className="border border-champagne/20 bg-champagne/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-champagne/80"
+                      key={course.code + course.name}
+                      className={`flex items-baseline gap-5 px-2 py-2.5 transition-colors duration-300 hover:bg-champagne/[0.04] ${
+                        i === primary.courses.length - 1 ? '' : 'border-b border-metal/30'
+                      }`}
                     >
-                      {d}
+                      <span className="w-16 shrink-0 font-mono text-[10px] uppercase tracking-widest2 text-champagne/80">
+                        {course.code}
+                      </span>
+                      <span className="text-sm text-silver">{course.name}</span>
                     </li>
                   ))}
                 </ul>
