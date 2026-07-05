@@ -52,13 +52,14 @@ export const education = [
     degree: "B.S. Computer Science & B.S. Economics",
     period: "2024 – 2028",
     gpa: "4.00 / 4.00",
-    details: [
-      "Data Structures",
-      "Software Engineering",
-      "Operating Systems",
-      "Computer Architecture",
-      "Artificial Intelligence",
-      "Algorithms",
+    courses: [
+      { code: "CS439", name: "Operating Systems" },
+      { code: "CS373", name: "Software Engineering" },
+      { code: "CS429", name: "Computer Architecture" },
+      { code: "CS343", name: "Artificial Intelligence" },
+      { code: "CS331", name: "Algorithms" },
+      { code: "CS314", name: "Data Structures" },
+      { code: "CS311", name: "Discrete Mathematics" },
     ],
     banner: "/images/banner.jpg",
   },
@@ -68,6 +69,7 @@ export const education = [
     period: "2020 – 2024",
     gpa: "4.72 W / 4.0 UW",
     details: ["National Merit Scholar", "AP Scholar with Distinction"],
+    courses: [] as { code: string; name: string }[],
   },
 ];
 
