@@ -1,22 +1,103 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { animate, createScope, createTimeline, onScroll, splitText, stagger } from 'animejs';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 export default function Hero() {
-  const reduce = useReducedMotion();
+  const rootRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!rootRef.current) return;
+
+    const scope = createScope({
+      root: rootRef,
+      mediaQueries: { reduceMotion: '(prefers-reduced-motion: reduce)' },
+    }).add((self) => {
+      if (self?.matches.reduceMotion || !rootRef.current) return;
+
+      const name = rootRef.current.querySelector<HTMLElement>('[data-hero-name]');
+      if (!name) return;
+
+      const split = splitText(name, {
+        chars: { wrap: 'clip', class: 'cinematic-char' },
+        includeSpaces: true,
+        accessible: true,
+      });
+
+      createTimeline({ defaults: { ease: 'out(4)' } })
+        .add('[data-hero-label]', { opacity: [0, 1], x: [-16, 0], duration: 700 }, 80)
+        .add(split.chars, {
+          opacity: [0, 1],
+          y: ['88%', '0%'],
+          filter: ['blur(10px)', 'blur(0px)'],
+          duration: 920,
+          delay: stagger(38),
+        }, 180)
+        .add('[data-hero-sweep]', {
+          opacity: [0, 1, 0],
+          x: ['-160%', '340%'],
+          duration: 1500,
+          ease: 'inOut(3)',
+        }, 520)
+        .add('[data-hero-copy]', { opacity: [0, 1], y: [18, 0], duration: 820 }, 760)
+        .add('[data-hero-actions]', { opacity: [0, 1], y: [16, 0], duration: 820 }, 900)
+        .add('[data-hero-scroll]', { opacity: [0, 1], y: [-5, 0], duration: 700 }, 1280);
+
+      animate('[data-hero-chrome]', {
+        y: [0, 72],
+        scale: [1, 1.035],
+        ease: 'linear',
+        autoplay: onScroll({
+          target: rootRef.current,
+          enter: 'top top',
+          leave: 'bottom top',
+          sync: 0.15,
+        }),
+      });
+
+      animate('[data-hero-cone]', {
+        y: [0, 120],
+        x: [0, 36],
+        opacity: [0.7, 0.18],
+        ease: 'linear',
+        autoplay: onScroll({
+          target: rootRef.current,
+          enter: 'top top',
+          leave: 'bottom top',
+          sync: 0.18,
+        }),
+      });
+
+      animate('[data-hero-streak]', {
+        x: [0, 110],
+        opacity: [0.45, 0.08],
+        ease: 'linear',
+        autoplay: onScroll({
+          target: rootRef.current,
+          enter: 'top top',
+          leave: 'bottom top',
+          sync: 0.12,
+        }),
+      });
+
+      return () => split.revert();
+    });
+
+    return () => scope.revert();
+  }, []);
 
   return (
     <section
+      ref={rootRef}
       id="top"
       className="relative flex min-h-[100svh] items-center overflow-hidden"
     >
       {/* Chrome form, off to the right — the object emerging from darkness */}
       <div
+        data-hero-chrome
         aria-hidden
         className="pointer-events-none absolute inset-y-0 right-0 w-full bg-cover bg-right bg-no-repeat opacity-90 lg:w-[68%]"
         style={{ backgroundImage: `url(${withBasePath('/images/backgrounds/chrome-negative-left.png')})` }}
@@ -27,62 +108,50 @@ export default function Hero() {
         className="absolute inset-0 bg-gradient-to-r from-void via-void/95 to-transparent lg:via-void/70"
       />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-void/40" />
-      <div aria-hidden className="light-cone absolute left-[18%] top-0 h-[64vh] w-[34rem] -translate-x-1/2 opacity-70" />
-      <div aria-hidden className="projection-streak absolute left-[-20%] top-[22%] h-40 w-[115%] -rotate-6 opacity-45" />
+      <div data-hero-cone aria-hidden className="light-cone absolute left-[18%] top-0 h-[64vh] w-[34rem] -translate-x-1/2 opacity-70" />
+      <div data-hero-streak aria-hidden className="projection-streak absolute left-[-20%] top-[22%] h-40 w-[115%] -rotate-6 opacity-45" />
       <div aria-hidden className="floor-reflection absolute bottom-[-7rem] left-1/2 h-56 w-[90%] opacity-35 [--floor-shift:-50%]" />
 
       <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="max-w-2xl py-28">
-          <motion.p
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.1 }}
+          <p
+            data-hero-label
             className="label mb-7 flex items-center gap-3"
           >
             <span className="inline-block h-px w-8 bg-steel/60" />
             Software Engineer · Austin, TX
-          </motion.p>
+          </p>
 
           {/* Name, revealed by a sweep of light. No overflow clip here — the
               sweep's own soft gradient + blur fade it out, and it travels far
               enough to clear the name entirely on both ends. */}
           <div className="relative inline-block pb-2 pr-1">
-            <motion.h1
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 1.1, ease, delay: 0.2 }}
-              className="font-display text-chrome-shine text-[clamp(3.25rem,12vw,8.5rem)]"
+            <h1
+              data-hero-name
+              className="font-display whitespace-nowrap text-chrome-shine text-[clamp(3.25rem,12vw,8.5rem)]"
             >
               Ryan&nbsp;Zhou
-            </motion.h1>
+            </h1>
 
-            {!reduce && (
-              <motion.span
-                aria-hidden
-                initial={{ x: '-160%', opacity: 0 }}
-                animate={{ x: '340%', opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 1.6, ease, delay: 0.5 }}
-                className="absolute inset-y-0 left-0 w-1/3 skew-x-[-12deg] bg-gradient-to-r from-transparent via-spotlight/70 to-transparent mix-blend-screen blur-md"
-              />
-            )}
+            <span
+              data-hero-sweep
+              aria-hidden
+              className="absolute inset-y-0 left-0 w-1/3 skew-x-[-12deg] bg-gradient-to-r from-transparent via-spotlight/70 to-transparent opacity-0 mix-blend-screen blur-md motion-reduce:hidden"
+            />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease, delay: 0.7 }}
+          <div
+            data-hero-copy
             className="mt-7 max-w-xl"
           >
             <p className="font-display-thin text-lg text-silver sm:text-xl">{personalInfo.title}</p>
             <p className="mt-4 text-base leading-relaxed text-steel sm:text-lg">
               {personalInfo.positioning}
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease, delay: 0.85 }}
+          <div
+            data-hero-actions
             className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5"
           >
             <a
@@ -104,25 +173,20 @@ export default function Hero() {
                 <Mail size={18} strokeWidth={1.5} />
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.4 }}
+      <div
+        data-hero-scroll
         className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
       >
         <span className="label !tracking-widest2 text-[10px]">Scroll</span>
-        <motion.span
-          animate={reduce ? {} : { y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-        >
+        <span className="scroll-cue-arrow motion-reduce:animate-none">
           <ArrowDown size={14} className="text-steel/60" strokeWidth={1.5} />
-        </motion.span>
-      </motion.div>
+        </span>
+      </div>
     </section>
   );
 }

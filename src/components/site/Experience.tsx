@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { experience } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
+import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -30,9 +31,9 @@ export default function Experience() {
           <p className="label mb-5">
             <span className="text-silver">02</span> — Experience
           </p>
-          <h2 className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
+          <CinematicHeading className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
             Work Experience
-          </h2>
+          </CinematicHeading>
         </Reveal>
 
         {/* The beam: a thin vertical light rail with plaques along it */}

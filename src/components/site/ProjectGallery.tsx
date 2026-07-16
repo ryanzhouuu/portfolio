@@ -1,25 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import { animate, createScope, spring, stagger, utils } from "animejs";
 import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { projects } from "@/lib/data";
 import { withBasePath } from "@/lib/basePath";
+import CinematicHeading from "./CinematicHeading";
 import Reveal from "./Reveal";
 
-const ease = [0.16, 1, 0.3, 1] as const;
 const pad = (n: number) => String(n + 1).padStart(2, "0");
+const stagePosition = (index: number) => 28 + (index / Math.max(projects.length - 1, 1)) * 44;
 
 export default function ProjectGallery() {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const scopeRef = useRef<ReturnType<typeof createScope> | null>(null);
   const current = projects[active];
   const stageStyle = {
-    "--stage-x": `${28 + (active / Math.max(projects.length - 1, 1)) * 44}%`,
+    "--stage-x": `${stagePosition(0)}%`,
   } as CSSProperties;
+
+  useEffect(() => {
+    if (!stageRef.current) return;
+
+    scopeRef.current = createScope({ root: stageRef }).add((self) => {
+      if (!self || !stageRef.current) return;
+
+      self.add("calibrate", (position: number, initial = false) => {
+        if (!stageRef.current) return;
+
+        if (reduce) {
+          utils.set(stageRef.current, { "--stage-x": `${position}%` });
+          return;
+        }
+
+        animate(stageRef.current, {
+          "--stage-x": `${position}%`,
+          duration: initial ? 0 : 720,
+          ease: "out(4)",
+        });
+
+        animate("[data-project-preview]", {
+          opacity: [0, 1],
+          scale: [1.025, 1],
+          filter: ["brightness(1.35) blur(4px)", "brightness(1) blur(0px)"],
+          ease: spring({ bounce: 0.08, duration: 620 }),
+        });
+
+        animate("[data-project-meta] > *", {
+          opacity: [0, 1],
+          y: [12, 0],
+          duration: 620,
+          delay: stagger(58),
+          ease: "out(4)",
+        });
+
+      });
+
+      self.methods.calibrate(stagePosition(0), true);
+    });
+
+    return () => {
+      scopeRef.current?.revert();
+      scopeRef.current = null;
+    };
+  }, [reduce]);
+
+  useEffect(() => {
+    scopeRef.current?.methods.calibrate(stagePosition(active));
+  }, [active, reduce]);
 
   return (
     <section id="work" className="relative scroll-mt-20 overflow-hidden py-28 lg:py-36">
@@ -35,9 +89,9 @@ export default function ProjectGallery() {
           <p className="label mb-5">
             <span className="text-silver">01</span> — Selected Work
           </p>
-          <h2 className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
+          <CinematicHeading className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
             Projects
-          </h2>
+          </CinematicHeading>
           <p className="mt-5 max-w-md text-base leading-relaxed text-steel">
             Some of the cool things I&apos;ve built. Feel free to explore and learn
             more.
@@ -45,7 +99,7 @@ export default function ProjectGallery() {
         </Reveal>
 
         {/* ---- Desktop: exhibit index + spotlit stage ---- */}
-        <div className="relative mt-16 hidden gap-12 lg:grid lg:grid-cols-12" style={stageStyle}>
+        <div ref={stageRef} className="relative mt-16 hidden gap-12 lg:grid lg:grid-cols-12" style={stageStyle}>
           <div
             aria-hidden
             className="pointer-events-none absolute -left-10 -right-10 top-[-4rem] h-[34rem] overflow-hidden"
@@ -139,21 +193,9 @@ export default function ProjectGallery() {
                 aria-label={`Open ${current.title}`}
               >
                 <div className="surface surface-hover relative aspect-[16/10] overflow-hidden rounded-sm bg-graphite shadow-[0_35px_120px_-55px_rgba(234,242,255,0.75)]">
-                  <AnimatePresence mode="sync">
-                    <motion.div
+                    <div
+                      data-project-preview
                       key={current.slug}
-                      initial={
-                        reduce ? { opacity: 0 } : { opacity: 0, scale: 1.015 }
-                      }
-                      animate={{
-                        opacity: 1,
-                        scale: 1,
-                        transition: { duration: reduce ? 0.25 : 0.4, ease },
-                      }}
-                      exit={{
-                        opacity: 0,
-                        transition: { duration: 0.2, ease: [0.4, 0, 1, 1] },
-                      }}
                       className="absolute inset-0 flex items-center justify-center p-6"
                     >
                       <Image
@@ -164,8 +206,7 @@ export default function ProjectGallery() {
                         className="object-contain p-6"
                         priority={active === 0}
                       />
-                    </motion.div>
-                  </AnimatePresence>
+                    </div>
                   {/* scan line sweeps on every project change */}
                   <div key={current.slug + "-scan"} aria-hidden className="scan-line" />
                   <div
@@ -181,7 +222,8 @@ export default function ProjectGallery() {
                     className="pointer-events-none absolute inset-x-8 bottom-5 h-px bg-gradient-to-r from-transparent via-spotlight/50 to-transparent"
                   />
                   <div className="absolute left-5 top-5 border border-silver/20 bg-void/40 px-3 py-2 font-mono text-[10px] uppercase tracking-widest2 text-silver backdrop-blur-sm">
-                    Exhibit {pad(active)}
+                    <span className="sr-only">Exhibit {pad(active)}</span>
+                    <span data-exhibit-label aria-hidden>Exhibit {pad(active)}</span>
                   </div>
                   {/* top edge highlight */}
                   <div
@@ -208,12 +250,9 @@ export default function ProjectGallery() {
               </Link>
 
               {/* metadata, in the dark below the stage */}
-              <AnimatePresence mode="sync">
-                <motion.div
+                <div
+                  data-project-meta
                   key={current.slug}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { duration: 0.3, delay: 0.1 } }}
-                  exit={{ opacity: 0, transition: { duration: 0.15 } }}
                   className="relative z-10 mt-8 flex flex-wrap items-end justify-between gap-6"
                 >
                   <div className="max-w-md">
@@ -274,8 +313,7 @@ export default function ProjectGallery() {
                       />
                     </Link>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                </div>
             </div>
           </div>
         </div>
@@ -294,6 +332,7 @@ export default function ProjectGallery() {
                     fill
                     sizes="100vw"
                     className="object-contain p-5"
+                    priority={i === 0}
                   />
                   <div aria-hidden className="light-scan pointer-events-none absolute inset-y-0 left-0 w-1/2 opacity-25" />
                   <div

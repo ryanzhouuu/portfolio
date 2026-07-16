@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { personalInfo, skills } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
+import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
 
 export default function About() {
@@ -37,9 +38,9 @@ export default function About() {
                 <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-silver/40 to-transparent" />
               </div>
             </div>
-            <h2 className="font-display mt-8 max-w-md text-[clamp(1.75rem,4vw,2.75rem)] text-chrome-plate">
+            <CinematicHeading className="font-display mt-8 max-w-md text-[clamp(1.75rem,4vw,2.75rem)] text-chrome-plate">
               A little bit about me
-            </h2>
+            </CinematicHeading>
             <p className="mt-5 max-w-md text-base leading-relaxed text-silver">{personalInfo.bio}</p>
           </Reveal>
 

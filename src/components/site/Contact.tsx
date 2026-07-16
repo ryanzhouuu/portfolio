@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 import { personalInfo } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
+import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -38,11 +39,11 @@ export default function Contact() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <h2 className="font-display text-[clamp(2.25rem,7vw,5rem)] text-chrome-plate">
+            <CinematicHeading className="font-display text-[clamp(2.25rem,7vw,5rem)] text-chrome-plate">
               Let&apos;s build
               <br />
               something.
-            </h2>
+            </CinematicHeading>
           </Reveal>
 
           <Reveal delay={0.1}>
