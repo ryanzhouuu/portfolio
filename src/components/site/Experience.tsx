@@ -32,7 +32,7 @@ export default function Experience() {
             <span className="text-silver">02</span> — Experience
           </p>
           <CinematicHeading className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
-            Work Experience
+            Experience
           </CinematicHeading>
         </Reveal>
 

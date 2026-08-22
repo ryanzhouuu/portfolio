@@ -41,6 +41,7 @@ export const skills = [
       "Vercel",
       "Cursor",
       "Claude Code",
+      "Codex",
       "VSCode",
     ],
   },
@@ -75,10 +76,18 @@ export const education = [
 
 export const experience = [
   {
+    company: "The University of Texas at Austin",
+    logo: "/images/logos/texas-longhorns-neon.jpg",
+    role: "Undergraduate Teaching Assistant",
+    period: "Aug 2026 - Present",
+    location: "Austin, TX",
+    bullets: ["UGCA for CS311: Discrete Mathematics for Computer Science."],
+  },
+  {
     company: "Amazon",
     logo: "/images/logos/amazon-logo.png",
     role: "Software Development Engineer Intern",
-    period: "May 2026 - Present",
+    period: "May - July 2026",
     location: "Austin, TX",
     bullets: [
       "Designed a self-service admin tool to replace manual console-based admin workflows, reducing average operation time by 60%",
@@ -90,7 +99,7 @@ export const experience = [
     company: "Texas Athletics",
     logo: "/images/logos/texas-longhorns-neon.jpg",
     role: "Student Technician",
-    period: "Feb – May 2026",
+    period: "February – May 2026",
     location: "Austin, TX",
     bullets: [
       "Troubleshot and resolved ~25 IT tickets weekly across hardware and software issues for staff and student athletes.",
@@ -101,8 +110,8 @@ export const experience = [
   {
     company: "University of Houston",
     logo: "/images/logos/university-of-houston-logo.png",
-    role: "Undergraduate Researcher",
-    period: "May 2025 – Aug 2025",
+    role: "Research Intern",
+    period: "May 2025 – July 2025",
     location: "Remote",
     bullets: [
       "Engineered a routing system for CNN classifiers using a decision tree trained on model performance metrics.",
@@ -114,7 +123,7 @@ export const experience = [
     company: "JRZ Vintage",
     logo: "/images/logos/jrz-logo.png",
     role: "Founder",
-    period: "Jun 2022 - Aug 2024",
+    period: "June 2022 - August 2024",
     location: "Houston, TX",
     bullets: [
       "Scaled e-commerce business to 1250+ sales and $60K+ revenue by leveraging data-driven listing strategies and platform analytics",
@@ -137,7 +146,8 @@ export const projects: Project[] = [
   {
     slug: "suki",
     title: "Suki",
-    summary: "Anime tracker built around pairwise rankings and taste-driven recommendations.",
+    summary:
+      "Anime tracker built around pairwise rankings and taste-driven recommendations.",
     details:
       "Built a Next.js and Supabase app that pulls live anime metadata from AniList, turns head-to-head choices into ranked series with a Bradley–Terry model, and recommends what to watch next from an embedding-based taste profile. It also supports watch tracking, imports, sharing, and comparing taste with friends.",
     githubUrl: "https://github.com/ryanzhouuu/suki",
@@ -146,7 +156,8 @@ export const projects: Project[] = [
   {
     slug: "sleeper-manager",
     title: "Sleeper Manager",
-    summary: "Read-only fantasy basketball assistant for Sleeper Lock-In leagues.",
+    summary:
+      "Read-only fantasy basketball assistant for Sleeper Lock-In leagues.",
     details:
       "Built a Python decision assistant that combines Sleeper and NBA data to suggest lineup and Lock-In decisions without changing a roster. It includes projection, simulation, backtesting, replay validation, and notification workflows for turning game data into a repeatable weekly plan.",
     githubUrl: "https://github.com/ryanzhouuu/sleeper-manager",
@@ -162,7 +173,8 @@ export const projects: Project[] = [
   {
     slug: "tri-omicron",
     title: "Tri-Omicron Website",
-    summary: "Public website for Tri-Omicron, UT Austin’s computer science fraternity.",
+    summary:
+      "Public website for Tri-Omicron, UT Austin’s computer science fraternity.",
     details:
       "Built a Next.js and Tailwind site that gives the fraternity a public home for its community, events, FAQs, and contact flows. The site is structured to support recruitment, organization updates, and a distinct visual identity for the group.",
     githubUrl: "https://github.com/Tri-Omicron/website",
