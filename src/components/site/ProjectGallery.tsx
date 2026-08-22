@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { projects as allProjects, type Project } from "@/lib/data";
 import CinematicHeading from "./CinematicHeading";
 import Reveal from "./Reveal";
@@ -29,8 +30,9 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
         <div className="project-index mt-16 border-t border-metal/70" aria-label="Selected projects">
           <div className="project-index__header">
             <span className="project-index__number">No.</span>
-            <span className="project-index__title">Project</span>
-            <span className="project-index__description">Description</span>
+            <span className="project-index__identity">Project</span>
+            <span className="project-index__details">Details</span>
+            <span className="project-index__meta">Links</span>
           </div>
 
           <ul className="m-0 list-none p-0" aria-label="Selected projects">
@@ -40,12 +42,51 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                   <span className="project-index__number font-mono text-[11px] tracking-widest text-steel">
                     {pad(index)}
                   </span>
-                  <span className="project-index__title font-display-thin text-xl leading-tight text-silver sm:text-2xl">
-                    {project.title}
-                  </span>
-                  <span className="project-index__description text-sm leading-relaxed text-steel">
-                    {project.shortDescription}
-                  </span>
+
+                  <div className="project-index__identity">
+                    <h3 className="project-index__title font-display-thin text-xl leading-tight text-chrome sm:text-2xl">
+                      {project.title}
+                    </h3>
+                    <p className="project-index__summary mt-3 text-base leading-relaxed text-silver">
+                      {project.summary}
+                    </p>
+                  </div>
+
+                  <div className="project-index__details">
+                    <p className="project-index__details-label label">Details</p>
+                    <p className="project-index__details-copy text-sm leading-relaxed text-silver">
+                      {project.details}
+                    </p>
+                  </div>
+
+                  {(project.githubUrl || project.liveUrl) && (
+                    <div className="project-index__meta">
+                      <div className="project-index__actions">
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-index__action text-steel transition-colors duration-300 hover:text-chrome"
+                          >
+                            <span className="link-underline">GitHub</span>
+                            <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                          </a>
+                        )}
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="project-index__action text-steel transition-colors duration-300 hover:text-chrome"
+                          >
+                            <span className="link-underline">Live site</span>
+                            <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </article>
               </li>
             ))}
