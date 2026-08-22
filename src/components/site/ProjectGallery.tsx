@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { projects as allProjects, type Project } from "@/lib/data";
 import CinematicHeading from "./CinematicHeading";
 import Reveal from "./Reveal";
@@ -37,10 +36,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
           <ul className="m-0 list-none p-0" aria-label="Selected projects">
             {projects.map((project, index) => (
               <li key={project.slug}>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="project-index__row"
-                >
+                <article className="project-index__row">
                   <span className="project-index__number font-mono text-[11px] tracking-widest text-steel">
                     {pad(index)}
                   </span>
@@ -50,7 +46,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                   <span className="project-index__description text-sm leading-relaxed text-steel">
                     {project.shortDescription}
                   </span>
-                </Link>
+                </article>
               </li>
             ))}
           </ul>

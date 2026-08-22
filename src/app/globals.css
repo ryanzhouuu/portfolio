@@ -460,21 +460,18 @@ body {
   transition: color 180ms ease;
 }
 
-.project-index__row:hover,
-.project-index__row:focus-visible {
+.project-index__row:hover {
   color: #f3f4f6;
 }
 
-.project-index__row:hover .project-index__title,
-.project-index__row:focus-visible .project-index__title {
+.project-index__row:hover .project-index__title {
   color: #f3f4f6;
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.28em;
 }
 
-.project-index__row:hover .project-index__description,
-.project-index__row:focus-visible .project-index__description {
+.project-index__row:hover .project-index__description {
   color: #b8c0cc;
 }
 
