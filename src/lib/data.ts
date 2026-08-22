@@ -137,37 +137,35 @@ export const projects: Project[] = [
   {
     slug: "suki",
     title: "Suki",
-    summary:
-      "Anime tracker with a pairwise ranking engine and personalized recommendations.",
+    summary: "Anime tracker built around pairwise rankings and taste-driven recommendations.",
     details:
-      "Built a Next.js and Supabase app that pulls AniList data, ranks watchlists through Bradley-Terry pairwise comparisons, and generates recommendations from taste embeddings. The result is a tracker where recommendations reflect individual preferences rather than popularity.",
+      "Built a Next.js and Supabase app that pulls live anime metadata from AniList, turns head-to-head choices into ranked series with a Bradley–Terry model, and recommends what to watch next from an embedding-based taste profile. It also supports watch tracking, imports, sharing, and comparing taste with friends.",
     githubUrl: "https://github.com/ryanzhouuu/suki",
     liveUrl: "https://suki-plum.vercel.app",
   },
   {
-    slug: "vintdex",
-    title: "Vintdex",
-    summary:
-      "Price tracking and trend estimates for the vintage resale market.",
+    slug: "sleeper-manager",
+    title: "Sleeper Manager",
+    summary: "Read-only fantasy basketball assistant for Sleeper Lock-In leagues.",
     details:
-      "Built a Next.js and Supabase app that aggregates listing and sale data, normalizes it per item, and surfaces price history and trend estimates in a clean dashboard. It turns scattered resale listings into a legible market signal for buyers and sellers.",
-    githubUrl: "https://github.com/vintdex",
+      "Built a Python decision assistant that combines Sleeper and NBA data to suggest lineup and Lock-In decisions without changing a roster. It includes projection, simulation, backtesting, replay validation, and notification workflows for turning game data into a repeatable weekly plan.",
+    githubUrl: "https://github.com/ryanzhouuu/sleeper-manager",
+  },
+  {
+    slug: "dynamic-routing-engine",
+    title: "Adaptive Vision Router",
+    summary: "Latency-aware routing across an ensemble of image classifiers.",
+    details:
+      "Built a Python routing engine that chooses the next image classifier using confidence, latency, and deadline signals. The repository includes static and trained routing policies, profiling and evaluation workflows, and a CLI for training and comparing cascade behavior.",
+    githubUrl: "https://github.com/ryanzhouuu/dynamic-routing-engine",
   },
   {
     slug: "tri-omicron",
     title: "Tri-Omicron Website",
-    summary: "Landing page for UT Austin’s top CS fraternity.",
+    summary: "Public website for Tri-Omicron, UT Austin’s computer science fraternity.",
     details:
-      "Built a statically rendered Next.js and Tailwind site with a distinct visual identity designed to load fast and stay easy to update semester over semester. The result is a polished public presence for recruitment, sponsors, and members.",
+      "Built a Next.js and Tailwind site that gives the fraternity a public home for its community, events, FAQs, and contact flows. The site is structured to support recruitment, organization updates, and a distinct visual identity for the group.",
     githubUrl: "https://github.com/Tri-Omicron/website",
     liveUrl: "https://triomicron.org",
-  },
-  {
-    slug: "arm64-emulator",
-    title: "ARM64 System Emulator",
-    summary:
-      "Cycle-accurate ARM64 processor emulator with a 5-stage pipeline and configurable L1 cache.",
-    details:
-      "Built a cycle-accurate emulator in C covering the ALU, register file, memory, pipeline hazards, branch prediction, register forwarding, and an L1 data cache with LRU replacement. The final system reduced execution time by 65% over a single-stage baseline and reached 90%+ cache hit rates with tuned configurations.",
   },
 ];
