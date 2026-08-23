@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { navItems, personalInfo } from "@/lib/data";
+import { navItems } from "@/lib/data";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);

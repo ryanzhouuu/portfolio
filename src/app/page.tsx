@@ -7,7 +7,7 @@ import ProjectGallery from '@/components/site/ProjectGallery';
 import Experience from '@/components/site/Experience';
 import About from '@/components/site/About';
 import Education from '@/components/site/Education';
-import Contact from '@/components/site/Contact';
+import Footer from '@/components/site/Footer';
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
         <Experience />
         <Education />
         <About />
-        <Contact />
+        <Footer />
       </main>
     </>
   );
