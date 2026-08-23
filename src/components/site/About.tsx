@@ -1,10 +1,23 @@
 'use client';
 
 import Image from 'next/image';
-import { personalInfo, skills } from '@/lib/data';
+import { personalInfo, stack } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
+import { CIcon, CodexIcon, CursorIcon, FastApiIcon, OpenCodeIcon, PostgreSqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from './LangIcon';
 import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
+
+const langIcons = {
+  python: PythonIcon,
+  typescript: TypeScriptIcon,
+  c: CIcon,
+  react: ReactIcon,
+  fastapi: FastApiIcon,
+  postgresql: PostgreSqlIcon,
+  codex: CodexIcon,
+  opencode: OpenCodeIcon,
+  cursor: CursorIcon,
+} as const;
 
 export default function About() {
   return (
@@ -57,32 +70,59 @@ export default function About() {
             </div>
           </Reveal>
 
-          {/* Skills spec sheet */}
+          {/* Tech stack — featured languages + tooling row */}
           <Reveal className="lg:col-span-7" delay={0.1}>
-            <p className="label mb-4">Stack — Specification</p>
-            <div className="surface rounded-sm">
-              {skills.map((group, i) => (
-                <div
-                  key={group.category}
-                  className={`grid grid-cols-1 gap-x-6 gap-y-3 px-6 py-5 sm:grid-cols-[140px_1fr] ${
-                    i !== skills.length - 1 ? 'border-b border-metal/60' : ''
-                  }`}
-                >
-                  <div className="font-mono text-[11px] uppercase tracking-widest2 text-steel">
-                    {group.category}
+            <p className="label mb-4">My Tech Stack</p>
+            {[
+              { items: stack.languages, first: true },
+              { items: stack.frameworks, first: false },
+            ].map(({ items, first }) => (
+              <div
+                key={first ? 'languages' : 'frameworks'}
+                className={`${first ? '' : 'mt-4'} grid grid-cols-3 gap-px overflow-hidden rounded-sm border ${
+                  first ? 'border-metal/60 bg-metal/40' : 'border-metal/40 bg-metal/30'
+                }`}
+              >
+                {items.map((item) => {
+                  const Icon = langIcons[item.icon];
+                  return (
+                    <div
+                      key={item.name}
+                      className="group relative flex h-20 flex-col items-center justify-center gap-2 bg-void/80 px-4 transition-colors duration-500 ease-cinematic hover:bg-graphite"
+                    >
+                      <span aria-hidden className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-champagne/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <Icon
+                        size={28}
+                        className="text-steel transition-all duration-500 ease-cinematic group-hover:-translate-y-0.5 group-hover:text-chrome"
+                      />
+                      <span className="font-mono text-[11px] uppercase tracking-widest2 text-silver transition-colors duration-300 group-hover:text-chrome">
+                        {item.name}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+
+            {/* Tooling row */}
+            <div className="mt-4 grid grid-cols-3 gap-px overflow-hidden rounded-sm border border-metal/40 bg-metal/30">
+              {stack.tools.map((tool) => {
+                const Icon = langIcons[tool.icon];
+                return (
+                  <div
+                    key={tool.name}
+                    className="group flex h-20 flex-col items-center justify-center gap-1.5 bg-void/80 px-4 transition-colors duration-500 ease-cinematic hover:bg-graphite"
+                  >
+                    <Icon
+                      size={18}
+                      className="text-steel transition-colors duration-300 group-hover:text-champagne"
+                    />
+                    <span className="font-mono text-[11px] uppercase tracking-widest2 text-steel transition-colors duration-300 group-hover:text-silver">
+                      {tool.name}
+                    </span>
                   </div>
-                  <ul className="flex flex-wrap gap-x-4 gap-y-2">
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="font-mono text-sm text-silver transition-colors duration-300 hover:text-chrome"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </Reveal>
         </div>

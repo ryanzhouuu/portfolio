@@ -16,36 +16,25 @@ export const navItems = [
   { id: "experience", label: "Experience", path: "#experience" },
   { id: "about", label: "About", path: "#about" },
   { id: "education", label: "Education", path: "#education" },
-  { id: "contact", label: "Contact", path: "#contact" },
 ];
 
-export const skills = [
-  {
-    category: "Languages",
-    items: ["Python", "JavaScript", "TypeScript", "C", "Java", "SQL"],
-  },
-  {
-    category: "Frameworks",
-    items: ["React.js", "Next.js", "Node.js", "Express.js"],
-  },
-  {
-    category: "Tools & Platforms",
-    items: [
-      "Git",
-      "GitHub",
-      "GitLab",
-      "AWS",
-      "Makefile",
-      "Linux",
-      "Supabase",
-      "Vercel",
-      "Cursor",
-      "Claude Code",
-      "Codex",
-      "VSCode",
-    ],
-  },
-];
+export const stack = {
+  languages: [
+    { name: "Python", icon: "python" },
+    { name: "TypeScript", icon: "typescript" },
+    { name: "C", icon: "c" },
+  ],
+  frameworks: [
+    { name: "React", icon: "react" },
+    { name: "FastAPI", icon: "fastapi" },
+    { name: "Postgres", icon: "postgresql" },
+  ],
+  tools: [
+    { name: "Codex", icon: "codex" },
+    { name: "OpenCode", icon: "opencode" },
+    { name: "Cursor", icon: "cursor" },
+  ],
+} as const;
 
 export const education = [
   {
