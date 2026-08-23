@@ -17,7 +17,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <Reveal>
           <p className="label mb-5">
-            <span className="text-silver">01</span> — Selected Work
+            <span className="text-silver">02</span> — Selected Work
           </p>
           <CinematicHeading className="font-display max-w-2xl text-[clamp(2rem,5vw,3.5rem)] text-chrome-plate">
             Projects

@@ -3,8 +3,8 @@ import CursorLight from '@/components/site/CursorLight';
 import DustMotes from '@/components/site/DustMotes';
 import Nav from '@/components/site/Nav';
 import Hero from '@/components/site/Hero';
-import ProjectGallery from '@/components/site/ProjectGallery';
 import Experience from '@/components/site/Experience';
+import ProjectGallery from '@/components/site/ProjectGallery';
 import About from '@/components/site/About';
 import Education from '@/components/site/Education';
 import Footer from '@/components/site/Footer';
@@ -18,8 +18,8 @@ export default function Home() {
       <Nav />
       <main className="relative">
         <Hero />
-        <ProjectGallery />
         <Experience />
+        <ProjectGallery />
         <Education />
         <About />
         <Footer />
