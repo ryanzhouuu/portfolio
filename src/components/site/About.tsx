@@ -42,6 +42,19 @@ export default function About() {
               A little bit about me
             </CinematicHeading>
             <p className="mt-5 max-w-md text-base leading-relaxed text-silver">{personalInfo.bio}</p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] lowercase tracking-widest2 text-steel">
+              <a href={`mailto:${personalInfo.email}`} className="transition-colors duration-300 hover:text-chrome">
+                {personalInfo.email}
+              </a>
+              <span aria-hidden className="h-3 w-px bg-metal" />
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-chrome">
+                GitHub
+              </a>
+              <span aria-hidden className="h-3 w-px bg-metal" />
+              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-chrome">
+                LinkedIn
+              </a>
+            </div>
           </Reveal>
 
           {/* Skills spec sheet */}
