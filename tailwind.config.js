@@ -8,8 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-archivo)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'monospace'],
+        sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Dark cinematic showroom palette

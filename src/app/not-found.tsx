@@ -12,17 +12,14 @@ export default function NotFound() {
         <div aria-hidden className="floor-reflection absolute bottom-[-8rem] left-1/2 h-56 w-[72%] opacity-35 [--floor-shift:-50%]" />
 
         <section className="relative mx-auto max-w-2xl text-center">
-          <p className="label mb-6">404 — Signal Lost</p>
-          <h1 className="font-display text-[clamp(3rem,12vw,7rem)] text-chrome-plate">
+          <p className="mb-6 text-sm text-steel">404 — Signal Lost</p>
+          <h1 className="font-display text-[clamp(2.5rem,5.5vw,4rem)] text-chrome">
             No surface.
           </h1>
           <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-steel">
             This route doesn&apos;t exist. Head back to the showroom.
           </p>
-          <Link
-            href="/"
-            className="mt-10 inline-flex border border-silver/30 bg-spotlight/[0.06] px-6 py-3 font-mono text-[11px] uppercase tracking-widest2 text-chrome shadow-[0_0_50px_-20px_rgba(234,242,255,0.7)] transition-all duration-500 ease-cinematic hover:border-silver/60 hover:bg-spotlight/[0.1]"
-          >
+          <Link href="/" className="soft-pill mt-10 px-5 py-2.5 text-sm text-chrome">
             Return home
           </Link>
         </section>

@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Archivo } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
-// Archivo carries a real width axis (62–125). We load it once and drive the
-// expanded "nameplate" display look via font-variation-settings in CSS, while
-// body copy uses the same family at normal width.
-const archivo = Archivo({
+// One rounded sans for the whole page. The chrome fill on the name is the
+// display moment; this face stays at a normal width in regular and medium.
+const nunito = Nunito_Sans({
   subsets: ["latin"],
-  variable: "--font-archivo",
-  axes: ["wdth"],
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  variable: "--font-nunito",
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -44,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${archivo.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={nunito.variable}>
       <body>{children}</body>
     </html>
   );

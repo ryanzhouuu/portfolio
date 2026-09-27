@@ -22,13 +22,8 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
-        <a
-          href="#top"
-          className="font-display text-[15px] text-chrome"
-          style={{ fontVariationSettings: "'wght' 800, 'wdth' 125" }}
-          aria-label="Ryan Zhou — home"
-        >
-          R&nbsp;Z
+        <a href="#top" className="text-[15px] font-medium text-chrome" aria-label="Ryan Zhou — home">
+          RZ
         </a>
 
         <ul className="hidden items-center gap-7 md:flex">
@@ -36,7 +31,7 @@ export default function Nav() {
             <li key={item.id}>
               <a
                 href={item.path}
-                className="link-underline font-mono text-[11px] uppercase tracking-widest2 text-steel transition-colors duration-300 hover:text-chrome"
+                className="link-underline text-sm text-steel transition-colors duration-300 hover:text-chrome"
               >
                 {item.label}
               </a>
