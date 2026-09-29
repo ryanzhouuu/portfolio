@@ -5,7 +5,7 @@ import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
 
 /**
- * Work history as always-open rounded rows. Bullets stay visible; nothing expands.
+ * Work history as open entries with a light along the left edge. Bullets stay visible.
  */
 export default function Experience() {
   return (
@@ -28,9 +28,9 @@ export default function Experience() {
         <div className="soft-stack mt-8">
           {experience.map((role, i) => (
             <Reveal as="div" key={role.company} delay={0.05 * i}>
-              <article className="soft-row">
+              <article className="rim-row">
                 <div className="flex items-start gap-4">
-                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-[12px] border border-silver/15 bg-void/70">
+                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                     <Image
                       src={withBasePath(role.logo)}
                       alt={`${role.company} logo`}

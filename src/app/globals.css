@@ -32,18 +32,34 @@ body {
   line-height: 1.1;
 }
 
-/* Shared rounded row and pill. Experience, projects, and education use the row. */
+/* Shared rim-lit entries. Experience, projects, and education use the row. */
 .soft-stack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
-.soft-row {
-  border-radius: 20px;
-  border: 1px solid rgba(184, 192, 204, 0.14);
-  background: rgba(18, 20, 24, 0.72);
-  padding: 20px 24px;
+.rim-row {
+  position: relative;
+  padding: 1.35rem 0 1.35rem 1.35rem;
+}
+
+.rim-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.15rem;
+  bottom: 1.15rem;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(234, 242, 255, 0.18) 16%,
+    rgba(243, 244, 246, 0.82) 46%,
+    rgba(184, 192, 204, 0.28) 72%,
+    transparent 100%
+  );
+  box-shadow: 0 0 14px rgba(234, 242, 255, 0.28);
 }
 
 .soft-pill {

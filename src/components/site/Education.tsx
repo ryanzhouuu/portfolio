@@ -3,7 +3,7 @@ import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
 
 /**
- * Schools as the same rounded rows as experience and projects.
+ * Schools as the same rim-lit entries as experience and projects.
  * Coursework stays in the data file and is not rendered.
  */
 export default function Education() {
@@ -19,7 +19,7 @@ export default function Education() {
         <div className="soft-stack mt-8">
           {education.map((school, index) => (
             <Reveal as="div" key={school.school} delay={0.05 * index}>
-              <article className="soft-row">
+              <article className="rim-row">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
                   <h3 className="font-display text-[1.125rem] text-chrome">{school.school}</h3>
                   <p className="text-sm text-steel">

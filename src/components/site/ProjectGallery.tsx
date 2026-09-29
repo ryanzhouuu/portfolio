@@ -8,7 +8,7 @@ type ProjectGalleryProps = {
 };
 
 /**
- * Selected work as rounded rows: title, short summary, and links.
+ * Selected work as open entries with a light along the left edge: title, short summary, and links.
  * The longer `details` field stays in data and is not shown.
  */
 export default function ProjectGallery({ projects = allProjects }: ProjectGalleryProps) {
@@ -29,7 +29,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
         <div className="soft-stack mt-8" aria-label="Selected projects">
           {projects.map((project, index) => (
             <Reveal as="div" key={project.slug} delay={0.05 * index}>
-              <article className="soft-row">
+              <article className="rim-row">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
                   <h3 className="font-display text-[1.125rem] text-chrome">{project.title}</h3>
                   {(project.githubUrl || project.liveUrl) && (
