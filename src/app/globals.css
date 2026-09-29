@@ -171,7 +171,7 @@ body {
     opacity 0.4s ease;
 }
 
-/* Chrome underline that draws in under a project name on hover. Painted as a
+/* Chrome underline that draws in under a project or company name on hover. Painted as a
    background on the text span (not a positioned ::after) so it doesn't break
    the title's clipped sheen. */
 .title-underline {

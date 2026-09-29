@@ -38,7 +38,9 @@ export default function Experience() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-[1.25rem] tracking-[-0.02em] text-chrome">{role.company}</h3>
+                    <h3 className="font-display text-[1.25rem] tracking-[-0.02em] text-chrome">
+                      <span className="title-underline">{role.company}</span>
+                    </h3>
                     <p className="mt-1 text-sm text-silver">
                       {role.role}
                       <span className="text-steel"> · {role.location}</span>
