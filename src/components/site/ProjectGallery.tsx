@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { projects as allProjects, type Project } from "@/lib/data";
 import { withBasePath } from "@/lib/basePath";
-import CinematicHeading from "./CinematicHeading";
 import Reveal from "./Reveal";
+import SectionFrame from "./SectionFrame";
 
 type ProjectGalleryProps = {
   projects?: Project[];
@@ -32,88 +32,89 @@ function PromoVideo({ src, id }: { src: string; id: string }) {
       controls
       playsInline
       preload="metadata"
-      className="mt-4 w-full max-w-2xl rounded-[24px] border border-silver/15"
+      className="mt-5 w-full max-w-2xl rounded-[20px] border border-silver/15"
     />
   );
 }
 
+const linkClass =
+  "label-mono inline-flex items-center gap-1 text-steel transition-colors duration-300 hover:text-chrome";
+
 /**
- * Selected work as open entries with a light along the left edge: title, short summary, and links.
- * The longer `details` field stays in data and is not shown. A promo opens under its row.
+ * Selected work as a numbered index: mono number, large title, one-line
+ * summary, and links. The longer `details` field stays in data and is not
+ * shown. A promo opens under its row.
  */
 export default function ProjectGallery({ projects = allProjects }: ProjectGalleryProps) {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
   return (
-    <section id="work" className="relative scroll-mt-20 overflow-hidden py-20 lg:py-24">
-      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_60%_at_70%_30%,rgba(234,242,255,0.05),transparent_68%)]" />
+    <SectionFrame
+      id="work"
+      index="02"
+      title="Projects"
+      intro="A selection of things I've built across product, systems, and machine learning."
+    >
+      <ol aria-label="Selected projects">
+        {projects.map((project, index) => {
+          const open = openSlug === project.slug;
+          const videoId = `${project.slug}-promo`;
+          const hasLinks = project.githubUrl || project.liveUrl || project.videoUrl;
 
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <Reveal>
-          <CinematicHeading className="font-display text-[1.75rem] text-chrome">
-            Projects
-          </CinematicHeading>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-steel">
-            A selection of things I&apos;ve built across product, systems, and machine learning.
-          </p>
-        </Reveal>
+          return (
+            <Reveal as="li" key={project.slug} delay={0.06 * index} className="ledger-row">
+              <article className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 py-7 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-6">
+                <span className="label-mono pt-2.5 transition-colors duration-300 group-hover:text-silver">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
 
-        <div className="soft-stack mt-8" aria-label="Selected projects">
-          {projects.map((project, index) => {
-            const open = openSlug === project.slug;
-            const videoId = `${project.slug}-promo`;
-
-            return (
-            <Reveal as="div" key={project.slug} delay={0.05 * index}>
-              <article className="rim-row">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                  <h3 className="font-display text-[1.125rem] text-chrome">{project.title}</h3>
-                  {(project.githubUrl || project.liveUrl || project.videoUrl) && (
-                    <div className="flex flex-wrap gap-4">
-                      {project.videoUrl && (
-                        <button
-                          type="button"
-                          aria-expanded={open}
-                          aria-controls={videoId}
-                          onClick={() => setOpenSlug(open ? null : project.slug)}
-                          className="text-sm text-steel transition-colors duration-300 hover:text-chrome"
-                        >
-                          <span className="link-underline">{open ? "Close" : "Watch"}</span>
-                        </button>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-steel transition-colors duration-300 hover:text-chrome"
-                        >
-                          <span className="link-underline">GitHub</span>
-                          <ArrowUpRight aria-hidden size={14} strokeWidth={1.5} />
-                        </a>
-                      )}
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-sm text-steel transition-colors duration-300 hover:text-chrome"
-                        >
-                          <span className="link-underline">Live site</span>
-                          <ArrowUpRight aria-hidden size={14} strokeWidth={1.5} />
-                        </a>
-                      )}
-                    </div>
-                  )}
+                <div className="min-w-0">
+                  <h3 className="sheen-title font-display text-[clamp(1.5rem,2.4vw,1.875rem)] tracking-[-0.03em]">
+                    {project.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-steel transition-colors duration-300 group-hover:text-silver">
+                    {project.summary}
+                  </p>
                 </div>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-silver">{project.summary}</p>
-                {open && project.videoUrl && <PromoVideo id={videoId} src={project.videoUrl} />}
+
+                {hasLinks && (
+                  <div className="col-start-2 mt-4 flex flex-wrap gap-x-5 gap-y-2 sm:col-start-3 sm:mt-0 sm:justify-end sm:pt-3">
+                    {project.videoUrl && (
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        aria-controls={videoId}
+                        onClick={() => setOpenSlug(open ? null : project.slug)}
+                        className={linkClass}
+                      >
+                        <span className="link-underline">{open ? "Close" : "Watch"}</span>
+                      </button>
+                    )}
+                    {project.githubUrl && (
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                        <span className="link-underline">GitHub</span>
+                        <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                        <span className="link-underline">Live</span>
+                        <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                      </a>
+                    )}
+                  </div>
+                )}
+
+                {open && project.videoUrl && (
+                  <div className="col-span-full sm:col-start-2">
+                    <PromoVideo id={videoId} src={project.videoUrl} />
+                  </div>
+                )}
               </article>
             </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+          );
+        })}
+      </ol>
+    </SectionFrame>
   );
 }

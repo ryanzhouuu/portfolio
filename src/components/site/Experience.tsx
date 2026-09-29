@@ -1,34 +1,32 @@
 import Image from 'next/image';
 import { experience } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
-import CinematicHeading from './CinematicHeading';
+import RimLight from './RimLight';
 import Reveal from './Reveal';
+import SectionFrame from './SectionFrame';
 
 /**
- * Work history as open entries with a light along the left edge. Bullets stay visible.
+ * Work history as a timeline ledger: a mono date column beside each role,
+ * hairline rows, and one rim light that travels the list with the scroll.
  */
 export default function Experience() {
   return (
-    <section id="experience" className="relative scroll-mt-20 overflow-hidden py-20 lg:py-24">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.1] mix-blend-screen"
-        style={{ backgroundImage: `url(${withBasePath('/images/backgrounds/chrome-negative-center.png')})` }}
-      />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-b from-void via-void/75 to-void" />
-      <div aria-hidden className="projection-streak absolute left-[-28%] top-[18%] h-32 w-[120%] rotate-3 opacity-35" />
-
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <Reveal>
-          <CinematicHeading className="font-display text-[1.75rem] text-chrome">
-            Experience
-          </CinematicHeading>
-        </Reveal>
-
-        <div className="soft-stack mt-8">
+    <SectionFrame id="experience" index="01" title="Experience">
+      <div className="relative pl-6 sm:pl-8">
+        <RimLight />
+        <ol>
           {experience.map((role, i) => (
-            <Reveal as="div" key={role.company} delay={0.05 * i}>
-              <article className="rim-row">
+            <Reveal as="li" key={role.company + role.period} delay={0.06 * i} className="ledger-row">
+              <article className="grid gap-x-8 gap-y-3 py-8 sm:grid-cols-[8rem_minmax(0,1fr)]">
+                <p className="label-mono pt-1">
+                  {role.period.split(' — ').map((part, j) => (
+                    <span key={part} className="inline sm:block">
+                      {j > 0 && '— '}
+                      {part}
+                      {j === 0 && <span className="sm:hidden"> </span>}
+                    </span>
+                  ))}
+                </p>
                 <div className="flex items-start gap-4">
                   <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                     <Image
@@ -40,17 +38,14 @@ export default function Experience() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                      <h3 className="font-display text-[1.125rem] text-chrome">{role.company}</h3>
-                      <span className="text-sm text-steel">{role.period}</span>
-                    </div>
+                    <h3 className="font-display text-[1.25rem] tracking-[-0.02em] text-chrome">{role.company}</h3>
                     <p className="mt-1 text-sm text-silver">
                       {role.role}
                       <span className="text-steel"> · {role.location}</span>
                     </p>
                     <ul className="mt-4 space-y-2">
                       {role.bullets.map((bullet) => (
-                        <li key={bullet} className="text-sm leading-relaxed text-silver">
+                        <li key={bullet} className="text-[15px] leading-relaxed text-silver/90">
                           {bullet}
                         </li>
                       ))}
@@ -60,8 +55,8 @@ export default function Experience() {
               </article>
             </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
-    </section>
+    </SectionFrame>
   );
 }

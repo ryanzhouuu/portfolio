@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
-import { Nunito_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// One rounded sans for the whole page. The chrome fill on the name is the
-// display moment; this face stays at a normal width in regular and medium.
-const nunito = Nunito_Sans({
+// Geist carries the name, titles, and body; Geist Mono carries labels, dates,
+// and indices so metadata reads like engraving on the metal.
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-nunito",
+  variable: "--font-geist",
   weight: ["400", "500"],
   display: "swap",
 });
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  weight: ["400"],
+  display: "swap",
+});
+
+// Runs before first paint. Marks the document so the hero starts hidden when
+// the intro will play; the Hero effect takes over from there. The timeout is
+// a failsafe so a failed script can never leave the hero invisible.
+const introGate = `try{if(!sessionStorage.getItem('rz-intro')){var d=document.documentElement;d.dataset.intro=matchMedia('(prefers-reduced-motion: reduce)').matches?'fade':'play';setTimeout(function(){if(d.dataset.intro&&!d.dataset.introLive){delete d.dataset.intro}},3000)}}catch(e){}`;
 
 export const metadata: Metadata = {
   title: "Ryan Zhou — Software Engineer",
@@ -37,7 +49,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={nunito.variable}>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introGate }} />
+      </head>
       <body>{children}</body>
     </html>
   );

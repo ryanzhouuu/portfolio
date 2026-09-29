@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { personalInfo, stack } from '@/lib/data';
+import { education, personalInfo, stack } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
 import { CIcon, CodexIcon, CursorIcon, FastApiIcon, OpenCodeIcon, PostgreSqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from './LangIcon';
-import CinematicHeading from './CinematicHeading';
 import Reveal from './Reveal';
+import SectionFrame from './SectionFrame';
 
 const langIcons = {
   python: PythonIcon,
@@ -20,63 +20,74 @@ const langIcons = {
 const stackItems = [...stack.languages, ...stack.frameworks, ...stack.tools];
 
 /**
- * Closing block: portrait, bio, links, and the stack as soft pills.
+ * Closing section: portrait and bio, then education as two compact ledger
+ * rows, then the stack as soft pills.
  */
 export default function About() {
   return (
-    <section id="about" className="relative scroll-mt-20 overflow-hidden py-20 lg:py-24">
-      <div aria-hidden className="projection-streak absolute right-[-20%] top-[12%] h-28 w-[110%] -rotate-6 opacity-25" />
-      <div aria-hidden className="absolute inset-y-0 right-0 w-[42vw] bg-[radial-gradient(80%_60%_at_70%_45%,rgba(184,192,204,0.08),transparent_68%)]" />
-
-      <div className="relative mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-5">
-            <div className="relative max-w-xs overflow-hidden rounded-[24px] border border-silver/15">
-              <div className="relative aspect-[3/4]">
-                <Image
-                  src={withBasePath(personalInfo.photo)}
-                  alt="Ryan Zhou"
-                  fill
-                  sizes="(max-width: 1024px) 60vw, 300px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-            <CinematicHeading className="font-display mt-8 max-w-md text-[1.75rem] text-chrome">
-              A little bit about me
-            </CinematicHeading>
-            <p className="mt-4 max-w-md text-base leading-relaxed text-silver">{personalInfo.bio}</p>
-            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-steel">
-              <a href={`mailto:${personalInfo.email}`} className="transition-colors duration-300 hover:text-chrome">
-                {personalInfo.email}
-              </a>
-              <span aria-hidden className="text-metal">·</span>
-              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-chrome">
-                GitHub
-              </a>
-              <span aria-hidden className="text-metal">·</span>
-              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors duration-300 hover:text-chrome">
-                LinkedIn
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal className="lg:col-span-7" delay={0.1}>
-            <p className="mb-4 text-sm text-steel">My tech stack</p>
-            <ul className="flex flex-wrap gap-2">
-              {stackItems.map((item) => {
-                const Icon = langIcons[item.icon];
-                return (
-                  <li key={item.name} className="soft-pill px-3 py-2 text-sm text-silver">
-                    <Icon size={16} className="text-steel" />
-                    {item.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </Reveal>
+    <SectionFrame id="about" index="03" title="About" spacing="py-24 lg:py-32">
+      <Reveal className="grid gap-8 md:grid-cols-[13.75rem_minmax(0,1fr)] md:gap-10">
+        <div className="relative w-full max-w-[13.75rem] overflow-hidden rounded-[20px] border border-silver/15">
+          <div className="relative aspect-[3/4]">
+            <Image
+              src={withBasePath(personalInfo.photo)}
+              alt="Ryan Zhou"
+              fill
+              sizes="220px"
+              className="object-cover"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+        <div className="md:pt-1">
+          <p className="max-w-lg text-base leading-relaxed text-silver sm:text-[17px]">{personalInfo.bio}</p>
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <a href={`mailto:${personalInfo.email}`} className="label-mono normal-case tracking-[0.04em] text-steel transition-colors duration-300 hover:text-chrome">
+              {personalInfo.email}
+            </a>
+            <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="label-mono text-steel transition-colors duration-300 hover:text-chrome">
+              GitHub
+            </a>
+            <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="label-mono text-steel transition-colors duration-300 hover:text-chrome">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal className="mt-16" delay={0.06}>
+        <h3 className="label-mono mb-4">Education</h3>
+        <ul>
+          {education.map((school) => (
+            <li
+              key={school.school}
+              className="ledger-row grid gap-x-8 gap-y-1 py-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline"
+            >
+              <div className="min-w-0">
+                <p className="font-display text-[1.125rem] tracking-[-0.02em] text-chrome">{school.school}</p>
+                <p className="mt-1 text-sm text-steel">{school.degree}</p>
+              </div>
+              <p className="label-mono sm:text-right">
+                {school.period} · {school.gpa}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      <Reveal className="mt-16" delay={0.12}>
+        <h3 className="label-mono mb-4">Stack</h3>
+        <ul className="flex flex-wrap gap-2">
+          {stackItems.map((item) => {
+            const Icon = langIcons[item.icon];
+            return (
+              <li key={item.name} className="soft-pill px-3 py-2 text-sm text-silver">
+                <Icon size={16} className="text-steel" />
+                {item.name}
+              </li>
+            );
+          })}
+        </ul>
+      </Reveal>
+    </SectionFrame>
   );
 }

@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-nunito: 'Nunito Sans', system-ui, sans-serif;
+  --font-geist: 'Geist', system-ui, sans-serif;
+  --font-geist-mono: 'Geist Mono', ui-monospace, monospace;
 }
 
 * {
@@ -18,48 +19,180 @@ html {
 body {
   background-color: #030303;
   color: #f3f4f6;
-  font-family: var(--font-nunito);
+  font-family: var(--font-geist);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* Medium Nunito Sans for the name, section titles, and row titles. */
+/* Medium Geist for the name, section titles, and row titles. */
 .font-display {
-  font-family: var(--font-nunito);
+  font-family: var(--font-geist);
   font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
 }
 
-/* Shared rim-lit entries. Experience, projects, and education use the row. */
-.soft-stack {
-  display: flex;
-  flex-direction: column;
+/* Engraved metadata: labels, dates, indices, link labels. In the components
+   layer so color/case utilities on the same element win. */
+@layer components {
+  .label-mono {
+    font-family: var(--font-geist-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #747d8c;
+  }
 }
 
-.rim-row {
-  position: relative;
-  padding: 1.35rem 0 1.35rem 1.35rem;
+/* ------------------------------------------------------------------ */
+/* Liquid bloom intro                                                  */
+/* ------------------------------------------------------------------ */
+
+/* Registered so the mask radius interpolates instead of snapping. */
+@property --bloom-r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0vmax;
 }
 
-.rim-row::before {
-  content: "";
+/* Focal point of the splash in the hero image, per layout. */
+.hero-stage {
+  --bloom-x: 78%;
+  --bloom-y: 40%;
+}
+@media (min-width: 640px) {
+  .hero-stage {
+    --bloom-x: 84%;
+    --bloom-y: 44%;
+  }
+}
+
+.hero-glint-anchor {
+  left: var(--bloom-x);
+  top: var(--bloom-y);
+}
+
+.hero-glint {
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(234, 242, 255, 0.55) 18%,
+    rgba(234, 242, 255, 0.12) 42%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+}
+
+/* Until the intro takes over, hold the hero pieces and nav back so the
+   finished state never flashes. Animated inline styles override these. */
+[data-intro] [data-hero-bloom],
+[data-intro] [data-hero-name],
+[data-intro] [data-hero-reveal],
+[data-intro] [data-intro-nav] {
+  opacity: 0;
+}
+
+[data-intro='play'] .hero-bloom {
+  -webkit-mask-image: radial-gradient(
+    circle at var(--bloom-x) var(--bloom-y),
+    #000 var(--bloom-r),
+    transparent calc(var(--bloom-r) + 22vmax)
+  );
+  mask-image: radial-gradient(
+    circle at var(--bloom-x) var(--bloom-y),
+    #000 var(--bloom-r),
+    transparent calc(var(--bloom-r) + 22vmax)
+  );
+}
+
+[data-intro='play'] [data-hero-img] {
+  filter: blur(24px) brightness(1.8);
+  transform: scale(1.12);
+}
+
+/* ------------------------------------------------------------------ */
+/* Section frame                                                       */
+/* ------------------------------------------------------------------ */
+
+/* Ledger rows share one hairline rhythm. */
+.ledger-row {
+  border-top: 1px solid rgba(29, 32, 38, 0.9);
+}
+.ledger-row:last-child {
+  border-bottom: 1px solid rgba(29, 32, 38, 0.9);
+}
+
+/* One continuous rim light down the experience timeline. The bright segment
+   is positioned by scroll progress (--rim-p, 0 to 1). */
+.rim-track {
   position: absolute;
   left: 0;
-  top: 1.15rem;
-  bottom: 1.15rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(184, 192, 204, 0.18) 6%,
+    rgba(184, 192, 204, 0.18) 94%,
+    transparent 100%
+  );
+}
+
+.rim-glow {
+  position: absolute;
+  left: -0.5px;
   width: 2px;
+  height: 140px;
+  top: 0;
   border-radius: 999px;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(234, 242, 255, 0.18) 16%,
-    rgba(243, 244, 246, 0.82) 46%,
-    rgba(184, 192, 204, 0.28) 72%,
+    rgba(234, 242, 255, 0.35) 22%,
+    #ffffff 50%,
+    rgba(184, 192, 204, 0.35) 78%,
     transparent 100%
   );
-  box-shadow: 0 0 14px rgba(234, 242, 255, 0.28);
+  box-shadow: 0 0 16px rgba(234, 242, 255, 0.45);
+  will-change: transform;
+}
+
+/* Chrome underline that slides to the active nav link. */
+.nav-indicator {
+  background: linear-gradient(90deg, rgba(184, 192, 204, 0.2), #ffffff, rgba(184, 192, 204, 0.2));
+  box-shadow: 0 0 10px rgba(234, 242, 255, 0.5);
+  transition:
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease;
+}
+
+/* Project titles catch one pass of light on hover and keyboard focus. */
+.sheen-title {
+  background-image: linear-gradient(
+    100deg,
+    #f3f4f6 0%,
+    #f3f4f6 40%,
+    #ffffff 47%,
+    #8a93a3 50%,
+    #ffffff 53%,
+    #f3f4f6 60%,
+    #f3f4f6 100%
+  );
+  background-size: 250% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .sheen-title,
+.group:focus-within .sheen-title {
+  background-position: 0% 0;
 }
 
 .soft-pill {

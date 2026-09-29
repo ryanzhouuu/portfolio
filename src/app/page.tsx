@@ -6,7 +6,6 @@ import Hero from '@/components/site/Hero';
 import Experience from '@/components/site/Experience';
 import ProjectGallery from '@/components/site/ProjectGallery';
 import About from '@/components/site/About';
-import Education from '@/components/site/Education';
 import Footer from '@/components/site/Footer';
 
 export default function Home() {
@@ -20,7 +19,6 @@ export default function Home() {
         <Hero />
         <Experience />
         <ProjectGallery />
-        <Education />
         <About />
         <Footer />
       </main>
