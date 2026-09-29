@@ -4,7 +4,7 @@ Date: 2026-09-26
 
 ## Intent
 
-Keep the liquid chrome material and the current motion. Make the page quieter by changing how it is presented: a short masthead instead of a full-screen hero, one soft sans, and rounded rows instead of sharp hardware panels.
+Keep the liquid chrome material and the current motion. Make the page quieter by changing how it is presented: a short masthead instead of a full-screen hero, one soft sans, and open entries instead of sharp hardware panels.
 
 The chrome name and the chrome background forms stay the memorable part. Type, labels, corners, and section furniture get out of the way.
 
@@ -12,7 +12,7 @@ The chrome name and the chrome background forms stay the memorable part. Type, l
 
 - Chrome background images stay. The metal gradient stays on the name only.
 - The opening is a short masthead. The name is smaller and sits just under the nav. There is no full-viewport hero.
-- Experience, projects, and education share one rounded-row pattern, with space between rows.
+- Experience, projects, and education share one open entry pattern: no fill, with a soft light along the left edge.
 - About stays a closing block: portrait, heading, bio, links, and the stack.
 - Motion timing, blur, stagger, the light sweep, scroll parallax on the chrome form, in-view reveals, and heading splits stay as they are.
 - Atmosphere stays: the studio layer, dust, and the cursor light stay. Do not retune them.
@@ -38,15 +38,9 @@ Keep the current palette in `tailwind.config.js`: void `#030303`, graphite `#121
 
 Stop using the champagne accent.
 
-A row is:
+An entry has no fill and no border. A 2px light runs down the left edge, bright through the middle and fading at both ends, with a soft glow. Padding is about 1.35rem, with the light inset from the text.
 
-- Fill: graphite at about 72% opacity (`rgba(18, 20, 24, 0.72)`).
-- Border: 1px solid silver at about 14% opacity (`rgba(184, 192, 204, 0.14)`).
-- Radius: 20px.
-- Gap between rows: 12px.
-- Padding: about 20px 24px.
-
-The portrait radius is 24px. Logos inside experience rows are about 40px with a 12px radius. Compact actions, including “Selected work” and the 404 return link, are pills (`border-radius: 999px`) with the same soft fill and border. No glow shadows on rows, buttons, nodes, or the portrait.
+The portrait radius is 24px. Logos inside experience entries are about 40px with a slight radius and no frame. Compact actions, including “Selected work” and the 404 return link, stay pills (`border-radius: 999px`) with the soft fill and border. No glow shadows on buttons or the portrait.
 
 Focus-visible outlines follow the control’s radius.
 
@@ -108,9 +102,9 @@ The masthead may keep the current hero animation hooks on the elements that rema
 - `src/app/globals.css` — type classes and the shared row, pill, and portrait radii. Retire `.label` and the mono uppercase treatments from the UI. Keep `.text-chrome-shine`.
 - `tailwind.config.js` — point the sans family at Nunito Sans.
 - `src/components/site/Hero.tsx` — masthead layout and the pill action.
-- `src/components/site/Experience.tsx` — rounded rows, bullets always visible.
-- `src/components/site/ProjectGallery.tsx` — rounded rows, summary and links only.
-- `src/components/site/Education.tsx` — rounded rows, no coursework.
+- `src/components/site/Experience.tsx` — rim-lit entries, bullets always visible.
+- `src/components/site/ProjectGallery.tsx` — rim-lit entries, summary and links only.
+- `src/components/site/Education.tsx` — rim-lit entries, no coursework.
 - `src/components/site/About.tsx` — pills and the quieter portrait.
 - `src/components/site/Nav.tsx` and `src/components/site/Footer.tsx` — sentence-case sans.
 - `src/app/not-found.tsx` — matching type and pill.
@@ -131,10 +125,10 @@ Share one row treatment (a class or a small component) so the three lists cannot
 On desktop and a narrow viewport:
 
 - The name is the chrome moment, sits under the nav, and the first rows are visible without a full-screen title card.
-- Experience, projects, and education are separate headings over the same rounded rows.
+- Experience, projects, and education are separate headings over the same rim-lit entries.
 - A project shows its title, summary, and links, and not the long detail.
 - Education shows school, degree, dates, and GPA, and not coursework.
 - Experience bullets are visible without a click.
-- Corners on rows, the portrait, and the pill are visibly soft.
+- Corners on the portrait and the pill are visibly soft. Entries have a light on the left edge and no filled box.
 - The existing reveals, blur, sweep, and chrome scroll still run. Reduced motion still settles immediately.
 - Keyboard focus is visible on the pill, row links, and nav.

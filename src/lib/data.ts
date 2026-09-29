@@ -129,6 +129,8 @@ export type Project = {
   details: string;
   githubUrl?: string;
   liveUrl?: string;
+  /** Site-relative promo, opened from the project row. Not shown until requested. */
+  videoUrl?: string;
 };
 
 export const projects: Project[] = [
@@ -141,6 +143,7 @@ export const projects: Project[] = [
       "Built a Next.js and Supabase app that pulls live anime metadata from AniList, turns head-to-head choices into ranked series with a Bradley–Terry model, and recommends what to watch next from an embedding-based taste profile. It also supports watch tracking, imports, sharing, and comparing taste with friends.",
     githubUrl: "https://github.com/ryanzhouuu/suki",
     liveUrl: "https://suki-plum.vercel.app",
+    videoUrl: "/suki-promo.mp4",
   },
   {
     slug: "sleeper-manager",
@@ -152,8 +155,17 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/ryanzhouuu/sleeper-manager",
   },
   {
+    slug: "clash-sos",
+    title: "Clash Royale Strength of Schedule Analysis",
+    summary:
+      "Deck matchup models and match history for measuring how hard a player's Clash Royale matches were.",
+    details:
+      "Built a tool that combines deck matchup estimates with ranked battle history to show rolling strength of schedule, expected wins, and performance relative to expectation. It trains matchup models on ranked battles and looks up a player on demand to report each battle's decks and estimated win chance.",
+    githubUrl: "https://github.com/ryanzhouuu/clash-sos",
+  },
+  {
     slug: "dynamic-routing-engine",
-    title: "Adaptive Vision Router",
+    title: "Dynamic Vision Router",
     summary: "Latency-aware routing across an ensemble of image classifiers.",
     details:
       "Built a Python routing engine that chooses the next image classifier using confidence, latency, and deadline signals. The repository includes static and trained routing policies, profiling and evaluation workflows, and a CLI for training and comparing cascade behavior.",
