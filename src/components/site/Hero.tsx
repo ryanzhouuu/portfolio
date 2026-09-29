@@ -25,7 +25,7 @@ function decodeWithin(img: HTMLImageElement | null, ms: number): Promise<boolean
 }
 
 /**
- * Full-height opening. On the first visit of a session the liquid chrome
+ * Full-height opening. On every load the liquid chrome
  * blooms out of a single glint, then the name etches in. The pre-paint gate
  * in the root layout sets `data-intro`; this effect plays it and clears it.
  */
@@ -42,10 +42,10 @@ export default function Hero() {
     const finishIntro = () => {
       delete doc.dataset.intro;
       delete doc.dataset.introLive;
-      try {
-        sessionStorage.setItem('rz-intro', '1');
-      } catch {}
     };
+
+    // The intro always opens at the top of the page.
+    if (mode) window.scrollTo(0, 0);
 
     const scope = createScope({
       root: rootRef,
@@ -154,7 +154,7 @@ export default function Hero() {
           if (skipped) tl.complete();
         });
       } else {
-        // Later visits in the session: a quick etch, no bloom.
+        // The gate's failsafe already revealed the hero: a quick etch, no bloom.
         createTimeline({ defaults: { ease: 'out(4)' } })
           .add(split.chars, {
             opacity: [0, 1],

@@ -18,10 +18,11 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-// Runs before first paint. Marks the document so the hero starts hidden when
-// the intro will play; the Hero effect takes over from there. The timeout is
-// a failsafe so a failed script can never leave the hero invisible.
-const introGate = `try{if(!sessionStorage.getItem('rz-intro')){var d=document.documentElement;d.dataset.intro=matchMedia('(prefers-reduced-motion: reduce)').matches?'fade':'play';setTimeout(function(){if(d.dataset.intro&&!d.dataset.introLive){delete d.dataset.intro}},3000)}}catch(e){}`;
+// Runs before first paint on every load. Starts the page at the top (no
+// scroll restoration, no jump to a leftover #hash) and marks the document so
+// the hero starts hidden; the Hero effect plays the intro from there. The
+// timeout is a failsafe so a failed script can never leave the hero invisible.
+const introGate = `try{var d=document.documentElement;if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.hash)history.replaceState(null,'',location.pathname+location.search);d.dataset.intro=matchMedia('(prefers-reduced-motion: reduce)').matches?'fade':'play';setTimeout(function(){if(d.dataset.intro&&!d.dataset.introLive){delete d.dataset.intro}},3000)}catch(e){}`;
 
 export const metadata: Metadata = {
   title: "Ryan Zhou — Software Engineer",
