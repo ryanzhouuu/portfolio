@@ -135,7 +135,7 @@ export const projects: Project[] = [
   },
   {
     slug: "sleeper-manager",
-    title: "sleeper manager",
+    title: "locksmith",
     summary:
       "Personal fantasy basketball advisor for Sleeper Lock-In leagues.",
     githubUrl: "https://github.com/ryanzhouuu/sleeper-manager",
