@@ -171,15 +171,6 @@ body {
     opacity 0.4s ease;
 }
 
-/* Polished bead used as the interests bullet. */
-.interest-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 9999px;
-  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #c4ccd6 40%, #69707d 100%);
-  box-shadow: 0 0 8px rgba(234, 242, 255, 0.45);
-}
-
 /* Project titles catch one pass of light on hover and keyboard focus. */
 .sheen-title {
   background-image: linear-gradient(
