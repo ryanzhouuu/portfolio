@@ -50,12 +50,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
   const [openSlug, setOpenSlug] = useState<string | null>(null);
 
   return (
-    <SectionFrame
-      id="work"
-      index="02"
-      title="Projects"
-      intro="A selection of things I've built across product, systems, and machine learning."
-    >
+    <SectionFrame id="work" title="Projects">
       <div className="relative pl-6 sm:pl-8">
         <RimLight />
         <ol aria-label="Selected projects">
@@ -74,7 +69,24 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                       <h3 className="sheen-title font-display text-[clamp(1.5rem,2.4vw,1.875rem)] tracking-[-0.03em]">
-                        {project.title}
+                        {project.titleUrl ? (
+                          <a
+                            href={project.titleUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-baseline gap-1.5"
+                          >
+                            {project.title}
+                            <ArrowUpRight
+                              aria-hidden
+                              size={18}
+                              strokeWidth={1.5}
+                              className="self-center text-steel transition-colors duration-300 group-hover:text-chrome"
+                            />
+                          </a>
+                        ) : (
+                          project.title
+                        )}
                       </h3>
                       {project.liveUrl && (
                         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>

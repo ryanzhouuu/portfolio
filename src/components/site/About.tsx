@@ -1,46 +1,72 @@
 import Image from 'next/image';
-import { education, personalInfo, stack } from '@/lib/data';
+import { education, interests, personalInfo } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
-import { CIcon, CodexIcon, CursorIcon, FastApiIcon, OpenCodeIcon, PostgreSqlIcon, PythonIcon, ReactIcon, TypeScriptIcon } from './LangIcon';
 import Reveal from './Reveal';
 import SectionFrame from './SectionFrame';
 
-const langIcons = {
-  python: PythonIcon,
-  typescript: TypeScriptIcon,
-  c: CIcon,
-  react: ReactIcon,
-  fastapi: FastApiIcon,
-  postgresql: PostgreSqlIcon,
-  codex: CodexIcon,
-  opencode: OpenCodeIcon,
-  cursor: CursorIcon,
-} as const;
+// A drop of the hero splash, in objectBoundingBox units so it scales with the
+// portrait. Shared by the clip and the chrome rim drawn over it.
+const BLOB =
+  'M0.53,0.02 C0.76,0.01 0.95,0.13 0.97,0.34 C0.99,0.52 0.9,0.61 0.93,0.77 C0.96,0.94 0.79,0.99 0.59,0.98 C0.37,0.97 0.13,0.98 0.05,0.81 C0.01,0.66 0.09,0.56 0.05,0.41 C0.02,0.23 0.15,0.04 0.53,0.02 Z';
 
-const stackItems = [...stack.languages, ...stack.frameworks, ...stack.tools];
+function BlobPortrait() {
+  return (
+    <div className="group relative aspect-[3/4] w-full max-w-[15rem]">
+      <svg aria-hidden width="0" height="0" className="absolute">
+        <defs>
+          <clipPath id="portrait-blob" clipPathUnits="objectBoundingBox">
+            <path d={BLOB} />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div className="absolute inset-0" style={{ clipPath: 'url(#portrait-blob)' }}>
+        <Image
+          src={withBasePath(personalInfo.photo)}
+          alt="Ryan Zhou"
+          fill
+          sizes="240px"
+          className="object-cover grayscale transition-[filter] duration-700 ease-cinematic group-hover:grayscale-0"
+        />
+      </div>
+
+      {/* Chrome rim catching the light along the edge of the drop. */}
+      <svg aria-hidden viewBox="0 0 1 1" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full overflow-visible">
+        <defs>
+          <linearGradient id="portrait-rim" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#f6f8fb" stopOpacity="0.9" />
+            <stop offset="35%" stopColor="#747d8c" stopOpacity="0.35" />
+            <stop offset="55%" stopColor="#ffffff" stopOpacity="0.85" />
+            <stop offset="80%" stopColor="#69707d" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#cdd4dd" stopOpacity="0.7" />
+          </linearGradient>
+        </defs>
+        <path d={BLOB} fill="none" stroke="url(#portrait-rim)" strokeWidth="1.25" vectorEffect="non-scaling-stroke" />
+      </svg>
+    </div>
+  );
+}
 
 /**
- * Closing section: portrait and bio, then education as two compact ledger
- * rows, then the stack as soft pills.
+ * Closing section: blob portrait beside interests and links, then education
+ * as two compact ledger rows.
  */
 export default function About() {
   return (
-    <SectionFrame id="about" index="03" title="About" spacing="py-24 lg:py-32">
-      <Reveal className="grid gap-8 md:grid-cols-[13.75rem_minmax(0,1fr)] md:gap-10">
-        <div className="relative w-full max-w-[13.75rem] overflow-hidden rounded-[20px] border border-silver/15">
-          <div className="relative aspect-[3/4]">
-            <Image
-              src={withBasePath(personalInfo.photo)}
-              alt="Ryan Zhou"
-              fill
-              sizes="220px"
-              className="object-cover"
-            />
-          </div>
-        </div>
-        <div className="md:pt-1">
-          <p className="max-w-lg text-base leading-relaxed text-silver sm:text-[17px]">{personalInfo.bio}</p>
-          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+    <SectionFrame id="about" title="About" spacing="py-24 lg:py-32">
+      <Reveal className="grid items-center gap-10 md:grid-cols-[15rem_minmax(0,1fr)] md:gap-14">
+        <BlobPortrait />
+        <div>
+          <h3 className="label-mono mb-4">Interests</h3>
+          <ul className="space-y-3">
+            {interests.map((interest) => (
+              <li key={interest} className="flex items-baseline gap-3 text-base text-silver sm:text-[17px]">
+                <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-0.3em] bg-gradient-to-r from-steel to-chrome" />
+                {interest}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2">
             <a href={`mailto:${personalInfo.email}`} className="label-mono normal-case tracking-[0.04em] text-steel transition-colors duration-300 hover:text-chrome">
               {personalInfo.email}
             </a>
@@ -71,21 +97,6 @@ export default function About() {
               </p>
             </li>
           ))}
-        </ul>
-      </Reveal>
-
-      <Reveal className="mt-16" delay={0.12}>
-        <h3 className="label-mono mb-4">Stack</h3>
-        <ul className="flex flex-wrap gap-2">
-          {stackItems.map((item) => {
-            const Icon = langIcons[item.icon];
-            return (
-              <li key={item.name} className="soft-pill px-3 py-2 text-sm text-silver">
-                <Icon size={16} className="text-steel" />
-                {item.name}
-              </li>
-            );
-          })}
         </ul>
       </Reveal>
     </SectionFrame>

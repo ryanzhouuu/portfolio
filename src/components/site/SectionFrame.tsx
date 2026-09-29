@@ -4,24 +4,20 @@ import Reveal from './Reveal';
 
 type SectionFrameProps = {
   id: string;
-  index: string;
   title: string;
-  intro?: ReactNode;
   children: ReactNode;
   /** Vertical padding; sections vary it so the page doesn't tick at one pace. */
   spacing?: string;
 };
 
 /**
- * Shared section shape: a sticky label rail (mono index, title, optional
- * intro) on the left and content on the right. Below `lg` the rail stacks
+ * Shared section shape: a sticky title rail on the left and content on the
+ * right. Below `lg` the rail stacks
  * above the content and scrolls normally.
  */
 export default function SectionFrame({
   id,
-  index,
   title,
-  intro,
   children,
   spacing = 'py-28 lg:py-36',
 }: SectionFrameProps) {
@@ -35,11 +31,9 @@ export default function SectionFrame({
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <Reveal>
-              <p className="label-mono">{index} —</p>
-              <CinematicHeading className="font-display mt-3 text-[clamp(2.25rem,4vw,3.25rem)] text-chrome">
+              <CinematicHeading className="font-display text-[clamp(2.25rem,4vw,3.25rem)] text-chrome">
                 {title}
               </CinematicHeading>
-              {intro && <p className="mt-5 max-w-xs text-sm leading-relaxed text-steel">{intro}</p>}
             </Reveal>
           </div>
         </div>

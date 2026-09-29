@@ -5,12 +5,19 @@ export const personalInfo = {
   // One concise positioning line for the hero — no marketing filler.
   positioning:
     "computer science student and software engineer working with full-stack engineering, AI/ML, systems, and anything in between.",
-  bio: "I'm currently studying Computer Science and Economics in my third year at the University of Texas at Austin. I love learning and building all kinds of software. Outside of work, I'm usually in the gym, with my girlfriend, playing Clash Royale, or watching anime.",
   email: "ryanzhouuu@gmail.com",
   github: "https://github.com/ryanzhouuu",
   linkedin: "https://linkedin.com/in/ryanzhouuu",
   photo: "/images/ryan-headshot.jpeg",
 };
+
+/** About → Interests. One short line per bullet. */
+export const interests = [
+  "Lifting at the gym",
+  "Clash Royale",
+  "Watching anime",
+  "Spending time with my girlfriend",
+];
 
 /** Liquid chrome behind the hero. React preloads it from the fetchPriority hint. */
 export const heroImage = "/images/backgrounds/chrome-negative-left.webp";
@@ -20,24 +27,6 @@ export const navItems = [
   { id: "work", label: "Projects", path: "#work" },
   { id: "about", label: "About", path: "#about" },
 ];
-
-export const stack = {
-  languages: [
-    { name: "Python", icon: "python" },
-    { name: "TypeScript", icon: "typescript" },
-    { name: "C", icon: "c" },
-  ],
-  frameworks: [
-    { name: "React", icon: "react" },
-    { name: "FastAPI", icon: "fastapi" },
-    { name: "Postgres", icon: "postgresql" },
-  ],
-  tools: [
-    { name: "Codex", icon: "codex" },
-    { name: "OpenCode", icon: "opencode" },
-    { name: "Cursor", icon: "cursor" },
-  ],
-} as const;
 
 export const education = [
   {
@@ -123,6 +112,8 @@ export type Project = {
   summary: string;
   githubUrl?: string;
   liveUrl?: string;
+  /** Makes the title itself the link, for projects named after their site. */
+  titleUrl?: string;
   /** Site-relative promo, opened from the project row. Not shown until requested. */
   videoUrl?: string;
 };
@@ -153,10 +144,10 @@ export const projects: Project[] = [
   },
   {
     slug: "tri-omicron",
-    title: "Tri-Omicron Website",
+    title: "triomicron.org",
+    titleUrl: "https://triomicron.org",
     summary:
       "Public website for Tri-Omicron, UT Austin’s computer science fraternity.",
     githubUrl: "https://github.com/Tri-Omicron/website",
-    liveUrl: "https://triomicron.org",
   },
 ];

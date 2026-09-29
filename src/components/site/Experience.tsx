@@ -11,7 +11,7 @@ import SectionFrame from './SectionFrame';
  */
 export default function Experience() {
   return (
-    <SectionFrame id="experience" index="01" title="Experience">
+    <SectionFrame id="experience" title="Experience">
       <div className="relative pl-6 sm:pl-8">
         <RimLight />
         <ol>
