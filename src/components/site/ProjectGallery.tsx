@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { projects as allProjects, type Project } from "@/lib/data";
 import { withBasePath } from "@/lib/basePath";
 import Reveal from "./Reveal";
+import RimLight from "./RimLight";
 import SectionFrame from "./SectionFrame";
 
 type ProjectGalleryProps = {
@@ -55,68 +56,71 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
       title="Projects"
       intro="A selection of things I've built across product, systems, and machine learning."
     >
-      <ol aria-label="Selected projects">
-        {projects.map((project, index) => {
-          const open = openSlug === project.slug;
-          const videoId = `${project.slug}-promo`;
-          const hasLinks = project.githubUrl || project.videoUrl;
+      <div className="relative pl-6 sm:pl-8">
+        <RimLight />
+        <ol aria-label="Selected projects">
+          {projects.map((project, index) => {
+            const open = openSlug === project.slug;
+            const videoId = `${project.slug}-promo`;
+            const hasLinks = project.githubUrl || project.videoUrl;
 
-          return (
-            <Reveal as="li" key={project.slug} delay={0.06 * index} className="ledger-row">
-              <article className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 py-7 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-6">
-                <span className="label-mono pt-2.5 transition-colors duration-300 group-hover:text-silver">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+            return (
+              <Reveal as="li" key={project.slug} delay={0.06 * index} className="ledger-row">
+                <article className="group grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 py-7 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-6">
+                  <span className="label-mono pt-2.5 transition-colors duration-300 group-hover:text-silver">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                    <h3 className="sheen-title font-display text-[clamp(1.5rem,2.4vw,1.875rem)] tracking-[-0.03em]">
-                      {project.title}
-                    </h3>
-                    {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                        <span className="link-underline">Live</span>
-                        <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
-                      </a>
-                    )}
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                      <h3 className="sheen-title font-display text-[clamp(1.5rem,2.4vw,1.875rem)] tracking-[-0.03em]">
+                        {project.title}
+                      </h3>
+                      {project.liveUrl && (
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                          <span className="link-underline">Live</span>
+                          <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                        </a>
+                      )}
+                    </div>
+                    <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-steel transition-colors duration-300 group-hover:text-silver">
+                      {project.summary}
+                    </p>
                   </div>
-                  <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-steel transition-colors duration-300 group-hover:text-silver">
-                    {project.summary}
-                  </p>
-                </div>
 
-                {hasLinks && (
-                  <div className="col-start-2 mt-4 flex flex-wrap gap-x-5 gap-y-2 sm:col-start-3 sm:mt-0 sm:justify-end sm:pt-3">
-                    {project.videoUrl && (
-                      <button
-                        type="button"
-                        aria-expanded={open}
-                        aria-controls={videoId}
-                        onClick={() => setOpenSlug(open ? null : project.slug)}
-                        className={linkClass}
-                      >
-                        <span className="link-underline">{open ? "Close" : "Watch"}</span>
-                      </button>
-                    )}
-                    {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                        <span className="link-underline">GitHub</span>
-                        <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
-                      </a>
-                    )}
-                  </div>
-                )}
+                  {hasLinks && (
+                    <div className="col-start-2 mt-4 flex flex-wrap gap-x-5 gap-y-2 sm:col-start-3 sm:mt-0 sm:justify-end sm:pt-3">
+                      {project.videoUrl && (
+                        <button
+                          type="button"
+                          aria-expanded={open}
+                          aria-controls={videoId}
+                          onClick={() => setOpenSlug(open ? null : project.slug)}
+                          className={linkClass}
+                        >
+                          <span className="link-underline">{open ? "Close" : "Watch"}</span>
+                        </button>
+                      )}
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                          <span className="link-underline">GitHub</span>
+                          <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                        </a>
+                      )}
+                    </div>
+                  )}
 
-                {open && project.videoUrl && (
-                  <div className="col-span-full sm:col-start-2">
-                    <PromoVideo id={videoId} src={project.videoUrl} />
-                  </div>
-                )}
-              </article>
-            </Reveal>
-          );
-        })}
-      </ol>
+                  {open && project.videoUrl && (
+                    <div className="col-span-full sm:col-start-2">
+                      <PromoVideo id={videoId} src={project.videoUrl} />
+                    </div>
+                  )}
+                </article>
+              </Reveal>
+            );
+          })}
+        </ol>
+      </div>
     </SectionFrame>
   );
 }
