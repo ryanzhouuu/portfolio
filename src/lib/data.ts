@@ -4,7 +4,7 @@ export const personalInfo = {
   title: "CS & Economics @ UT Austin",
   // One concise positioning line for the hero — no marketing filler.
   positioning:
-    "computer science student and software engineer working with full-stack engineering, AI/ML, systems, and anything in between.",
+    "cs student and software engineer interested in full-stack, ai/ml, and systems",
   email: "ryanzhouuu@gmail.com",
   github: "https://github.com/ryanzhouuu",
   linkedin: "https://linkedin.com/in/ryanzhouuu",
