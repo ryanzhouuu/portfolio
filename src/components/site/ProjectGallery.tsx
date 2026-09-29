@@ -76,7 +76,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                             rel="noopener noreferrer"
                             className="inline-flex items-baseline gap-1.5"
                           >
-                            {project.title}
+                            <span className="title-underline">{project.title}</span>
                             <ArrowUpRight
                               aria-hidden
                               size={18}
@@ -85,7 +85,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                             />
                           </a>
                         ) : (
-                          project.title
+                          <span className="title-underline">{project.title}</span>
                         )}
                       </h3>
                       {project.liveUrl && (
