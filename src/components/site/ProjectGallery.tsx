@@ -41,8 +41,8 @@ const linkClass =
   "label-mono inline-flex items-center gap-1 text-steel transition-colors duration-300 hover:text-chrome";
 
 /**
- * Selected work as a numbered index: mono number, large title, one-line
- * summary, and links. The longer `details` field stays in data and is not
+ * Selected work as a numbered index: mono number, large title (with its live
+ * link beside it), one-line summary, and GitHub aligned on the right. The longer `details` field stays in data and is not
  * shown. A promo opens under its row.
  */
 export default function ProjectGallery({ projects = allProjects }: ProjectGalleryProps) {
@@ -59,7 +59,7 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
         {projects.map((project, index) => {
           const open = openSlug === project.slug;
           const videoId = `${project.slug}-promo`;
-          const hasLinks = project.githubUrl || project.liveUrl || project.videoUrl;
+          const hasLinks = project.githubUrl || project.videoUrl;
 
           return (
             <Reveal as="li" key={project.slug} delay={0.06 * index} className="ledger-row">
@@ -69,9 +69,17 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                 </span>
 
                 <div className="min-w-0">
-                  <h3 className="sheen-title font-display text-[clamp(1.5rem,2.4vw,1.875rem)] tracking-[-0.03em]">
-                    {project.title}
-                  </h3>
+                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                    <h3 className="sheen-title font-display text-[clamp(1.5rem,2.4vw,1.875rem)] tracking-[-0.03em]">
+                      {project.title}
+                    </h3>
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                        <span className="link-underline">Live</span>
+                        <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
+                      </a>
+                    )}
+                  </div>
                   <p className="mt-2 max-w-xl text-[15px] leading-relaxed text-steel transition-colors duration-300 group-hover:text-silver">
                     {project.summary}
                   </p>
@@ -93,12 +101,6 @@ export default function ProjectGallery({ projects = allProjects }: ProjectGaller
                     {project.githubUrl && (
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
                         <span className="link-underline">GitHub</span>
-                        <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                        <span className="link-underline">Live</span>
                         <ArrowUpRight aria-hidden size={13} strokeWidth={1.5} />
                       </a>
                     )}
