@@ -9,7 +9,8 @@ import { withBasePath } from '@/lib/basePath';
 const links = [
   { label: 'GitHub', href: personalInfo.github, Icon: Github, external: true },
   { label: 'LinkedIn', href: personalInfo.linkedin, Icon: Linkedin, external: true },
-  { label: 'Email', href: `mailto:${personalInfo.email}`, Icon: Mail, external: false },
+  // The address itself, kept in its own case rather than mono caps.
+  { label: personalInfo.email, href: `mailto:${personalInfo.email}`, Icon: Mail, external: false },
 ];
 
 const SKIP_EVENTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
@@ -240,7 +241,7 @@ export default function Hero() {
                 className="group inline-flex items-center gap-2 text-steel transition-colors duration-300 hover:text-chrome"
               >
                 <Icon aria-hidden size={16} strokeWidth={1.5} />
-                <span className="label-mono text-inherit">{label}</span>
+                <span className={`label-mono text-inherit ${external ? '' : 'normal-case tracking-[0.04em]'}`}>{label}</span>
                 {external && (
                   <ArrowUpRight
                     aria-hidden
