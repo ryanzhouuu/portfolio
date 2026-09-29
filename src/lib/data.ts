@@ -11,13 +11,17 @@ export const personalInfo = {
   photo: "/images/ryan-headshot.jpeg",
 };
 
-/** About → Interests. Kept lowercase on purpose. */
-export const interests = [
-  { title: "the gym", description: "currently running anterior/posterior split" },
-  { title: "clash royale", description: "4x ultimate champion on f2p account" },
-  { title: "anime", description: "current favs: black clover, mushoku tensei" },
-  { title: "basketball", description: "houston rockets fan" },
-  { title: "vintage clothing", description: "check out @jrz.vtg on instagram" },
+/** About → Interests. Kept lowercase on purpose. Icons are mapped in About.tsx. */
+export const interests: {
+  title: string;
+  description: string;
+  icon: "dumbbell" | "crown" | "tv" | "basketball" | "shirt";
+}[] = [
+  { title: "the gym", description: "currently running anterior/posterior split", icon: "dumbbell" },
+  { title: "clash royale", description: "4x ultimate champion on f2p account", icon: "crown" },
+  { title: "anime", description: "current favs: black clover, mushoku tensei", icon: "tv" },
+  { title: "basketball", description: "houston rockets fan", icon: "basketball" },
+  { title: "vintage clothing", description: "check out @jrz.vtg on instagram", icon: "shirt" },
 ];
 
 /** Liquid chrome behind the hero. React preloads it from the fetchPriority hint. */
@@ -122,7 +126,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "suki",
-    title: "Suki",
+    title: "suki",
     summary:
       "Anime tracking, ranking, recommendations all-in-one.",
     githubUrl: "https://github.com/ryanzhouuu/suki",
@@ -131,14 +135,14 @@ export const projects: Project[] = [
   },
   {
     slug: "sleeper-manager",
-    title: "Sleeper Manager",
+    title: "sleeper manager",
     summary:
       "Personal fantasy basketball advisor for Sleeper Lock-In leagues.",
     githubUrl: "https://github.com/ryanzhouuu/sleeper-manager",
   },
   {
     slug: "clash-sos",
-    title: "Hard Counter",
+    title: "hard counter",
     summary:
       "Using Clash Royale decks to score player performance against their matchups.",
     githubUrl: "https://github.com/ryanzhouuu/clash-sos",

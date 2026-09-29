@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Crown, Dumbbell, Shirt, TvMinimal, type LucideProps } from 'lucide-react';
 import { education, interests, personalInfo } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
 import Reveal from './Reveal';
@@ -47,15 +48,38 @@ function BlobPortrait() {
   );
 }
 
-/** A drop of liquid chrome, tip up-left, used as the interests bullet. */
-function Droplet() {
+/** lucide has no basketball; this matches its 24px line style. */
+function Basketball(props: LucideProps) {
+  const { size = 24, strokeWidth = 2, ...rest } = props;
   return (
-    <svg aria-hidden viewBox="0 0 10 14" className="h-[16px] w-[11px] shrink-0 -rotate-[28deg] drop-shadow-[0_0_5px_rgba(234,242,255,0.4)]">
-      <path d="M5 0.4C5 0.4 9.6 6.4 9.6 9.2A4.6 4.6 0 0 1 0.4 9.2C0.4 6.4 5 0.4 5 0.4Z" fill="url(#droplet-chrome)" />
-      <ellipse cx="3.6" cy="8.4" rx="1.1" ry="1.7" fill="#ffffff" opacity="0.85" transform="rotate(-18 3.6 8.4)" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...rest}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 2v20" />
+      <path d="M2 12h20" />
+      <path d="M5 4.9a10 10 0 0 1 0 14.2" />
+      <path d="M19 4.9a10 10 0 0 0 0 14.2" />
     </svg>
   );
 }
+
+const interestIcons = {
+  dumbbell: Dumbbell,
+  crown: Crown,
+  tv: TvMinimal,
+  basketball: Basketball,
+  shirt: Shirt,
+} as const;
 
 /**
  * Closing section: blob portrait beside interests and links, then education
@@ -68,28 +92,19 @@ export default function About() {
         <BlobPortrait />
         <div>
           <h3 className="label-mono mb-4">Interests</h3>
-          <svg aria-hidden width="0" height="0" className="absolute">
-            <defs>
-              <linearGradient id="droplet-chrome" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#f6f8fb" />
-                <stop offset="45%" stopColor="#8a93a3" />
-                <stop offset="70%" stopColor="#dfe4ea" />
-                <stop offset="100%" stopColor="#5b626f" />
-              </linearGradient>
-            </defs>
-          </svg>
           <ul className="space-y-4">
-            {interests.map(({ title, description }) => (
-              <li key={title} className="flex gap-3.5">
-                <span className="mt-[0.2em]">
-                  <Droplet />
-                </span>
-                <div>
-                  <p className="text-base font-medium text-chrome sm:text-[17px]">{title}</p>
-                  <p className="mt-0.5 text-[15px] leading-relaxed text-steel">{description}</p>
-                </div>
-              </li>
-            ))}
+            {interests.map(({ title, description, icon }) => {
+              const Icon = interestIcons[icon];
+              return (
+                <li key={title} className="flex gap-3.5">
+                  <Icon aria-hidden size={17} strokeWidth={1.5} className="mt-[0.2em] shrink-0 text-silver" />
+                  <div>
+                    <p className="text-base font-medium text-chrome sm:text-[17px]">{title}</p>
+                    <p className="mt-0.5 text-[15px] leading-relaxed text-steel">{description}</p>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
           <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2">
             <a href={`mailto:${personalInfo.email}`} className="label-mono normal-case tracking-[0.04em] text-steel transition-colors duration-300 hover:text-chrome">
