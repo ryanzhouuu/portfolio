@@ -58,11 +58,14 @@ export default function About() {
         <BlobPortrait />
         <div>
           <h3 className="label-mono mb-4">Interests</h3>
-          <ul className="space-y-3">
-            {interests.map((interest) => (
-              <li key={interest} className="flex items-baseline gap-3 text-base text-silver sm:text-[17px]">
-                <span aria-hidden className="h-px w-4 shrink-0 translate-y-[-0.3em] bg-gradient-to-r from-steel to-chrome" />
-                {interest}
+          <ul className="space-y-4">
+            {interests.map(({ title, description }) => (
+              <li key={title} className="flex gap-3.5">
+                <span aria-hidden className="interest-dot mt-[0.55em] shrink-0" />
+                <div>
+                  <p className="text-base font-medium text-chrome sm:text-[17px]">{title}</p>
+                  <p className="mt-0.5 text-[15px] leading-relaxed text-steel">{description}</p>
+                </div>
               </li>
             ))}
           </ul>

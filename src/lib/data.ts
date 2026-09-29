@@ -11,12 +11,13 @@ export const personalInfo = {
   photo: "/images/ryan-headshot.jpeg",
 };
 
-/** About → Interests. One short line per bullet. */
+/** About → Interests. Kept lowercase on purpose. */
 export const interests = [
-  "Lifting at the gym",
-  "Clash Royale",
-  "Watching anime",
-  "Spending time with my girlfriend",
+  { title: "the gym", description: "currently running anterior/posterior split" },
+  { title: "clash royale", description: "4x ultimate champion on f2p account" },
+  { title: "anime", description: "current favs: black clover, mushoku tensei" },
+  { title: "basketball", description: "houston rockets fan" },
+  { title: "vintage clothing", description: "check out @jrz.vtg on instagram" },
 ];
 
 /** Liquid chrome behind the hero. React preloads it from the fetchPriority hint. */
@@ -137,9 +138,9 @@ export const projects: Project[] = [
   },
   {
     slug: "clash-sos",
-    title: "Clash Royale SoS",
+    title: "Hard Counter",
     summary:
-      "Learning deck features to score player performance against their schedule.",
+      "Using Clash Royale decks to score player performance against their matchups.",
     githubUrl: "https://github.com/ryanzhouuu/clash-sos",
   },
   {
@@ -147,7 +148,7 @@ export const projects: Project[] = [
     title: "triomicron.org",
     titleUrl: "https://triomicron.org",
     summary:
-      "Public website for Tri-Omicron, UT Austin’s computer science fraternity.",
+      "Public website for Tri-Omicron, UT Austin’s premier computer science fraternity.",
     githubUrl: "https://github.com/Tri-Omicron/website",
   },
 ];
