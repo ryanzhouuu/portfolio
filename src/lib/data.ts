@@ -130,7 +130,7 @@ export const projects: Project[] = [
     summary:
       "Anime tracking, ranking, recommendations all-in-one.",
     githubUrl: "https://github.com/ryanzhouuu/suki",
-    liveUrl: "https://suki-plum.vercel.app",
+    liveUrl: "https://suki-list.vercel.app/",
     videoUrl: "/suki-promo.mp4",
   },
   {
@@ -139,6 +139,7 @@ export const projects: Project[] = [
     summary:
       "Personal fantasy basketball advisor for Sleeper Lock-In leagues.",
     githubUrl: "https://github.com/ryanzhouuu/sleeper-manager",
+    liveUrl: "https://sleeper-locksmith.vercel.app/",
   },
   {
     slug: "clash-sos",
@@ -146,6 +147,7 @@ export const projects: Project[] = [
     summary:
       "Using Clash Royale decks to score player performance against their matchups.",
     githubUrl: "https://github.com/ryanzhouuu/clash-sos",
+    liveUrl: "https://clash-hard-counter.vercel.app/",
   },
   {
     slug: "tri-omicron",
