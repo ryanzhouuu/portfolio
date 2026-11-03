@@ -7,8 +7,9 @@ import { animate, createScope, onScroll } from 'animejs';
  * One hairline down the left edge of its (relative) parent. A bright segment
  * travels along it as the parent scrolls through the middle of the viewport.
  * Reduced motion leaves the hairline evenly lit with no travelling segment.
+ * `anchor` names the line so the liquid chrome stream can pour into it.
  */
-export default function RimLight() {
+export default function RimLight({ anchor }: { anchor?: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function RimLight() {
   }, []);
 
   return (
-    <div ref={trackRef} aria-hidden className="rim-track">
+    <div ref={trackRef} aria-hidden data-liquid-anchor={anchor} className="rim-track">
       <div className="rim-glow motion-reduce:hidden" style={{ top: 'calc(var(--rim-p, 0) * (100% - 140px))' }} />
     </div>
   );

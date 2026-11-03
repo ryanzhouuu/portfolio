@@ -114,6 +114,43 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
+/* Liquid chrome                                                       */
+/* ------------------------------------------------------------------ */
+
+/* Under the page. z-index 0 rather than negative: the body paints its own
+   background (html has one too), which would cover a negative layer. `main`
+   comes later in the DOM, so it still sits on top. */
+.liquid-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+[data-liquid-live] .liquid-canvas {
+  opacity: 1;
+}
+
+/* The liquid holds the hero for one screen of scrolling while it pours.
+   Set before first paint, and kept after a fallback so nothing jumps. */
+[data-liquid] .hero-pin {
+  height: 200svh;
+}
+[data-liquid] .hero-pin > section {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+}
+
+/* The photo stays underneath as the fallback while the liquid is live. */
+[data-liquid-live] [data-hero-bloom] {
+  opacity: 0;
+}
+
+/* ------------------------------------------------------------------ */
 /* Section frame                                                       */
 /* ------------------------------------------------------------------ */
 
@@ -250,18 +287,32 @@ h3 a:focus-visible .title-underline {
 }
 
 /* Anime.js text splitting moves the visible glyphs into child spans. Reapply
-   the metal fill there so transparent parent text remains visibly chrome. */
+   the metal fill there so transparent parent text remains visibly chrome.
+   A second layer on top is the intro's light sweep: a bright band that sits
+   off to the left until Hero animates --sweep-x across the name. Each glyph
+   subtracts its own offset (--cx) so the band stays continuous. */
 .text-chrome-shine .cinematic-char {
   background-image: linear-gradient(
-    176deg,
-    #f6f8fb 0%,
-    #c4ccd6 23%,
-    #828b99 41%,
-    #ffffff 51%,
-    #b3bbc6 60%,
-    #69707d 82%,
-    #cdd4dd 100%
-  );
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 28%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(255, 255, 255, 0) 72%,
+      transparent 100%
+    ),
+    linear-gradient(
+      176deg,
+      #f6f8fb 0%,
+      #c4ccd6 23%,
+      #828b99 41%,
+      #ffffff 51%,
+      #b3bbc6 60%,
+      #69707d 82%,
+      #cdd4dd 100%
+    );
+  background-size: 3em 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-position: calc(var(--sweep-x, -3.5em) - var(--cx, 0em)) 0, 0 0;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

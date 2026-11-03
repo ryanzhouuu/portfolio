@@ -5,6 +5,19 @@ import { animate, createScope, createTimeline, onScroll, splitText, stagger } fr
 import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 import { heroImage, personalInfo } from '@/lib/data';
 import { withBasePath } from '@/lib/basePath';
+import {
+  fallback as liquidFallback,
+  letterDom,
+  liquidPinned,
+  playIntro,
+  POUR,
+  pourProgress,
+  setLetters,
+  skipIntro,
+  smoothstep,
+  whenReady,
+  type Letter,
+} from '@/components/liquid/bus';
 
 const links = [
   { label: 'GitHub', href: personalInfo.github, Icon: Github, external: true },
@@ -14,6 +27,14 @@ const links = [
 ];
 
 const SKIP_EVENTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'] as const;
+
+/** One pass of light across the name: moves the band painted into each glyph. */
+const SWEEP = { '--sweep-x': ['-3.5em', '7em'], duration: 1600, ease: 'inOut(2)' };
+
+/** How long the intro waits for the liquid engine before using the photo. */
+const LIQUID_READY_MS = 600;
+/** When the liquid intro's camera pull-back lands; the name rises from here. */
+const LIQUID_LAND_MS = 1450;
 
 /** Resolves once the image is decoded, or false if it misses the deadline. */
 function decodeWithin(img: HTMLImageElement | null, ms: number): Promise<boolean> {
@@ -25,18 +46,107 @@ function decodeWithin(img: HTMLImageElement | null, ms: number): Promise<boolean
 }
 
 /**
- * Full-height opening. On every load the liquid chrome
- * blooms out of a single glint, then the name etches in. The pre-paint gate
+ * Letters of the name fall and fade as the hero pours, while the liquid engine
+ * picks each one up as a droplet. Copy and shades fade with the same scroll
+ * progress. Returns a teardown.
+ */
+function scrubPour(pin: HTMLElement, root: HTMLElement, name: HTMLElement, chars: HTMLElement[]) {
+  // Each glyph sits in a clipping wrapper; move the wrapper so it can fall.
+  const letters = chars.filter((c) => c.textContent?.trim()).map((c) => c.parentElement ?? c);
+  const offsets = letters.map(() => 0);
+  const orders = letters.map((_, i) => i);
+  const reveal = root.querySelectorAll<HTMLElement>('[data-hero-reveal]');
+  const shades = root.querySelectorAll<HTMLElement>('[data-hero-shade]');
+  const chrome = root.querySelector<HTMLElement>('[data-hero-chrome]');
+  let lastP = -1;
+  let raf = 0;
+
+  const measure = () => {
+    const hr = root.getBoundingClientRect();
+    const size = parseFloat(getComputedStyle(name).fontSize);
+    const items: Letter[] = letters.map((el, i) => {
+      const r = el.getBoundingClientRect();
+      return { x: r.left + r.width / 2 - hr.left, y: r.top + r.height / 2 - hr.top - offsets[i], size, order: 0 };
+    });
+    // Drain right to left: the letter nearest the liquid goes first.
+    items
+      .map((_, i) => i)
+      .sort((a, b) => items[b].x - items[a].x)
+      .forEach((idx, order) => {
+        orders[idx] = order;
+        items[idx].order = order;
+      });
+    setLetters(items);
+  };
+
+  const apply = () => {
+    raf = 0;
+    const vh = window.innerHeight;
+    const pinTop = pin.getBoundingClientRect().top + window.scrollY;
+    const p = pourProgress(window.scrollY, pinTop, pin.offsetHeight, vh);
+    // Leave the intro's inline styles alone until the viewer actually scrolls.
+    if (p === lastP || (lastP < 0 && p === 0)) return;
+    lastP = p;
+
+    const fall = POUR.fallDist(vh);
+    letters.forEach((el, i) => {
+      const d = letterDom(p, orders[i]);
+      offsets[i] = d.fall * fall;
+      el.style.transform = offsets[i] ? `translateY(${offsets[i]}px)` : '';
+      el.style.opacity = d.opacity < 1 ? String(d.opacity) : '';
+    });
+    const copy = 1 - smoothstep(0, 0.3, p);
+    reveal.forEach((el) => {
+      el.style.opacity = String(copy);
+      el.style.transform = `translateY(${-16 * (1 - copy)}px)`;
+    });
+    const shade = String(1 - smoothstep(0.3, 0.7, p));
+    shades.forEach((el) => (el.style.opacity = shade));
+    // Only visible after a fallback: the photo fades instead of pouring.
+    if (chrome) chrome.style.opacity = String(1 - smoothstep(0.1, 0.9, p));
+  };
+
+  const schedule = () => {
+    if (!raf) raf = requestAnimationFrame(apply);
+  };
+  const onResize = () => {
+    measure();
+    lastP = -2;
+    schedule();
+  };
+
+  measure();
+  document.fonts?.ready.then(measure);
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', onResize);
+  schedule();
+
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener('scroll', schedule);
+    window.removeEventListener('resize', onResize);
+  };
+}
+
+/**
+ * Full-height opening. On every load the camera starts close on a dark,
+ * churning chrome surface and whips back as the lights come up to reveal the
+ * breathing mass (or, without the liquid engine, the photo blooms out of a
+ * single glint), then the name etches in. The pre-paint gate
  * in the root layout sets `data-intro`; this effect plays it and clears it.
+ * With the liquid on, the hero is pinned for one screen and pours away.
  */
 export default function Hero() {
+  const pinRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (!rootRef.current) return;
+    if (!rootRef.current || !pinRef.current) return;
     const root = rootRef.current;
+    const pin = pinRef.current;
     const doc = document.documentElement;
     const mode = doc.dataset.intro as 'play' | 'fade' | undefined;
+    const pinned = liquidPinned();
     const cleanups: (() => void)[] = [];
 
     const finishIntro = () => {
@@ -55,6 +165,7 @@ export default function Hero() {
       const reveal = root.querySelectorAll<HTMLElement>('[data-hero-reveal]');
 
       if (mode === 'fade') {
+        skipIntro();
         doc.dataset.introLive = '1';
         const held = root.querySelectorAll<HTMLElement>('[data-hero-bloom], [data-hero-name]');
         animate([...nav, ...reveal, ...held], {
@@ -66,7 +177,10 @@ export default function Hero() {
         return;
       }
 
-      if (self?.matches.reduceMotion) return;
+      if (self?.matches.reduceMotion) {
+        skipIntro();
+        return;
+      }
 
       const name = root.querySelector<HTMLElement>('[data-hero-name]');
       if (!name) return;
@@ -77,6 +191,14 @@ export default function Hero() {
         accessible: true,
       });
 
+      // Each glyph offsets the sweep band by its own position, so the band
+      // crosses the name as one piece. In em, so it survives font resizing.
+      const nameLeft = name.getBoundingClientRect().left;
+      const em = parseFloat(getComputedStyle(name).fontSize) || 1;
+      split.chars.forEach((c) => {
+        c.style.setProperty('--cx', `${(c.getBoundingClientRect().left - nameLeft) / em}em`);
+      });
+
       if (mode === 'play') {
         doc.dataset.introLive = '1';
         const img = root.querySelector<HTMLImageElement>('[data-hero-img]');
@@ -85,6 +207,7 @@ export default function Hero() {
 
         const skip = () => {
           skipped = true;
+          skipIntro();
           tl?.complete();
         };
         SKIP_EVENTS.forEach((e) => window.addEventListener(e, skip, { passive: true, once: true }));
@@ -95,10 +218,10 @@ export default function Hero() {
         const ceiling = window.setTimeout(() => {
           tl?.complete();
           finishIntro();
-        }, 4200);
+        }, 4800);
         cleanups.push(() => window.clearTimeout(ceiling));
 
-        decodeWithin(img, 600).then((ready) => {
+        const run = (liquid: boolean, ready: boolean) => {
           const done = () => {
             removeSkip();
             window.clearTimeout(ceiling);
@@ -107,7 +230,11 @@ export default function Hero() {
 
           tl = createTimeline({ defaults: { ease: 'out(4)' }, onComplete: done });
 
-          if (ready) {
+          if (liquid) {
+            // The engine plays the macro pull-back; the name waits for it to land.
+            if (skipped) skipIntro();
+            else playIntro();
+          } else if (ready) {
             tl.set('[data-hero-bloom]', { opacity: 1, '--bloom-r': '0vmax' }, 0)
               .add('[data-hero-glint]', {
                 opacity: [0, 1, 0],
@@ -133,7 +260,7 @@ export default function Hero() {
               .add('[data-hero-bloom]', { opacity: [0, 1], duration: 500, ease: 'linear' }, 0);
           }
 
-          const base = ready ? 900 : 200;
+          const base = liquid ? LIQUID_LAND_MS : ready ? 900 : 200;
           tl.set(name, { opacity: 1 }, base)
             .add(split.chars, {
               opacity: [0, 1],
@@ -142,19 +269,24 @@ export default function Hero() {
               duration: 900,
               delay: stagger(40),
             }, base)
-            .add('[data-hero-sweep]', {
-              opacity: [0, 1, 0],
-              x: ['-160%', '340%'],
-              duration: 1300,
-              ease: 'inOut(3)',
-            }, base + 250)
+            .add(name, SWEEP, base + 250)
             .add(reveal, { opacity: [0, 1], y: [16, 0], duration: 800, delay: stagger(90) }, base + 500)
             .add(nav, { opacity: [0, 1], y: [-8, 0], duration: 800 }, base + 650);
 
           if (skipped) tl.complete();
+        };
+
+        whenReady(LIQUID_READY_MS).then((liquid) => {
+          if (liquid) {
+            run(true, true);
+            return;
+          }
+          liquidFallback();
+          decodeWithin(img, 600).then((ready) => run(false, ready));
         });
       } else {
         // The gate's failsafe already revealed the hero: a quick etch, no bloom.
+        skipIntro();
         createTimeline({ defaults: { ease: 'out(4)' } })
           .add(split.chars, {
             opacity: [0, 1],
@@ -163,18 +295,15 @@ export default function Hero() {
             duration: 820,
             delay: stagger(32),
           }, 120)
-          .add('[data-hero-sweep]', {
-            opacity: [0, 1, 0],
-            x: ['-160%', '340%'],
-            duration: 1300,
-            ease: 'inOut(3)',
-          }, 380);
+          .add(name, SWEEP, 380);
       }
 
       const scrollSync = (sync: number) => onScroll({ target: root, enter: 'top top', leave: 'bottom top', sync });
 
       animate('[data-hero-chrome]', { y: [0, 90], scale: [1, 1.04], ease: 'linear', autoplay: scrollSync(0.15) });
       animate('[data-hero-cone]', { y: [0, 120], x: [0, 36], opacity: [0.7, 0.18], ease: 'linear', autoplay: scrollSync(0.18) });
+
+      if (pinned) cleanups.push(scrubPour(pin, root, name, split.chars as HTMLElement[]));
 
       return () => split.revert();
     });
@@ -186,7 +315,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={rootRef} id="top" className="relative flex min-h-[100svh] flex-col overflow-hidden">
+    <div ref={pinRef} data-liquid-anchor="hero-pin" className="hero-pin">
+    <section ref={rootRef} id="top" data-liquid-anchor="hero" className="relative flex min-h-[100svh] flex-col overflow-hidden">
       <div data-hero-chrome aria-hidden className="hero-stage pointer-events-none absolute inset-0">
         <div data-hero-bloom className="hero-bloom absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element -- decoded and masked by the intro */}
@@ -203,11 +333,15 @@ export default function Hero() {
           <div data-hero-glint className="hero-glint h-full w-full opacity-0" />
         </div>
       </div>
+      {/* Where the liquid mass sits, outside the parallax so it never drifts. */}
+      <div aria-hidden className="hero-stage pointer-events-none absolute inset-0">
+        <div data-liquid-anchor="hero-focal" className="hero-glint-anchor absolute h-px w-px" />
+      </div>
 
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-void/40 sm:bg-gradient-to-r sm:from-void sm:via-void/80 sm:to-transparent lg:via-void/55" />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void to-transparent" />
+      <div data-hero-shade aria-hidden className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-void/40 sm:bg-gradient-to-r sm:from-void sm:via-void/80 sm:to-transparent lg:via-void/55" />
+      <div data-hero-shade aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-void to-transparent" />
       {/* Keeps the nav legible where it crosses the bright chrome. */}
-      <div aria-hidden className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-void/85 to-transparent" />
+      <div data-hero-shade aria-hidden className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-void/85 to-transparent" />
       <div data-hero-cone aria-hidden className="light-cone absolute left-[18%] top-0 h-[64vh] w-[34rem] -translate-x-1/2 opacity-70" />
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pb-28 pt-28 sm:justify-center sm:px-8 sm:pb-24 lg:px-12">
@@ -218,11 +352,6 @@ export default function Hero() {
           >
             {personalInfo.name}
           </h1>
-          <span
-            data-hero-sweep
-            aria-hidden
-            className="absolute inset-y-0 left-0 w-1/3 skew-x-[-12deg] bg-gradient-to-r from-transparent via-spotlight/70 to-transparent opacity-0 mix-blend-screen blur-md motion-reduce:hidden"
-          />
         </div>
 
         <p data-hero-reveal className="label-mono mt-6 text-silver">
@@ -267,5 +396,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import Atmosphere from '@/components/site/Atmosphere';
 import CursorLight from '@/components/site/CursorLight';
+import LiquidStage from '@/components/liquid/LiquidStage';
 import DustMotes from '@/components/site/DustMotes';
 import Nav from '@/components/site/Nav';
 import Hero from '@/components/site/Hero';
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <Atmosphere />
+      <LiquidStage />
       <CursorLight />
       <DustMotes />
       <Nav />

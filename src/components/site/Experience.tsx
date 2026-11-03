@@ -13,7 +13,7 @@ export default function Experience() {
   return (
     <SectionFrame id="experience" title="Experience">
       <div className="relative pl-6 sm:pl-8">
-        <RimLight />
+        <RimLight anchor="experience-rim" />
         <ol>
           {experience.map((role, i) => (
             <Reveal as="li" key={role.company + role.period} delay={0.06 * i} className="ledger-row">
